@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">CancioneroCatolico</string>
+    <string name="app_name">Clave Dei</string>
+    <string name="button_viewSongs">Ver canciones</string>
+    <string name="button_viewSongsByParts">Canciones por Partes</string>
+    <string name="button_viewSongsBySeasons">Canciones por Tiempo</string>
+    <string name="button_viewMyLists">Mis listas</string>
+    <string name="login_btn">Login</string>
 </resources>

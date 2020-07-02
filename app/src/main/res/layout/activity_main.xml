@@ -6,13 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/btnViewSongs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/my_button"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:text="@string/button_viewSongs"
+        android:textColor="@color/whiteColor"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintCircleRadius="100sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnViewSongsByParts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/my_button"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/button_viewSongsByParts"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewSongs" />
+
+    <Button
+        android:id="@+id/btnViewSongsBySeasons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/my_button"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/button_viewSongsBySeasons"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewSongsByParts" />
+
+    <Button
+        android:id="@+id/btnViewMyLists"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/my_button"
+        android:fontFamily="@font/lato_bold"
+        android:text="@string/button_viewMyLists"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnViewSongsBySeasons" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
