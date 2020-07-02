@@ -5,4 +5,7 @@
     <string name="button_viewSongsBySeasons">Canciones por Tiempo</string>
     <string name="button_viewMyLists">Mis listas</string>
     <string name="login_btn">Login</string>
+    <string name="list_icon_desc">listIcon</string>
+    <string name="string_demo">Demo text</string>
+    <string name="searchbarHint">Search...</string>
 </resources>
