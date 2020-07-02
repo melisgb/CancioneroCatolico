@@ -1,7 +1,9 @@
 package com.example.cancionerocatolico
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +32,12 @@ class ViewMyListsActivity : AppCompatActivity() {
 
         listsRecyclerView.adapter = listsAdapter
         listsRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        val demoBtn = findViewById<Button>(R.id.demoButton)
+        demoBtn.setOnClickListener {
+            val intent = Intent(this, ViewSpecificListActivity::class.java)
+            startActivity(intent)
+        }
 
 
 
