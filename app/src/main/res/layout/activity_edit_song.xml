@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditSongActivity">
+
+    <TextView
+        android:id="@+id/txtvEditSongTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/edit_song_title"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etxtSongTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/roboto_mono_medium"
+        android:hint="@string/hint_song_title"
+        android:inputType="textPersonName"
+        android:maxLength="35"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtvEditSongTitle" />
+
+    <EditText
+        android:id="@+id/etxtSongArtist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginRight="16sp"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/roboto_mono_medium"
+        android:hint="@string/hint_song_artist"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtSongTitle" />
+
+    <EditText
+        android:id="@+id/etxtSongLyrics"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginLeft="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16sp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/roboto_mono_medium"
+        android:hint="@string/hint_song_lyrics"
+        android:inputType="textLongMessage|textMultiLine"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtSongArtist" />
+
+    <EditText
+        android:id="@+id/etxtSongTags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16sp"
+        android:layout_marginRight="16sp"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/roboto_mono_medium"
+        android:focusable="true"
+        android:hint="@string/hint_song_tags"
+        android:inputType="textMultiLine"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtSongLyrics" />
+
+    <Button
+        android:id="@+id/btnCreateSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="39dp"
+        android:background="@drawable/my_button"
+        android:text="@string/button_addSong"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtSongTags" />
+
+    <Button
+        android:id="@+id/btnUpdateSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="39dp"
+        android:background="@drawable/my_button"
+        android:text="@string/button_updateSong"
+        android:textColor="@color/whiteColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtSongTags" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

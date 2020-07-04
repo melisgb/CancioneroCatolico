@@ -8,4 +8,12 @@
     <string name="list_icon_desc">listIcon</string>
     <string name="string_demo">Demo text</string>
     <string name="searchbarHint">Search...</string>
+    <string name="edit_song_title">Create Song</string>
+    <string name="hint_song_title">Title</string>
+    <string name="hint_song_artist">Artist</string>
+    <string name="hint_song_lyrics">Lyrics</string>
+    <string name="hint_song_tags">Tags</string>
+    <string name="button_addSong">Add</string>
+    <string name="button_updateSong">Update</string>
+    <string name="toast_createSong">Song created</string>
 </resources>

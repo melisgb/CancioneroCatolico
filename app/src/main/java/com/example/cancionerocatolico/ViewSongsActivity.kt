@@ -2,17 +2,24 @@ package com.example.cancionerocatolico
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ViewSongsActivity : AppCompatActivity() {
-    var songsList = ArrayList<Song>()
+//    var songsList = ArrayList<Song>()
     var songsAdapter : SongAdapter? = null
     lateinit var songsListView : ListView
+
+    companion object{
+        var songsList = ArrayList<Song>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +33,12 @@ class ViewSongsActivity : AppCompatActivity() {
         songsList.clear()
         loadSongs()
 
+        val btn_FloatingAction = findViewById<FloatingActionButton>(R.id.btnFloatingAction)
+        btn_FloatingAction.setOnClickListener {
+            val intent = Intent(this, EditSongActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     // SEARCH_BAR IMPLEMENTATION
@@ -37,7 +50,7 @@ class ViewSongsActivity : AppCompatActivity() {
         val searchItem = menu?.findItem(R.id.search_bar)
         val searchView = searchItem?.actionView as SearchView
         searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
-        searchView.queryHint = "Buscar..."
+        searchView.queryHint = "Buscar palabra clave..."
         searchView.maxWidth = Int.MAX_VALUE
 
         searchItem.setOnMenuItemClickListener {
