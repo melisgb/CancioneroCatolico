@@ -4,11 +4,11 @@
     <string name="button_viewSongsByParts">Canciones por Partes</string>
     <string name="button_viewSongsBySeasons">Canciones por Tiempo</string>
     <string name="button_viewMyLists">Mis listas</string>
-    <string name="login_btn">Login</string>
+    <string name="button_login">Login</string>
     <string name="list_icon_desc">listIcon</string>
     <string name="string_demo">Demo text</string>
-    <string name="searchbarHint">Search...</string>
     <string name="edit_song_title">Create Song</string>
+    <string name="hint_search_bar">Search...</string>
     <string name="hint_song_title">Title</string>
     <string name="hint_song_artist">Artist</string>
     <string name="hint_song_lyrics">Lyrics</string>
@@ -16,4 +16,5 @@
     <string name="button_addSong">Add</string>
     <string name="button_updateSong">Update</string>
     <string name="toast_createSong">Song created</string>
+    <string name="edit_song">Edit</string>
 </resources>

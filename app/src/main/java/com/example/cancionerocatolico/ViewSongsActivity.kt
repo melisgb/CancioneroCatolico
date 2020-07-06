@@ -11,6 +11,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.net.URLEncoder
 
 class ViewSongsActivity : AppCompatActivity() {
 //    var songsList = ArrayList<Song>()
@@ -32,6 +33,7 @@ class ViewSongsActivity : AppCompatActivity() {
 
         songsList.clear()
         loadSongs()
+        loadSongs("%", 0)
 
         val btn_FloatingAction = findViewById<FloatingActionButton>(R.id.btnFloatingAction)
         btn_FloatingAction.setOnClickListener {
@@ -95,4 +97,25 @@ class ViewSongsActivity : AppCompatActivity() {
             Song(3, "Una vez nada mas", "Entrenados", "Ula ula ula ula", "Paz, Salmos"))
 
     }
+
+    fun loadSongs(keyword : String, startFrom : Int){
+        //Search into DB based on keyword and updates the List
+        val content = URLEncoder.encode(keyword, "utf-8")
+        val url = "http://10.0.2.2:8000/cancionero/" +
+                "get_songs.php?case=1&keyword=${keyword}&startFrom=${startFrom}"
+        MyAsyncTask(
+            onFail = {
+//                Toast.makeText(applicationContext, "Retrieving posts failed", Toast.LENGTH_SHORT).show()
+                songsList.clear()
+                songsAdapter!!.notifyDataSetChanged()
+            },
+            onSuccess = { listOfPosts ->
+//                Toast.makeText(applicationContext, "Loading posts", Toast.LENGTH_SHORT).show()
+                songsList.clear()
+                songsList.addAll(listOfPosts as ArrayList<Song>)
+                songsAdapter!!.notifyDataSetChanged()
+            }
+        ).execute(url)
+    }
+
 }

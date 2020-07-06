@@ -28,7 +28,7 @@ class EditSongActivity : AppCompatActivity() {
             val tags = etxtSongTags.text.toString()
 
             val newSong = Song(id, title, artist, lyrics, tags)
-            //TODO: add the song into the list
+            //TODO: add the song into the list / DB
             finish()
         }
 

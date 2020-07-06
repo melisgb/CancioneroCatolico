@@ -1,6 +1,7 @@
 package com.example.cancionerocatolico
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,12 @@ class SongAdapter(val context: Activity, val songsList: ArrayList<Song>) : BaseA
         myElementView.txtvSongTitleElem.text = currentSong.songTitle
         myElementView.txtvSongArtistElem.text = currentSong.songArtist
         myElementView.txtvSongTagsElem.text = currentSong.songTags
+
+        myElementView.setOnClickListener {
+            val intent = Intent(context, ReadSongActivity::class.java)
+            intent.putExtra("song_id", currentSong.songID)
+            context.startActivity(intent)
+        }
 
         return myElementView
     }

@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:background="@drawable/my_button"
-        android:text="@string/login_btn"
+        android:text="@string/button_login"
         android:textColor="@color/whiteColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
