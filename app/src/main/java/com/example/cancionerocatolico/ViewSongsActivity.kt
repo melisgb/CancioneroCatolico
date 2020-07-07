@@ -43,6 +43,10 @@ class ViewSongsActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        loadSongs("%",0)
+        super.onResume()
+    }
     // SEARCH_BAR IMPLEMENTATION
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater

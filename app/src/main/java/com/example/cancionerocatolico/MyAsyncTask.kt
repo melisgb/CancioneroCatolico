@@ -39,7 +39,7 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
             var json = JSONObject(values[0])
             val msg = json.getString("msg")
             if(msg== "Register User is added"){
-                Log.d("UserRegistration", msg)
+//                Log.d("UserRegistration", msg)
 //                onSuccess(null)
             }
             else if(msg== "Login Successful"){
@@ -63,8 +63,27 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                         songInfo.getString("song_tags")
                     ))
                 }
-                Log.d("Posts loaded successful", "Qty posts: ${listOfSongs.size}")
+                Log.d("Songs loaded successful", "Qty songs: ${listOfSongs.size}")
                 onSuccess(listOfSongs)
+            }
+            else if(msg== "Song saved"){ //For Edit Song - add
+                val songInfoArr = JSONArray(json.getString("songInfo"))
+                val listOfSongs = ArrayList<Song>()
+                val songInfo = songInfoArr.getJSONObject(0)
+                val newSong = Song(
+                    songInfo.getInt("song_id"),
+                    songInfo.getString("song_title"),
+                    songInfo.getString("song_artist"),
+                    songInfo.getString("song_lyrics"),
+                    songInfo.getString("song_tags")
+                )
+
+                Log.d("Song saved successful", "")
+                onSuccess(newSong)
+            }
+            else if(msg== "Song updated"){ //For Edit Song - update
+                Log.d("Song updated successful", "")
+                onSuccess(null)
             }
             else {
                 Log.d("Failed", msg)
@@ -79,7 +98,6 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
         //after the task is done
         super.onPostExecute(result)
     }
-
 
     fun convertStreamToString(inputStrm: InputStream) : String{
         val bufferReader = BufferedReader(InputStreamReader(inputStrm))

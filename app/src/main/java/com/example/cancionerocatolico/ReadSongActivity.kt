@@ -9,12 +9,18 @@ import kotlinx.android.synthetic.main.activity_read_song.*
 import java.net.URLEncoder
 
 class ReadSongActivity : AppCompatActivity() {
+    var song_id : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_song)
 
-        val song_id = intent.extras!!.getInt("song_id")
+        song_id = intent.extras!!.getInt("song_id")
         loadSong(song_id)
+    }
+
+    override fun onResume() {
+        loadSong(song_id)
+        super.onResume()
     }
 
     fun loadSong(songID : Int)  {
@@ -34,7 +40,6 @@ class ReadSongActivity : AppCompatActivity() {
                 txtvReadSongLyrics.setText(songA.songLyrics)
                 txtvReadSongTags.setText(songA.songTags)
                 //TODO: Bring info about Favorites
-
             }
         ).execute(url)
     }
@@ -51,13 +56,15 @@ class ReadSongActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_edit_song -> {
                 val intent = Intent(applicationContext, EditSongActivity::class.java )
-                //TODO: Send songInfo to edit.
+                intent.putExtra("songId", song_id)
+                intent.putExtra("songTitle", txtvReadSongTitle.text.toString())
+                intent.putExtra("songArtist", txtvReadSongArtist.text.toString())
+                intent.putExtra("songLyrics", txtvReadSongLyrics.text.toString())
+                intent.putExtra("songTags", txtvReadSongTags.text.toString())
                 startActivity(intent)
                 true
             }
             else -> false
         }
-
-
-        }
+    }
 }
