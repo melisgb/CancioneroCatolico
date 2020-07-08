@@ -44,6 +44,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:maxLines="1"
                     android:text="@string/string_demo"
                     android:textColor="@color/blackColor"
                     android:textSize="20sp" />

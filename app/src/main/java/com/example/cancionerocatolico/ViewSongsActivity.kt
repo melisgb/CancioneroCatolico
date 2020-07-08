@@ -72,7 +72,6 @@ class ViewSongsActivity : AppCompatActivity() {
             override fun onQueryTextChange(query: String?): Boolean {
                 //TODO: Search Songs in DB
                 loadSongs(query!!, 0)
-                //val adapter = ListSongsAdapter(this@ViewSongsActivity, listSongs1, selected_Set)
                 songsListView.adapter = songsAdapter
                 return false
             }
@@ -83,7 +82,6 @@ class ViewSongsActivity : AppCompatActivity() {
         if (!keyword_extra.isNullOrEmpty()) {
             //TODO: Search Songs in DB
             loadSongs(keyword_extra, 0)
-            //val adapter = SongAdapter(this@ViewSongsActivity, listSongs1, selected_Set)
             songsListView.adapter = songsAdapter
 
         }
