@@ -5,7 +5,7 @@
         android:id="@+id/action_edit_song"
         android:icon="@drawable/ic_edit_song"
         android:iconTint="@color/whiteColor"
-        android:iconTintMode="src_in"
+        android:iconTintMode="src_atop"
         android:title="@string/edit_song"
         app:showAsAction="always" />
 </menu>

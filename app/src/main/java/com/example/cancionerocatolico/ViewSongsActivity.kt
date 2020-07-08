@@ -32,7 +32,7 @@ class ViewSongsActivity : AppCompatActivity() {
         songsListView.adapter = songsAdapter
 
         songsList.clear()
-        loadSongs()
+//        loadSongs()
         loadSongs("%", 0)
 
         val btn_FloatingAction = findViewById<FloatingActionButton>(R.id.btnFloatingAction)
@@ -71,7 +71,7 @@ class ViewSongsActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 //TODO: Search Songs in DB
-                //val listSongs1 = db.searchSongs(query!!)
+                loadSongs(query!!, 0)
                 //val adapter = ListSongsAdapter(this@ViewSongsActivity, listSongs1, selected_Set)
                 songsListView.adapter = songsAdapter
                 return false
@@ -82,7 +82,7 @@ class ViewSongsActivity : AppCompatActivity() {
         val keyword_extra: String? = ""
         if (!keyword_extra.isNullOrEmpty()) {
             //TODO: Search Songs in DB
-            //val listSongs1 = db.searchSongsByTags(keyword_extra)
+            loadSongs(keyword_extra, 0)
             //val adapter = SongAdapter(this@ViewSongsActivity, listSongs1, selected_Set)
             songsListView.adapter = songsAdapter
 

@@ -29,19 +29,33 @@
             app:srcCompat="@drawable/song_icon" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtvSongTitleElem"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="TextView"
-                android:textColor="@color/blackColor"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtvSongTitleElem"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/string_demo"
+                    android:textColor="@color/blackColor"
+                    android:textSize="20sp" />
+
+                <CheckBox
+                    android:id="@+id/chkboxSongElem"
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:gravity="end"
+                    android:visibility="visible" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="TextView"
+                    android:text="@string/string_demo"
                     android:textSize="14sp" />
 
                 <TextView
@@ -61,25 +75,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
-                    android:gravity="center_vertical"
-                    android:text="TextView"
+                    android:gravity="center_vertical|end"
+                    android:paddingRight="2dp"
+                    android:text="@string/string_demo"
                     android:textAlignment="textEnd"
                     android:textSize="10sp" />
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/chkboxSongElem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible" />
         </LinearLayout>
 
     </LinearLayout>

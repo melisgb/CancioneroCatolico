@@ -19,6 +19,7 @@ class EditSongActivity : AppCompatActivity() {
         val btnUpdateSong = findViewById<Button>(R.id.btnUpdateSong)
 
         if(intent.extras != null){
+            txtvEditSongTitle.text = "Update Song"
             btnUpdateSong.isEnabled = true
             btnCreateSong.isEnabled = false
             //Para Editar Cancion
@@ -30,6 +31,7 @@ class EditSongActivity : AppCompatActivity() {
             etxtSongTags.setText(bundle.getString("songTags"))
         }
         else{
+            txtvEditSongTitle.text = "Create Song"
             btnUpdateSong.isEnabled = false
             btnCreateSong.isEnabled = true
         }
@@ -60,7 +62,6 @@ class EditSongActivity : AppCompatActivity() {
 
             val currSong = Song(songID, title, artist, lyrics, tags)
             updateSong(currSong)
-            finish()
         }
     }
 
@@ -88,6 +89,7 @@ class EditSongActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Song added ${songID}", Toast.LENGTH_SHORT).show()
             }
         ).execute(url)
+        finish()
     }
 
     fun updateSong(song : Song){
@@ -114,5 +116,6 @@ class EditSongActivity : AppCompatActivity() {
 
             }
         ).execute(url)
+        finish()
     }
 }
