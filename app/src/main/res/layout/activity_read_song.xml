@@ -24,7 +24,7 @@
             android:layout_marginEnd="16dp"
             android:gravity="end"
             android:textColor="@color/cardview_dark_background"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="italic" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:gravity="center"
             android:text="@string/hint_song_title"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold|italic" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:hint="@string/hint_song_artist"
             android:soundEffectsEnabled="false"
             android:textColor="@android:color/darker_gray"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <ScrollView
@@ -69,11 +69,11 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    android:paddingBottom="5dp"
                     android:fontFamily="@font/roboto_mono_medium"
                     android:hint="@string/hint_song_lyrics"
+                    android:paddingBottom="5dp"
                     android:textColor="@color/blackColor"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
         </ScrollView>
 

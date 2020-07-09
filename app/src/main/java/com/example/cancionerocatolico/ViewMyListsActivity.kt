@@ -25,10 +25,10 @@ class ViewMyListsActivity : AppCompatActivity() {
 
         listsAdapter = MyListAdapter(listOfListsSongs)
 
-        //notify the insertion
-        listOfListsSongs.add(0,
-            ListSongs(100, "Favorites 100", arrayListOf(1, 2, 3)))
-        listsAdapter!!.notifyItemInserted(0) //required in RecyclerView
+        //notify the insertion in RecyclerView
+//        listOfListsSongs.add(0,
+//            ListSongs(100, "Favorites 100", hashMapOf()))
+//        listsAdapter!!.notifyItemInserted(0) //required in RecyclerView
 
         listsRecyclerView.adapter = listsAdapter
         listsRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -45,12 +45,14 @@ class ViewMyListsActivity : AppCompatActivity() {
 
     fun generateList(qty : Int){
         for(x in 1 until qty){
-            val a = Random.nextInt()
-            val b = Random.nextInt()
-            val c = Random.nextInt()
+            val randSong = Song(100, "Un padre como el nuestro", "Entrenados", "Ula ula ula ula", "Entrada, Salmos")
+            var hashMap = HashMap<Int, Song>()
+            hashMap.put(1, randSong)
+            hashMap.put(2, randSong)
+            hashMap.put(3, randSong)
 
             listOfListsSongs.add(
-                ListSongs(x, "Favorites ${x}", arrayListOf(a, b, c)))
+                ListSongs(x, "Favorites ${x}", hashMap))
         }
     }
 }

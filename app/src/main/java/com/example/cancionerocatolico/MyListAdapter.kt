@@ -31,8 +31,6 @@ class MyListAdapter(private val listOfLists : List<ListSongs>) : RecyclerView.Ad
         listNameTxtView.setText(list.listSongsName)
     }
 
-
-
     inner class ViewHolder(listItemView : View) : RecyclerView.ViewHolder(listItemView) {
         //The holder will contain/initialize the view that'll be set as a row.
         val listNameTxtView = listItemView.findViewById<TextView>(R.id.txtvListNameElem)
