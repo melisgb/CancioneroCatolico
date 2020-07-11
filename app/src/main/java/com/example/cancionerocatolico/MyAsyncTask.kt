@@ -85,6 +85,32 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Song updated successful", "")
                 onSuccess(null)
             }
+            else if(msg== "Loading summary lists - successful"){
+                val listsInfoArr = JSONArray(json.getString("listsongs"))
+                val listOfLists = ArrayList<ListSongs>()
+                for(i in 0 until listsInfoArr.length()){
+                    val listsongInfo = listsInfoArr.getJSONObject(i)
+                    listOfLists.add(ListSongs(
+                        listsongInfo.getInt("listsong_id"),
+                        listsongInfo.getString("listsong_name"),
+                        HashMap<Int, Song>()
+                    ))
+                }
+                Log.d("Summary lists loaded successful", "Qty lists: ${listOfLists.size}")
+                onSuccess(listOfLists)
+            }
+            else if(msg== "Adding songs into listsongs - successful"){
+                //TODO check if necessary to load the listsong
+                Log.d("Adding songs into listsongs successful", "Successful")
+                onSuccess(null)
+            }
+            else if(msg== "Removing songs from listsongs - successful"){
+                //TODO check if necessary to load the listsong
+                Log.d("Removing songs from listsongs successful", "Successful")
+                onSuccess(null)
+            }
+
+
             else {
                 Log.d("Failed", msg)
                 onFail()
