@@ -56,44 +56,57 @@ class ViewSongsActivity : AppCompatActivity() {
                             for(list in listOfLists) {
                                 listNamesA.add(list.listSongsName)
                             }
-                            if(!listNamesA.contains("Nueva Lista")) {
-                                listNamesA.add("Nueva Lista")
-                            }
-                            else {
-                                val df = SimpleDateFormat("dd/MM/yy HH:mm:ss")
-                                val currDate = Date()
-                                listNamesA.add("Nueva Lista"+ df.format(currDate))
-                            }
+                            //to create New list
+                            val df = SimpleDateFormat("yy_MM_dd_HH_mm_ss")
+                            val currDate = Date()
+                            listNamesA.add("NuevaLista"+ df.format(currDate))
+
                             val listNames = listNamesA.toArray(emptyArray<String>())
                             var selected_ListName = ""
                             val copySelectedSongs = HashSet<Int>(selectedSongs)
                             val builder = AlertDialog.Builder(this@ViewSongsActivity) /*ViewSongsActivity*/
                             builder.setTitle(R.string.choose_list)
-                            builder.setIcon(R.drawable.ic_add_list)
+                            builder.setIcon(R.drawable.ic_add_to_list)
                             builder.setSingleChoiceItems(listNames, -1)  { dialogInterface, i ->
                                 selected_ListName = listNames[i]
 
                                 var myListSongs = HashMap<Int, Song>()
                                 for(songID in copySelectedSongs) {
-//                            myListSongs[songID] = db.getSong(songID)!!
                                     myListSongs[songID] = songsList[songID]
                                 }
-                                val listID = listOfLists.find{ l -> l.listSongsName == selected_ListName  }?.listSongsID
+                                var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
 //
-                                if(listID != null) {
-                                    //   verify before updating/adding in Favoritos SongsList
-                                    loadCurrentList(listID,
-                                        success = { currentList ->
-                                            var strSelectedSongs = copySelectedSongs.joinToString(",")
-                                            insertToList(listID, strSelectedSongs)
-                                            Toast.makeText(applicationContext, "Canciones agregadas a '${selected_ListName}'", Toast.LENGTH_SHORT).show()
+                                if(listID == null){
+                                    //insert new list
+                                    createList(selected_ListName,
+                                        success = { newlistID ->
+                                            listID = newlistID
+                                            loadCurrentList(listID!!,
+                                                success = { currentList ->
+                                                    var strSelectedSongs =
+                                                        copySelectedSongs.joinToString(",")
+                                                    insertToList(listID!!, strSelectedSongs)
+                                                    Toast.makeText(
+                                                        applicationContext,
+                                                        "Canciones agregadas a ${selected_ListName}",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                })
                                         })
                                 }
                                 else {
-                                    true
-                                    //TODO Create List.
-//                            db.addSongsList(selected_ListName, myListSongs.values.toList())
-//                            Toast.makeText(this@SearchSongsActivity, "Canciones agregadas a '${selected_ListName}'", Toast.LENGTH_SHORT).show()
+                                    //   When there is a LISTID / the list is already created
+                                    loadCurrentList(listID!!,
+                                        success = { currentList ->
+                                            var strSelectedSongs =
+                                                copySelectedSongs.joinToString(",")
+                                            insertToList(listID!!, strSelectedSongs)
+                                            Toast.makeText(
+                                                applicationContext,
+                                                "Canciones agregadas a ${selected_ListName}",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        })
                                 }
                                 refreshAll()
                                 dialogInterface.dismiss()
@@ -105,7 +118,6 @@ class ViewSongsActivity : AppCompatActivity() {
                             mDialog.show()
                             mode.finish()
                         }
-
                     )
 
                     true
@@ -354,7 +366,6 @@ class ViewSongsActivity : AppCompatActivity() {
     }
 
     fun loadCurrentList(listID : Int, success : (ArrayList<Song>) -> Unit) {
-
         //Search into DB the specific songsList
         val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
             .buildUpon()
@@ -376,7 +387,7 @@ class ViewSongsActivity : AppCompatActivity() {
 
     }
     fun insertToList(listID:Int, songsIDs:String) {
-        //Search into DB the songsList
+        //Insert songs into songsList
         val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
             .buildUpon()
             .appendQueryParameter("case", "4")
@@ -387,16 +398,15 @@ class ViewSongsActivity : AppCompatActivity() {
 
         MyAsyncTask(
             onFail = {
-                Toast.makeText(applicationContext, "Adding into list failed", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext, "Adding into list failed", Toast.LENGTH_SHORT).show()
             },
             onSuccess = {
-                Toast.makeText(applicationContext, "Songs added to list", Toast.LENGTH_SHORT).show()
 //                songsAdapter!!.notifyDataSetChanged()
             }
         ).execute(url)
     }
     fun removeFromList(listID:Int, songsIDs:String) {
-        //Search into DB the songsList
+        //Remove songs from songsList
         val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
             .buildUpon()
             .appendQueryParameter("case", "5")
@@ -407,11 +417,30 @@ class ViewSongsActivity : AppCompatActivity() {
 
         MyAsyncTask(
             onFail = {
-                Toast.makeText(applicationContext, "Removing from list failed", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext, "Removing from list failed", Toast.LENGTH_SHORT).show()
             },
             onSuccess = {
-                Toast.makeText(applicationContext, "Songs removed from list", Toast.LENGTH_SHORT).show()
 //                songsAdapter!!.notifyDataSetChanged()
+            }
+        ).execute(url)
+    }
+    fun createList(listName : String, success : (Int) -> Unit ) {
+        //Insert a new list in DB
+        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+            .buildUpon()
+            .appendQueryParameter("case", "1")
+            .appendQueryParameter("list_name", listName)
+            .appendQueryParameter("user_id", "1")
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = {
+//                Toast.makeText(applicationContext, "Creating list failed", Toast.LENGTH_SHORT).show()
+            },
+            onSuccess = {listID ->
+//                Toast.makeText(applicationContext, "Creating list successful", Toast.LENGTH_SHORT).show()
+                success(listID as Int)
             }
         ).execute(url)
     }

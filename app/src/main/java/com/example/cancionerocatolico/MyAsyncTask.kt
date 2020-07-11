@@ -99,6 +99,11 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Summary lists loaded successful", "Qty lists: ${listOfLists.size}")
                 onSuccess(listOfLists)
             }
+            else if(msg== "Adding listsongs - successful"){
+                val listID = json.getInt("listsongID")
+                Log.d("Creating listsong successful", "Successful")
+                onSuccess(listID)
+            }
             else if(msg== "Adding songs into listsongs - successful"){
                 //TODO check if necessary to load the listsong
                 Log.d("Adding songs into listsongs successful", "Successful")
