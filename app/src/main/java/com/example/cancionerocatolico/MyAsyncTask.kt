@@ -82,7 +82,11 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 onSuccess(newSong)
             }
             else if(msg== "Song updated"){ //For Edit Song - update
-                Log.d("Song updated successful", "")
+                Log.d("Song updated successfully", "")
+                onSuccess(null)
+            }
+            else if(msg== "Song deleted"){ //For Edit Song - update
+                Log.d("Song deleted successfully", "")
                 onSuccess(null)
             }
             else if(msg== "Loading summary lists - successful"){

@@ -11,9 +11,4 @@
         android:title="@string/add_toFavs"
         app:showAsAction="always"
         android:icon="@drawable/ic_add_favorite"/>
-    <item
-        android:id="@+id/action_deleteSong"
-        android:title="@string/delete_song"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_delete_elem"/>
 </menu>

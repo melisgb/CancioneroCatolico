@@ -17,8 +17,8 @@
     <string name="button_updateSong">Update</string>
     <string name="toast_createSong">Song created</string>
     <string name="edit_song">Edit</string>
+    <string name="delete_song">Delete</string>
     <string name="add_toFavs">Add to Favs</string>
     <string name="add_toList">Add to List</string>
-    <string name="delete_song">Delete song</string>
     <string name="choose_list">Elija la lista</string>
 </resources>

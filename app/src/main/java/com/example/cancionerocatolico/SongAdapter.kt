@@ -50,7 +50,7 @@ class SongAdapter(val context: Activity, val songsList: ArrayList<Song>) : BaseA
     }
 
     override fun getItemId(position: Int): Long {
-        return position.toLong()
+        return songsList[position].songID.toLong()
     }
 
     override fun getCount(): Int {
