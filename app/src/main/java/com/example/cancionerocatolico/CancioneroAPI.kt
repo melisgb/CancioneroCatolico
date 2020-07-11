@@ -1,6 +1,7 @@
 package com.example.cancionerocatolico
 
 import android.net.Uri
+import kotlinx.android.synthetic.main.activity_read_song.*
 import java.net.URLEncoder
 
 open class CancioneroAPI {
@@ -54,6 +55,27 @@ open class CancioneroAPI {
                 success(song as Song)
             }
         ).execute(url)
+    }
+
+    fun readSong(songID: Int, success: (Song) -> Unit) {
+        //Reads a song
+        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
+            .buildUpon()
+            .appendQueryParameter("case", "3")
+            .appendQueryParameter("song_id", songID.toString())
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = {  },
+            onSuccess = {listOfSongs ->
+                val songs = listOfSongs as ArrayList<Song>
+                success(songs[0])
+            }
+        ).execute(url)
+
+
+        //TODO: Bring info about Favorites
     }
 
     fun updateSong(song: Song, success: (Any?) -> Unit ) {

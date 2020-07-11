@@ -33,30 +33,14 @@ class ReadSongActivity : AppCompatActivity() {
     }
 
     fun loadSong(songID : Int)  {
-
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
-            .buildUpon()
-            .appendQueryParameter("case", "3")
-            .appendQueryParameter("song_id", songID.toString())
-            .build()
-            .toString()
-
-        MyAsyncTask(
-            onFail = {
-//                Toast.makeText(applicationContext, "Retrieving posts failed", Toast.LENGTH_SHORT).show()
-                //TODO: Define behaviour when returns null
-            },
-            onSuccess = { listOfPosts ->
-//                Toast.makeText(applicationContext, "Loading posts", Toast.LENGTH_SHORT).show()
-                val results = listOfPosts as ArrayList<Song>
-                val songA = results[0]
-                txtvReadSongTitle.setText(songA.songTitle)
-                txtvReadSongArtist.setText(songA.songArtist)
-                txtvReadSongLyrics.setText(songA.songLyrics)
-                txtvReadSongTags.setText(songA.songTags)
-                //TODO: Bring info about Favorites
+        cancAPI.readSong(songID, 
+            success = { song ->
+                txtvReadSongTitle.setText(song.songTitle)
+                txtvReadSongArtist.setText(song.songArtist)
+                txtvReadSongLyrics.setText(song.songLyrics)
+                txtvReadSongTags.setText(song.songTags)
             }
-        ).execute(url)
+        )
     }
 
 
