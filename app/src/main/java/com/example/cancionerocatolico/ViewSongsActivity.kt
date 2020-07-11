@@ -84,15 +84,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                     //   verify before updating/adding in Favoritos SongsList
                                     loadCurrentList(listID,
                                         success = { currentList ->
-                                            var strSelectedSongs = ""
-                                            for(songID in copySelectedSongs){
-                                                if(songID != copySelectedSongs.elementAt(copySelectedSongs.size-1)){
-                                                    strSelectedSongs += songID.toString() + ","
-                                                }
-                                                else {
-                                                    strSelectedSongs += songID
-                                                }
-                                            }
+                                            var strSelectedSongs = copySelectedSongs.joinToString(",")
                                             insertToList(listID, strSelectedSongs)
                                             Toast.makeText(applicationContext, "Canciones agregadas a '${selected_ListName}'", Toast.LENGTH_SHORT).show()
                                         })
