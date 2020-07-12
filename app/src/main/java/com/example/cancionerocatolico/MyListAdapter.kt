@@ -1,5 +1,6 @@
 package com.example.cancionerocatolico
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,10 @@ class MyListAdapter(private val listOfLists : List<ListSongs>) : RecyclerView.Ad
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val listView = inflater.inflate(R.layout.element_view_my_lists, parent, false)
+        listView.setOnClickListener {
+            val intent = Intent(context, ViewSpecificListActivity::class.java)
+            context.startActivity(intent)
+        }
         return ViewHolder(listView)
     }
 
@@ -26,7 +31,6 @@ class MyListAdapter(private val listOfLists : List<ListSongs>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //to set the view attributes based on the data
         val list : ListSongs = listOfLists[position]
-
         val listNameTxtView = holder.listNameTxtView
         listNameTxtView.setText(list.listSongsName)
     }
@@ -34,8 +38,6 @@ class MyListAdapter(private val listOfLists : List<ListSongs>) : RecyclerView.Ad
     inner class ViewHolder(listItemView : View) : RecyclerView.ViewHolder(listItemView) {
         //The holder will contain/initialize the view that'll be set as a row.
         val listNameTxtView = listItemView.findViewById<TextView>(R.id.txtvListNameElem)
-
-
     }
 
 }

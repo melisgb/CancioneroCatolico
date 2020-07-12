@@ -231,15 +231,12 @@ class ViewSongsActivity : AppCompatActivity() {
             true
         }
 
-
-
     }
 
     override fun onResume() {
         getSongs("%",0)
         super.onResume()
     }
-
 
     // SEARCH_BAR IMPLEMENTATION
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

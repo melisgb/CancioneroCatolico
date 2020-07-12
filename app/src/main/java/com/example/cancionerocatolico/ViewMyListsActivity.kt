@@ -12,34 +12,28 @@ import kotlin.random.Random
 class ViewMyListsActivity : AppCompatActivity() {
     var listsAdapter : MyListAdapter? = null
     var listOfListsSongs = ArrayList<ListSongs>()
+    var cancAPI = CancioneroAPI()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_my_lists)
 
         val listsRecyclerView : RecyclerView = findViewById(R.id.recyclervMyLists)
 
+
         listOfListsSongs.clear()
 
-        //dummy data
-        generateList(20)
+//        generateList(20) //dummy data
+        getSummaryLists(success = {
+            listsAdapter = MyListAdapter(listOfListsSongs)
+            listsRecyclerView.adapter = listsAdapter
+            listsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        listsAdapter = MyListAdapter(listOfListsSongs)
+        })
 
         //notify the insertion in RecyclerView
 //        listOfListsSongs.add(0,
 //            ListSongs(100, "Favorites 100", hashMapOf()))
 //        listsAdapter!!.notifyItemInserted(0) //required in RecyclerView
-
-        listsRecyclerView.adapter = listsAdapter
-        listsRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        val demoBtn = findViewById<Button>(R.id.demoButton)
-        demoBtn.setOnClickListener {
-            val intent = Intent(this, ViewSpecificListActivity::class.java)
-            startActivity(intent)
-        }
-
-
 
     }
 
@@ -54,5 +48,14 @@ class ViewMyListsActivity : AppCompatActivity() {
             listOfListsSongs.add(
                 ListSongs(x, "Favorites ${x}", hashMap))
         }
+    }
+
+    fun getSummaryLists(success : (Any?) -> Unit){
+        cancAPI.loadSummaryLists( success = { listOfLists ->
+            listOfListsSongs.clear()
+            listOfListsSongs.addAll(listOfLists)
+            success(null)
+
+        })
     }
 }

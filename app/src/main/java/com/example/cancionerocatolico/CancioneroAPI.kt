@@ -35,7 +35,6 @@ open class CancioneroAPI {
     }
 
     /***                SONGS EDITION            ***/
-    //TODO : CRUD FOR SONG
 
     fun addSong(song: Song, success: (Song) -> Unit) {
         //Update a song
