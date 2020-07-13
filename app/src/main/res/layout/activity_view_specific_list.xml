@@ -6,11 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ViewSpecificListActivity">
 
+    <TextView
+        android:id="@+id/txtvMyListName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/string_demo"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnEditListName"
+        android:layout_width="55dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FAFAFA"
+        android:paddingLeft="2dp"
+        android:scaleType="centerCrop"
+        android:tint="@color/blackColor"
+        app:layout_constraintStart_toEndOf="@+id/txtvMyListName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_edit_list_name" />
+
     <ListView
         android:id="@+id/lvSpecificList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtvMyListName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

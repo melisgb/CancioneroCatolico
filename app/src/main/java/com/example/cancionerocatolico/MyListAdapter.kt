@@ -18,7 +18,8 @@ class MyListAdapter(private val listOfLists : List<ListSongs>) : RecyclerView.Ad
         val listView = inflater.inflate(R.layout.element_view_my_lists, parent, false)
         listView.setOnClickListener {
             val intent = Intent(context, ViewSpecificListActivity::class.java)
-            intent.putExtra("listID", 29)
+            intent.putExtra("listID", 31)
+            intent.putExtra("listName", "NuevaLista20_07_13_18_55_41")
             context.startActivity(intent)
         }
         return ViewHolder(listView)

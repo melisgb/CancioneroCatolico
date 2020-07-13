@@ -181,6 +181,45 @@ open class CancioneroAPI {
             }
         ).execute(url)
     }
+    fun updateList(listID: Int, listName : String, success : (String) -> Unit ) {
+        //Insert a new list in DB
+        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+            .buildUpon()
+            .appendQueryParameter("case", "2")
+            .appendQueryParameter("list_id", listID.toString())
+            .appendQueryParameter("list_name", listName)
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = {
+//                Toast.makeText(applicationContext, "Creating list failed", Toast.LENGTH_SHORT).show()
+            },
+            onSuccess = {
+//                Toast.makeText(applicationContext, "Creating list successful", Toast.LENGTH_SHORT).show()
+                success(listName)
+            }
+        ).execute(url)
+    }
+
+    fun removeWholeList(listID:Int, success: (Boolean) -> Unit) {
+        //Remove songsList and its relation  [two tables affected]
+        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+            .buildUpon()
+            .appendQueryParameter("case", "3")
+            .appendQueryParameter("list_id", listID.toString())
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = {
+//                Toast.makeText(applicationContext, "Removing list failed", Toast.LENGTH_SHORT).show()
+            },
+            onSuccess = {
+                success(true)
+            }
+        ).execute(url)
+    }
 
     fun insertToList(listID:Int, songsIDs:String) {
         //Insert songs into songsList
@@ -223,22 +262,4 @@ open class CancioneroAPI {
     }
 
 
-    fun removeWholeList(listID:Int, success: (Boolean) -> Unit) {
-        //Remove songsList and its relation  [two tables affected]
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
-            .buildUpon()
-            .appendQueryParameter("case", "3")
-            .appendQueryParameter("list_id", listID.toString())
-            .build()
-            .toString()
-
-        MyAsyncTask(
-            onFail = {
-//                Toast.makeText(applicationContext, "Removing list failed", Toast.LENGTH_SHORT).show()
-            },
-            onSuccess = {
-                success(true)
-            }
-        ).execute(url)
-    }
 }

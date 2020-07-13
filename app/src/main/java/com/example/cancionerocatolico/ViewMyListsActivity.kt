@@ -13,27 +13,33 @@ class ViewMyListsActivity : AppCompatActivity() {
     var listsAdapter : MyListAdapter? = null
     var listOfListsSongs = ArrayList<ListSongs>()
     var cancAPI = CancioneroAPI()
+    var listsRecyclerView : RecyclerView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_my_lists)
 
-        val listsRecyclerView : RecyclerView = findViewById(R.id.recyclervMyLists)
-
-
-        listOfListsSongs.clear()
-
+        listsRecyclerView = findViewById(R.id.recyclervMyLists)
 //        generateList(20) //dummy data
         getSummaryLists(success = {
             listsAdapter = MyListAdapter(listOfListsSongs)
-            listsRecyclerView.adapter = listsAdapter
-            listsRecyclerView.layoutManager = LinearLayoutManager(this)
-
+            listsRecyclerView!!.adapter = listsAdapter
+            listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
         })
 
         //notify the insertion in RecyclerView
 //        listOfListsSongs.add(0,
 //            ListSongs(100, "Favorites 100", hashMapOf()))
 //        listsAdapter!!.notifyItemInserted(0) //required in RecyclerView
+    }
+
+    override fun onResume() {
+        getSummaryLists(success = {
+            listsAdapter = MyListAdapter(listOfListsSongs)
+            listsRecyclerView!!.adapter = listsAdapter
+            listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
+        })
+        super.onResume()
 
     }
 
@@ -55,7 +61,6 @@ class ViewMyListsActivity : AppCompatActivity() {
             listOfListsSongs.clear()
             listOfListsSongs.addAll(listOfLists)
             success(null)
-
         })
     }
 
