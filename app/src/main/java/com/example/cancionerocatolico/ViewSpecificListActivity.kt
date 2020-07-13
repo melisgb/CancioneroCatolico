@@ -4,10 +4,12 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ListView
+import android.widget.Toast
 
 class ViewSpecificListActivity : AppCompatActivity() {
     var mySongsList = ArrayList<Song>()
     var songsAdapter : SongAdapter? = null
+    var cancAPI = CancioneroAPI()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,12 +18,10 @@ class ViewSpecificListActivity : AppCompatActivity() {
         val extras = intent.extras
         val listID = extras!!.getInt("listID")
 
-
-//        loadSongs() //dummydata
+//        loadSongs() //to load dummydata
         getSongsCurrentList(
             listID,
             success = {
-                mySongsList.clear()
                 songsAdapter = SongAdapter(this, mySongsList)
                 var songsListView = findViewById<ListView>(R.id.lvSpecificList)
                 songsListView.adapter = songsAdapter
@@ -40,25 +40,13 @@ class ViewSpecificListActivity : AppCompatActivity() {
             Song(10, "Loving him", "Entrenados", "Ula ula ula ula", "Paz, Salmos"))
 
     }
-    fun getSongsCurrentList(listID : Int, success : (ArrayList<Song>) -> Unit) {
-        //Search into DB the specific songsList
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
-            .buildUpon()
-            .appendQueryParameter("case", "2")
-            .appendQueryParameter("listsong_id", listID.toString())
-            .build()
-            .toString()
-
-        MyAsyncTask(
-            onFail = {
-//                Toast.makeText(applicationContext, "Retrieving songs failed", Toast.LENGTH_SHORT).show()
-            },
-            onSuccess = { listOfSongs ->
-//                Toast.makeText(applicationContext, "Loading songs", Toast.LENGTH_SHORT).show()
-                success(listOfSongs as ArrayList<Song>)
-            }
-        ).execute(url)
-
+    fun getSongsCurrentList(listID : Int, success : (Any?) -> Unit) {
+        cancAPI.loadCurrentList(
+            listID,
+            success = { currentList ->
+                mySongsList.clear()
+                mySongsList.addAll(currentList)
+                success(null)
+        })
     }
-
 }
