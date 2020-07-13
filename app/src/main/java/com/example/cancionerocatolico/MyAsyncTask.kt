@@ -38,6 +38,8 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
         try {
             var json = JSONObject(values[0])
             val msg = json.getString("msg")
+
+            /****************************************      USER ACCESS           ********************************************/
             if(msg== "Register User is added"){
 //                Log.d("UserRegistration", msg)
 //                onSuccess(null)
@@ -50,6 +52,7 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
 //                Log.d("UserLogin", username)
 //                onSuccess(user_id)
             }
+            /****************************************         SONGS           ********************************************/
             else if(msg== "Loading songs - successful"){
                 val songsInfoArr = JSONArray(json.getString("songsInfo"))
                 val listOfSongs = ArrayList<Song>()
@@ -89,6 +92,7 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Song deleted successfully", "")
                 onSuccess(null)
             }
+            /****************************************         LISTS           ********************************************/
             else if(msg== "Loading summary lists - successful"){
                 val listsInfoArr = JSONArray(json.getString("listsongs"))
                 val listOfLists = ArrayList<ListSongs>()
@@ -108,6 +112,15 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Creating listsong successful", "Successful")
                 onSuccess(listID)
             }
+            else if(msg== "Updating listsongs - successful"){
+                //TODO: check if neccesary to retrieve new listname
+                Log.d("Updating listsong successful", "Successful")
+                onSuccess(null)
+            }
+            else if(msg== "Deleting listsongs - successful"){
+                Log.d("Deleting listsong successful", "Successful")
+                onSuccess(null)
+            }
             else if(msg== "Adding songs into listsongs - successful"){
                 //TODO check if necessary to load the listsong
                 Log.d("Adding songs into listsongs successful", "Successful")
@@ -118,20 +131,16 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Removing songs from listsongs successful", "Successful")
                 onSuccess(null)
             }
-
-
             else {
                 Log.d("Failed", msg)
                 onFail()
             }
-
         } catch (ex: Exception) {
             Log.e("Exception error", ex.message, ex)
         }
     }
     override fun onPostExecute(result : String?) {
-        //after the task is done
-        super.onPostExecute(result)
+        super.onPostExecute(result)        //after the task is done
     }
 
     fun convertStreamToString(inputStrm: InputStream) : String{

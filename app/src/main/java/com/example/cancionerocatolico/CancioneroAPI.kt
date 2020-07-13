@@ -221,4 +221,24 @@ open class CancioneroAPI {
             }
         ).execute(url)
     }
+
+
+    fun removeWholeList(listID:Int, success: (Boolean) -> Unit) {
+        //Remove songsList and its relation  [two tables affected]
+        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+            .buildUpon()
+            .appendQueryParameter("case", "3")
+            .appendQueryParameter("list_id", listID.toString())
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = {
+//                Toast.makeText(applicationContext, "Removing list failed", Toast.LENGTH_SHORT).show()
+            },
+            onSuccess = {
+                success(true)
+            }
+        ).execute(url)
+    }
 }

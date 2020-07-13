@@ -58,4 +58,11 @@ class ViewMyListsActivity : AppCompatActivity() {
 
         })
     }
+
+    fun deleteList(listID : Int, success : (Boolean) -> Unit){
+        cancAPI.removeWholeList(listID, success = { result ->
+            success(true)
+        })
+    }
+
 }

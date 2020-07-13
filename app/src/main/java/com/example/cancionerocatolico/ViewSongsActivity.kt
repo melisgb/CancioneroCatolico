@@ -225,7 +225,7 @@ class ViewSongsActivity : AppCompatActivity() {
             if(!selectedSongs.isEmpty()){
                 when(actionMode){
                     null ->
-                        actionMode = this.startActionMode(actionModeCallback)
+                        actionMode = this@ViewSongsActivity.startActionMode(actionModeCallback)
                 }
             }
             true
