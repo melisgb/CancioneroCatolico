@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.RecyclerView
 
 class MyListAdapter(val context: Context, private val listOfLists : List<ListSongs>) : RecyclerView.Adapter<MyListAdapter.ViewHolder>() {
@@ -33,7 +34,8 @@ class MyListAdapter(val context: Context, private val listOfLists : List<ListSon
         val listNameTxtView = holder.listNameTxtView
         listNameTxtView.text = list.listSongsName
 
-        listNameTxtView.setOnClickListener {
+        val viewgroup = holder.viewg
+        viewgroup.setOnClickListener {
             val intent = Intent(context, ViewSpecificListActivity::class.java)
             intent.putExtra("listID", list.listSongsID)
             intent.putExtra("listName", list.listSongsName)
@@ -44,6 +46,7 @@ class MyListAdapter(val context: Context, private val listOfLists : List<ListSon
     inner class ViewHolder(listItemView : View) : RecyclerView.ViewHolder(listItemView) {
         //The holder will contain/initialize the view that'll be set as a row.
         val listNameTxtView = listItemView.findViewById<TextView>(R.id.txtvListNameElem)
+        val viewg = listItemView.findViewById<Group>(R.id.viewgListElem)
     }
 
 }
