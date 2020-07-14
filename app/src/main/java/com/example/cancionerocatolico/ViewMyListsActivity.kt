@@ -19,6 +19,7 @@ class ViewMyListsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_my_lists)
 
+        title = getString(R.string.view_my_lists_title)
         listsRecyclerView = findViewById(R.id.recyclervMyLists)
 //        generateList(20) //dummy data
         getSummaryLists(success = {

@@ -168,10 +168,10 @@ class ViewSongsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_songs)
 
+        title = getString(R.string.view_songs_title)
         songsAdapter = SongAdapter(this, songsList)
         songsListView = findViewById<ListView>(R.id.lvListofSongs)
         songsListView.adapter = songsAdapter
-
 
         songsList.clear()
 //        cancioneroAPI.loadSongs()

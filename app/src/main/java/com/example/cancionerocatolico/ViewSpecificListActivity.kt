@@ -17,6 +17,8 @@ class ViewSpecificListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_specific_list)
 
+        title = getString(R.string.view_specific_list_title)
+
         val extras = intent.extras
         val listID = extras!!.getInt("listID")
         val listName = extras!!.getString("listName")
