@@ -8,8 +8,8 @@ import android.widget.ListView
 import com.google.android.material.chip.Chip
 
 class ViewSongsByKeyActivity : AppCompatActivity() {
-    var selectedFilters : String = ""
-    var cancAPI = CancioneroAPI()
+    val selectedFilters = HashSet<String>()
+    val cancAPI = CancioneroAPI()
     var songsTagsAdapter : SongAdapter? = null
     lateinit var songsTagsListView : ListView
     var songsList = ArrayList<Song>()
@@ -18,25 +18,13 @@ class ViewSongsByKeyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_songs_by_key)
 
+        title = getString(R.string.view_songs_by_key_title)
         songsTagsAdapter = SongAdapter(this, songsList)
         songsTagsListView = findViewById<ListView>(R.id.lvListSongsByTags)
         songsTagsListView.adapter = songsTagsAdapter
         songsList.clear()
 
-        getSongByTags(selectedFilters)
-
-        val intentExtra = intent.extras
-        val key = intentExtra!!.getString("key")
-
-        if(key == "parts"){
-            val horizontalViewSeasons = findViewById<HorizontalScrollView>(R.id.chipsForSeasons)
-            horizontalViewSeasons.visibility = View.INVISIBLE
-        }
-        if(key == "seasons"){
-            val horizontalViewParts = findViewById<HorizontalScrollView>(R.id.chipsForParts)
-            horizontalViewParts.visibility = View.INVISIBLE
-        }
-
+        getSongByTags("%")
     }
 
     fun chipClicked(view: View) {
@@ -44,22 +32,17 @@ class ViewSongsByKeyActivity : AppCompatActivity() {
         val chipText = chipFilter.text.toString()
 
         if(selectedFilters.contains(chipText)){
-            val idx = selectedFilters.indexOf(chipText)
-            selectedFilters = selectedFilters.substring(0,idx) + selectedFilters.substringAfter(chipText)
-            selectedFilters = selectedFilters.removeSuffix(",")
+            selectedFilters.remove(chipText)
             chipFilter.isSelected = false
+            chipFilter.isCloseIconVisible = false
         }
         else{
             chipFilter.isSelected = true
-            if(selectedFilters!=""){
-                selectedFilters += ",$chipText"
-            }
-            else {
-                selectedFilters += chipText
-            }
+            chipFilter.isCloseIconVisible = true
+            chipFilter.setOnCloseIconClickListener { chipClicked(view) }
+            selectedFilters.add(chipText)
         }
-
-        getSongByTags(selectedFilters)
+        getSongByTags(selectedFilters.joinToString( "," ))
     }
 
 

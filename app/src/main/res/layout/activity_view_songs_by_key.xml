@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".ViewSongsByKeyActivity">
+
         <HorizontalScrollView
             android:id="@+id/chipsForParts"
             android:paddingStart="5dp"
@@ -105,8 +106,8 @@
             android:id="@+id/chipsForSeasons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-50dp"
             android:paddingStart="5dp"
+            android:paddingTop="3dp"
             android:paddingEnd="5dp"
             android:scrollbars="none">
 
@@ -118,50 +119,50 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:onClick="chipClicked"
                             android:text="@string/chip_ordinary"
-                            app:chipBackgroundColor="@color/chip_style"
                             android:theme="@style/Theme.MaterialComponents"
-                            android:onClick="chipClicked" />
+                            app:chipBackgroundColor="@color/chip_style" />
                         <!-- preferred: @style/Theme.MaterialComponents-->
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:onClick="chipClicked"
                             android:text="@string/chip_lent"
-                            app:chipBackgroundColor="@color/chip_style"
                             android:theme="@style/Theme.MaterialComponents"
-                            android:onClick="chipClicked" />
+                            app:chipBackgroundColor="@color/chip_style" />
 
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:onClick="chipClicked"
                             android:text="@string/chip_easter"
-                            app:chipBackgroundColor="@color/chip_style"
                             android:theme="@style/Theme.MaterialComponents"
-                            android:onClick="chipClicked" />
+                            app:chipBackgroundColor="@color/chip_style" />
 
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:onClick="chipClicked"
                             android:text="@string/chip_pentecost"
-                            app:chipBackgroundColor="@color/chip_style"
                             android:theme="@style/Theme.MaterialComponents"
-                            android:onClick="chipClicked" />
+                            app:chipBackgroundColor="@color/chip_style" />
 
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:onClick="chipClicked"
                             android:text="@string/chip_advent"
-                            app:chipBackgroundColor="@color/chip_style"
                             android:theme="@style/Theme.MaterialComponents"
-                            android:onClick="chipClicked" />
+                            app:chipBackgroundColor="@color/chip_style" />
 
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:onClick="chipClicked"
                             android:text="@string/chip_christmas"
-                            app:chipBackgroundColor="@color/chip_style"
                             android:theme="@style/Theme.MaterialComponents"
-                            android:onClick="chipClicked" />
+                            app:chipBackgroundColor="@color/chip_style" />
 
                 </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
@@ -169,7 +170,8 @@
         <ListView
             android:id="@+id/lvListSongsByTags"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

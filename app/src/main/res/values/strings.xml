@@ -2,8 +2,7 @@
     <string name="app_name">Clave Dei</string>
     <string name="view_songs_title">Listado canciones</string>
     <string name="button_viewSongs">Ver canciones</string>
-    <string name="button_viewSongsByParts">Canciones por Partes</string>
-    <string name="button_viewSongsBySeasons">Canciones por Tiempo</string>
+    <string name="button_viewSongsByTags">Canciones por Tags</string>
     <string name="button_viewMyLists">Mis listas</string>
     <string name="button_login">Login</string>
     <string name="list_icon_desc">iconoLista</string>
@@ -43,4 +42,5 @@
     <string name="chip_pentecost">Pentecostes</string>
     <string name="chip_advent">Adviento</string>
     <string name="chip_christmas">Navidad</string>
+    <string name="view_songs_by_key_title">Listado Canciones por Clave</string>
 </resources>
