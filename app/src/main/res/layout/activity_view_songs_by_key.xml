@@ -1,33 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".ViewSongsByKeyActivity">
-
-    <com.google.android.material.chip.ChipGroup
-        id="@+id/chips_filter"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:singleSelection="false">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/choice1"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:id="@+id/chipsForParts"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/string_demo" />
+            android:scrollbars="none">
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/partsChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/choice2"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="wrap_content"
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_entrance"
+                            android:onClick="chipClicked" />
+                        <!-- preferred: @style/Theme.MaterialComponents-->
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_mercy"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_glory"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_psalm"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_alleluia"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_offertory"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_peace"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_lambGod"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_communion"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:text="@string/chip_exit"
+                            android:onClick="chipClicked" />
+                </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:id="@+id/chipsForSeasons"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/string_demo" />
-    </com.google.android.material.chip.ChipGroup>
+            android:layout_marginTop="-50dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:scrollbars="none">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/seasonsChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_ordinary"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:onClick="chipClicked" />
+                        <!-- preferred: @style/Theme.MaterialComponents-->
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_lent"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_easter"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_pentecost"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_advent"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/chip_christmas"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            android:onClick="chipClicked" />
+
+                </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+</LinearLayout>

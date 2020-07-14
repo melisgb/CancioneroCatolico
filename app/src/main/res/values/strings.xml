@@ -25,4 +25,22 @@
     <string name="msg_edit_list_name">Asigna un nuevo nombre</string>
     <string name="view_my_lists_title">Mis listas</string>
     <string name="view_specific_list_title">Detalle lista</string>
+    <!-- Partes de misa -->
+    <string name="chip_entrance">Entrada</string>
+    <string name="chip_mercy">Piedad</string>
+    <string name="chip_glory">Gloria</string>
+    <string name="chip_psalm">Salmo</string>
+    <string name="chip_alleluia">Proclamacion</string>
+    <string name="chip_offertory">Ofertorio</string>
+    <string name="chip_peace">Paz</string>
+    <string name="chip_lambGod">Cordero</string>
+    <string name="chip_communion">Comunion</string>
+    <string name="chip_exit">Salida</string>
+    <!-- Tiempos de misa -->
+    <string name="chip_ordinary">Ordinario</string>
+    <string name="chip_lent">Cuaresma</string>
+    <string name="chip_easter">Pascua</string>
+    <string name="chip_pentecost">Pentecostes</string>
+    <string name="chip_advent">Adviento</string>
+    <string name="chip_christmas">Navidad</string>
 </resources>
