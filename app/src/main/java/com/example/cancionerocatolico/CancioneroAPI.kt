@@ -34,6 +34,24 @@ open class CancioneroAPI {
         ).execute(url)
     }
 
+    fun loadSongsByTags(tags : String, success : (ArrayList<Song>) -> Unit, fail : (Any?) -> Unit){
+        //Search into DB based on tags
+        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
+            .buildUpon()
+            .appendQueryParameter("case", "4")
+            .appendQueryParameter("song_tags", tags)
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = {
+            },
+            onSuccess = { listOfSongs ->
+                success(listOfSongs as ArrayList<Song>)
+            }
+        ).execute(url)
+    }
+
     /***                SONGS EDITION            ***/
 
     fun addSong(song: Song, success: (Song) -> Unit) {
