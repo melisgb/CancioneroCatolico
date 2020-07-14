@@ -9,13 +9,12 @@
     android:paddingTop="8dp"
     android:paddingEnd="10dp"
     android:paddingBottom="8dp">
-
-
     <ImageView
         android:id="@+id/ivListIconElem"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="2dp"
+
         android:contentDescription="@string/list_icon_desc"
         app:srcCompat="@drawable/songlist" />
 

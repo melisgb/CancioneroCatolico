@@ -22,7 +22,7 @@ class ViewMyListsActivity : AppCompatActivity() {
         listsRecyclerView = findViewById(R.id.recyclervMyLists)
 //        generateList(20) //dummy data
         getSummaryLists(success = {
-            listsAdapter = MyListAdapter(listOfListsSongs)
+            listsAdapter = MyListAdapter(applicationContext, listOfListsSongs)
             listsRecyclerView!!.adapter = listsAdapter
             listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
         })
@@ -35,7 +35,7 @@ class ViewMyListsActivity : AppCompatActivity() {
 
     override fun onResume() {
         getSummaryLists(success = {
-            listsAdapter = MyListAdapter(listOfListsSongs)
+            listsAdapter = MyListAdapter(applicationContext, listOfListsSongs)
             listsRecyclerView!!.adapter = listsAdapter
             listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
         })

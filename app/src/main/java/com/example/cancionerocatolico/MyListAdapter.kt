@@ -1,14 +1,17 @@
 package com.example.cancionerocatolico
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class MyListAdapter(private val listOfLists : List<ListSongs>) : RecyclerView.Adapter<MyListAdapter.ViewHolder>() {
+class MyListAdapter(val context: Context, private val listOfLists : List<ListSongs>) : RecyclerView.Adapter<MyListAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyListAdapter.ViewHolder {
@@ -16,12 +19,6 @@ class MyListAdapter(private val listOfLists : List<ListSongs>) : RecyclerView.Ad
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val listView = inflater.inflate(R.layout.element_view_my_lists, parent, false)
-        listView.setOnClickListener {
-            val intent = Intent(context, ViewSpecificListActivity::class.java)
-            intent.putExtra("listID", 31)
-            intent.putExtra("listName", "NuevaLista20_07_13_18_55_41")
-            context.startActivity(intent)
-        }
         return ViewHolder(listView)
     }
 
@@ -34,7 +31,14 @@ class MyListAdapter(private val listOfLists : List<ListSongs>) : RecyclerView.Ad
         //to set the view attributes based on the data
         val list : ListSongs = listOfLists[position]
         val listNameTxtView = holder.listNameTxtView
-        listNameTxtView.setText(list.listSongsName)
+        listNameTxtView.text = list.listSongsName
+
+        listNameTxtView.setOnClickListener {
+            val intent = Intent(context, ViewSpecificListActivity::class.java)
+            intent.putExtra("listID", list.listSongsID)
+            intent.putExtra("listName", list.listSongsName)
+            context.startActivity(intent)
+        }
     }
 
     inner class ViewHolder(listItemView : View) : RecyclerView.ViewHolder(listItemView) {
