@@ -16,6 +16,7 @@ import kotlin.collections.HashMap
 class ReadSongActivity : AppCompatActivity() {
     var song_id : Int = 0
     var cancAPI = CancioneroAPI()
+    val lyricsApi = Lyrics()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_song)
@@ -36,6 +37,7 @@ class ReadSongActivity : AppCompatActivity() {
                 txtvReadSongArtist.text = song.songArtist
                 txtvReadSongLyrics.text = song.songLyrics
                 txtvReadSongTags.text = song.songTags
+                transform(song.songLyrics)
             }
         )
     }
@@ -148,5 +150,9 @@ class ReadSongActivity : AppCompatActivity() {
             }
             else -> false
         }
+    }
+
+    fun transform(lyrics : String){
+        val newLyrics = lyricsApi.transformLyrics(lyrics)
     }
 }
