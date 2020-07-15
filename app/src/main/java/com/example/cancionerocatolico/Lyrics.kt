@@ -9,25 +9,17 @@ class Lyrics {
         val allContent = lyrics.reader().readLines()
 
         for(line in allContent){
-            var type = ""
+            var type = LyricsLine.LyricsLineType.BLANK
             val lineArr = line.split(Regex("\\s+"))
             for(word in lineArr) {
                 type = when {
-                    word == "" -> "Blank"
-                    word.matches("""([A-G])(#|7)?""".toRegex()) || latinChordsPatt.matches(word) -> "Chords"
+                    word == "" -> LyricsLine.LyricsLineType.BLANK
+                    word.matches("""([A-G])(#|7)?""".toRegex(RegexOption.IGNORE_CASE)) || latinChordsPatt.matches(word) -> LyricsLine.LyricsLineType.CHORDS
                     //".*\\d.*".toRegex()
-                    else -> "Verse"
+                    else -> LyricsLine.LyricsLineType.VERSE
                 }
             }
-            if(type == "Blank"){
-                newLyrics.add(LyricsLine(line, LyricsLine.LyricsLineType.BLANK))
-            }
-            else if(type =="Chords"){
-                newLyrics.add(LyricsLine(line, LyricsLine.LyricsLineType.CHORDS))
-            }
-            else{
-                newLyrics.add(LyricsLine(line, LyricsLine.LyricsLineType.VERSE))
-            }
+            newLyrics.add(LyricsLine(line, type))
         }
         return newLyrics
     }
