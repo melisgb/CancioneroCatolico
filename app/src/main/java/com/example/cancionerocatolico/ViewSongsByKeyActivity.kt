@@ -1,5 +1,6 @@
 package com.example.cancionerocatolico
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,6 +26,13 @@ class ViewSongsByKeyActivity : AppCompatActivity() {
         songsList.clear()
 
         getSongByTags("%")
+
+        songsTagsListView.setOnItemClickListener { parent, view, position, longID ->
+            val songId = longID.toInt() //calling getItemId
+            val intent = Intent(this, ReadSongActivity::class.java)
+            intent.putExtra("song_id", songId)
+            startActivity(intent)
+        }
     }
 
     fun chipClicked(view: View) {

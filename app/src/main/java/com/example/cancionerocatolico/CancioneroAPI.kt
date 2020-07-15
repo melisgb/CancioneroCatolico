@@ -1,7 +1,6 @@
 package com.example.cancionerocatolico
 
 import android.net.Uri
-import kotlinx.android.synthetic.main.activity_read_song.*
 import java.net.URLEncoder
 
 open class CancioneroAPI {
@@ -116,7 +115,7 @@ open class CancioneroAPI {
         ).execute(url)
     }
 
-    fun deleteSong(songID: Int, success: (Any?) -> Unit ) {
+    fun deleteSong( songID: Int, success: (Any?) -> Unit, fail: (Any?) -> Unit ) {
         //Deletes a song
         val url = Uri.parse("http://10.0.2.2:8000/cancionero/edit_song.php?")
             .buildUpon()
@@ -127,6 +126,7 @@ open class CancioneroAPI {
 
         MyAsyncTask(
             onFail = {
+                fail(null)
             },
             onSuccess = {
                 success(null)

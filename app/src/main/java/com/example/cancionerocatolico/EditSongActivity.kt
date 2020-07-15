@@ -59,6 +59,8 @@ class EditSongActivity : AppCompatActivity() {
             val title = etxtSongTitle.text.toString()
             val artist = etxtSongArtist.text.toString()
             val lyrics = etxtSongLyrics.text.toString()
+//            val lyricsUnformatted = etxtSongLyrics.text.toString()
+//            val lyrics = formatLyrics(lyricsUnformatted)
             val tags = etxtSongTags.text.toString()
 
             val currSong = Song(songID, title, artist, lyrics, tags)
@@ -68,8 +70,6 @@ class EditSongActivity : AppCompatActivity() {
 
     fun addSongDB(song : Song){
         //Adds the song in DB
-
-
         cancAPI.addSong(song,
             success = { nSong ->
                 val newSong  = nSong as Song
@@ -88,5 +88,10 @@ class EditSongActivity : AppCompatActivity() {
                 finish()
             })
         //TODO: Create a fail behaviour?
+    }
+
+    fun formatLyrics(lyricsUnformatted : String) : String {
+        val lyr = lyricsUnformatted.reader().readLines()
+        return lyr.joinToString("|")
     }
 }

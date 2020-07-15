@@ -1,7 +1,6 @@
 package com.example.cancionerocatolico
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,12 +8,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_read_song.*
-import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
-import kotlin.collections.HashSet
 
 class ReadSongActivity : AppCompatActivity() {
     var song_id : Int = 0
@@ -35,10 +32,10 @@ class ReadSongActivity : AppCompatActivity() {
     fun loadSong(songID : Int)  {
         cancAPI.readSong(songID, 
             success = { song ->
-                txtvReadSongTitle.setText(song.songTitle)
-                txtvReadSongArtist.setText(song.songArtist)
-                txtvReadSongLyrics.setText(song.songLyrics)
-                txtvReadSongTags.setText(song.songTags)
+                txtvReadSongTitle.text = song.songTitle
+                txtvReadSongArtist.text = song.songArtist
+                txtvReadSongLyrics.text = song.songLyrics
+                txtvReadSongTags.text = song.songTags
             }
         )
     }
@@ -87,7 +84,7 @@ class ReadSongActivity : AppCompatActivity() {
                                         cancAPI.loadCurrentList(listID!!,
                                             success = { currentList ->
                                                 cancAPI.insertToList(listID!!, song_id.toString())
-                                                Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
                                             })
                                     })
                             }
@@ -96,7 +93,7 @@ class ReadSongActivity : AppCompatActivity() {
                                 cancAPI.loadCurrentList(listID!!,
                                     success = { currentList ->
                                         cancAPI.insertToList(listID!!, song_id.toString())
-                                        Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT
+                                        Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT
                                         ).show()
                                     })
                             }
@@ -121,7 +118,7 @@ class ReadSongActivity : AppCompatActivity() {
                         cancAPI.loadCurrentList(listID!!,
                             success = { currentList ->
                                 cancAPI.insertToList(listID!!, song_id.toString())
-                                Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
                             })
                     })
                 true
@@ -136,12 +133,15 @@ class ReadSongActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
-            R.id.action_deleteSong -> {
+            R.id.action_deleteSong-> {
                 cancAPI.deleteSong(
                     song_id,
                     success = {
                         Toast.makeText( applicationContext,"Cancion eliminada", Toast.LENGTH_SHORT).show()
                         finish()
+                    },
+                    fail = {
+                        Toast.makeText( applicationContext,"No se pudo eliminar, pertenece a una lista", Toast.LENGTH_SHORT).show()
                     }
                 )
                 true

@@ -222,7 +222,7 @@ class ViewSongsActivity : AppCompatActivity() {
                 checkbox.isChecked = true
                 checkbox.visibility = View.VISIBLE
             }
-            if(!selectedSongs.isEmpty()){
+            if(selectedSongs.isNotEmpty()){
                 when(actionMode){
                     null ->
                         actionMode = this@ViewSongsActivity.startActionMode(actionModeCallback)
@@ -230,7 +230,6 @@ class ViewSongsActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     override fun onResume() {
