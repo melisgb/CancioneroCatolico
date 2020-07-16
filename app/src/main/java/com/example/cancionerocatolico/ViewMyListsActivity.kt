@@ -32,6 +32,7 @@ class ViewMyListsActivity : AppCompatActivity() {
             listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
         })
 
+
     }
 
     override fun onRestart() {
