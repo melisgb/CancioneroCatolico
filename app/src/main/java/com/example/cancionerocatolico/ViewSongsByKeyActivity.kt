@@ -23,8 +23,7 @@ class ViewSongsByKeyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_songs_by_key)
 
         title = getString(R.string.view_songs_by_key_title)
-        songsTagsAdapter =
-            SongAdapter(this, songsList)
+        songsTagsAdapter = SongAdapter(this, songsList)
         songsTagsListView = findViewById<ListView>(R.id.lvListSongsByTags)
         songsTagsListView.adapter = songsTagsAdapter
         songsList.clear()

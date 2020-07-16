@@ -33,7 +33,7 @@ class Lyrics {
 
     fun isChord(word: String) : Boolean {
         var latinChordsPatt  = "(Do|Re|Mi|Fa|Sol|La|Si)(#|7|#m|m|b)?".toRegex(RegexOption.IGNORE_CASE)
-        var ameriChordsPatt = """([A-G])(#|7|sus|m)?""".toRegex()
+        var ameriChordsPatt = """([A-G])(#|7|sus|#m|m|/)?""".toRegex()
         return word.matches(ameriChordsPatt) || word.matches(latinChordsPatt)
     }
 }

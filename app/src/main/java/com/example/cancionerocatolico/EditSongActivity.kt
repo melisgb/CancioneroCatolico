@@ -44,7 +44,6 @@ class EditSongActivity : AppCompatActivity() {
             val artist = etxtSongArtist.text.toString()
             val lyrics = etxtSongLyrics.text.toString()
             val tags = etxtSongTags.text.toString()
-
             val newSong = Song(
                 id,
                 title,
