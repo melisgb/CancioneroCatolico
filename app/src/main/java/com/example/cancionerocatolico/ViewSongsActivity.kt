@@ -232,9 +232,9 @@ class ViewSongsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
+    override fun onRestart() {
         getSongs("%",0)
-        super.onResume()
+        super.onRestart()
     }
 
     // SEARCH_BAR IMPLEMENTATION

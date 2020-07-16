@@ -39,10 +39,6 @@ class EditSongActivity : AppCompatActivity() {
         }
 
         btnCreateSong.setOnClickListener {
-            val myToast = Toast.makeText(applicationContext, R.string.toast_createSong, Toast.LENGTH_SHORT)
-            myToast.setGravity(Gravity.BOTTOM, 0, 50)
-            myToast.show()
-            //TODO: Create song in DB
             val id = 0
             val title = etxtSongTitle.text.toString()
             val artist = etxtSongArtist.text.toString()
@@ -50,9 +46,7 @@ class EditSongActivity : AppCompatActivity() {
             val tags = etxtSongTags.text.toString()
 
             val newSong = Song(id, title, artist, lyrics, tags)
-            //TODO: add the song into the list / DB
             addSongDB(newSong)
-            finish()
         }
 
         btnUpdateSong.setOnClickListener {
@@ -74,7 +68,7 @@ class EditSongActivity : AppCompatActivity() {
             success = { nSong ->
                 val newSong  = nSong as Song
                 songID = newSong.songID
-                Toast.makeText(applicationContext, "Song added", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.toast_createSong, Toast.LENGTH_SHORT).show()
                 finish()
             })
         //TODO: Create a fail behaviour?
@@ -84,7 +78,7 @@ class EditSongActivity : AppCompatActivity() {
         //Updates the song in DB
         cancAPI.updateSong(song,
             success = {
-                Toast.makeText(applicationContext, "Song updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.toast_updateSong, Toast.LENGTH_SHORT).show()
                 finish()
             })
         //TODO: Create a fail behaviour?

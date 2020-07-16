@@ -15,6 +15,7 @@
     <string name="hint_song_tags">Tags</string>
     <string name="button_addSong">Agregar</string>
     <string name="button_updateSong">Actualizar</string>
+    <string name="toast_updateSong">Cancion actualizada</string>
     <string name="toast_createSong">Cancion creada</string>
     <string name="edit_song">Editar</string>
     <string name="delete_song">Eliminar</string>

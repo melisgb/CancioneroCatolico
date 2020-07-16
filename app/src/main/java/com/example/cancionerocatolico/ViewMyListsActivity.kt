@@ -34,13 +34,13 @@ class ViewMyListsActivity : AppCompatActivity() {
 //        listsAdapter!!.notifyItemInserted(0) //required in RecyclerView
     }
 
-    override fun onResume() {
+    override fun onRestart() {
         getSummaryLists(success = {
             listsAdapter = MyListAdapter(applicationContext, listOfListsSongs)
             listsRecyclerView!!.adapter = listsAdapter
             listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
         })
-        super.onResume()
+        super.onRestart()
 
     }
 

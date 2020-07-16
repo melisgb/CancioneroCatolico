@@ -1,17 +1,21 @@
 package com.example.cancionerocatolico
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
+import android.text.*
+import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_read_song.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
+
 
 class ReadSongActivity : AppCompatActivity() {
     var song_id : Int = 0
@@ -25,9 +29,9 @@ class ReadSongActivity : AppCompatActivity() {
         loadSong(song_id)
     }
 
-    override fun onResume() {
+    override fun onRestart() {
         loadSong(song_id)
-        super.onResume()
+        super.onRestart()
     }
 
     fun loadSong(songID : Int)  {
@@ -35,14 +39,19 @@ class ReadSongActivity : AppCompatActivity() {
             success = { song ->
                 txtvReadSongTitle.text = song.songTitle
                 txtvReadSongArtist.text = song.songArtist
-                txtvReadSongLyrics.text = song.songLyrics
                 txtvReadSongTags.text = song.songTags
-                transform(song.songLyrics)
+
+                val lyricsArray = transform(song.songLyrics)
+                val spannArray = ArrayList<Spannable>()
+                for(lyr in lyricsArray){
+                    spannArray.add(lyricsToSpannable(lyr))
+                }
+
+                txtvReadSongLyrics.text = spannArray.joinToSpannedString("\n")
+//                txtvReadSongLyrics.text = song.songLyrics
             }
         )
     }
-
-
 
     override fun onCreateOptionsMenu( menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -152,7 +161,29 @@ class ReadSongActivity : AppCompatActivity() {
         }
     }
 
-    fun transform(lyrics : String){
-        val newLyrics = lyricsApi.transformLyrics(lyrics)
+    fun transform(lyrics : String) : ArrayList<LyricsLine> {
+        return lyricsApi.transformLyrics(lyrics)
+    }
+
+    fun lyricsToSpannable(lyricLine : LyricsLine) : Spannable {
+        val lineToSpan: Spannable = SpannableString(lyricLine.line)
+        if(lyricLine.type == LyricsLine.LyricsLineType.VERSE){
+            lineToSpan.setSpan(
+                ForegroundColorSpan(Color.BLACK), 0, lyricLine.line.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        else if(lyricLine.type == LyricsLine.LyricsLineType.CHORDS){
+            lineToSpan.setSpan(
+                ForegroundColorSpan(Color.BLUE), 0, lyricLine.line.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        return lineToSpan
+    }
+
+    fun <T> Iterable<T>.joinToSpannedString(separator: CharSequence = ", ", prefix: CharSequence = "", postfix: CharSequence = "", limit: Int = -1, truncated: CharSequence = "...", transform: ((T) -> CharSequence)? = null): SpannedString {
+        return joinTo(SpannableStringBuilder(), separator, prefix, postfix, limit, truncated, transform)
+            .let { SpannedString(it) }
     }
 }
