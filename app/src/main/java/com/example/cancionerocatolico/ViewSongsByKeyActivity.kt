@@ -4,13 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.HorizontalScrollView
 import android.widget.ListView
+import com.example.cancionerocatolico.adapter.SongAdapter
+import com.example.cancionerocatolico.api.CancioneroAPI
+import com.example.cancionerocatolico.objects.Song
+import com.example.cancionerocatolico.utils.UserHelper
 import com.google.android.material.chip.Chip
 
 class ViewSongsByKeyActivity : AppCompatActivity() {
     val selectedFilters = HashSet<String>()
-    val cancAPI = CancioneroAPI()
+    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     var songsTagsAdapter : SongAdapter? = null
     lateinit var songsTagsListView : ListView
     var songsList = ArrayList<Song>()
@@ -20,7 +23,8 @@ class ViewSongsByKeyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_songs_by_key)
 
         title = getString(R.string.view_songs_by_key_title)
-        songsTagsAdapter = SongAdapter(this, songsList)
+        songsTagsAdapter =
+            SongAdapter(this, songsList)
         songsTagsListView = findViewById<ListView>(R.id.lvListSongsByTags)
         songsTagsListView.adapter = songsTagsAdapter
         songsList.clear()

@@ -1,18 +1,18 @@
 package com.example.cancionerocatolico
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.widget.Button
 import android.widget.Toast
+import com.example.cancionerocatolico.api.CancioneroAPI
+import com.example.cancionerocatolico.objects.Song
+import com.example.cancionerocatolico.utils.UserHelper
 import kotlinx.android.synthetic.main.activity_edit_song.*
-import java.net.URLEncoder
-import kotlin.random.Random
+
 /* Activity to CREATE or EDIT a SONG */
 class EditSongActivity : AppCompatActivity() {
     var songID : Int = 0
-    var cancAPI = CancioneroAPI()
+    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,13 @@ class EditSongActivity : AppCompatActivity() {
             val lyrics = etxtSongLyrics.text.toString()
             val tags = etxtSongTags.text.toString()
 
-            val newSong = Song(id, title, artist, lyrics, tags)
+            val newSong = Song(
+                id,
+                title,
+                artist,
+                lyrics,
+                tags
+            )
             addSongDB(newSong)
         }
 
@@ -57,7 +63,13 @@ class EditSongActivity : AppCompatActivity() {
 //            val lyrics = formatLyrics(lyricsUnformatted)
             val tags = etxtSongTags.text.toString()
 
-            val currSong = Song(songID, title, artist, lyrics, tags)
+            val currSong = Song(
+                songID,
+                title,
+                artist,
+                lyrics,
+                tags
+            )
             updateSongDB(currSong)
         }
     }

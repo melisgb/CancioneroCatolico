@@ -11,6 +11,11 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import com.example.cancionerocatolico.adapter.SongAdapter
+import com.example.cancionerocatolico.api.CancioneroAPI
+import com.example.cancionerocatolico.objects.ListSongs
+import com.example.cancionerocatolico.objects.Song
+import com.example.cancionerocatolico.utils.UserHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.element_view_songs.*
 import java.text.SimpleDateFormat
@@ -23,7 +28,7 @@ class ViewSongsActivity : AppCompatActivity() {
 //    var songsList = ArrayList<Song>()
     var songsAdapter : SongAdapter? = null
     lateinit var songsListView : ListView
-    var cancAPI = CancioneroAPI()
+    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     var selectedSongs = HashSet<Int>()
     var actionMode : ActionMode? = null
     var currentList : ListSongs? = null  //For func loadCurrentList
@@ -57,7 +62,7 @@ class ViewSongsActivity : AppCompatActivity() {
                             //to create New list
                             val df = SimpleDateFormat("yy_MM_dd_HH_mm_ss")
                             val currDate = Date()
-                            listNamesA.add("NuevaLista"+ df.format(currDate))
+                            listNamesA.add("Lista"+ df.format(currDate))
 
                             val listNames = listNamesA.toArray(emptyArray<String>())
                             var selected_ListName = ""
@@ -68,12 +73,7 @@ class ViewSongsActivity : AppCompatActivity() {
                             builder.setSingleChoiceItems(listNames, -1)  { dialogInterface, i ->
                                 selected_ListName = listNames[i]
 
-                                var myListSongs = HashMap<Int, Song>()
-                                for(songID in copySelectedSongs) {
-                                    myListSongs[songID] = songsList[songID]
-                                }
                                 var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
-//
                                 if(listID == null){
                                     //insert new list
                                     cancAPI.createList(selected_ListName,
@@ -81,29 +81,18 @@ class ViewSongsActivity : AppCompatActivity() {
                                             listID = newlistID
                                             cancAPI.loadCurrentList(listID!!,
                                                 success = { currentList ->
-                                                    var strSelectedSongs =
-                                                        copySelectedSongs.joinToString(",")
+                                                    var strSelectedSongs = copySelectedSongs.joinToString(",")
                                                     cancAPI.insertToList(listID!!, strSelectedSongs)
-                                                    Toast.makeText(
-                                                        applicationContext,
-                                                        "Canciones agregadas a ${selected_ListName}",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
+                                                    Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}", Toast.LENGTH_SHORT).show()
                                                 })
                                         })
-                                }
-                                else {
-                                    //   When there is a LISTID / the list is already created
+                                } else {
+                                    //   insert to already created list
                                     cancAPI.loadCurrentList(listID!!,
                                         success = { currentList ->
-                                            var strSelectedSongs =
-                                                copySelectedSongs.joinToString(",")
+                                            var strSelectedSongs = copySelectedSongs.joinToString(",")
                                             cancAPI.insertToList(listID!!, strSelectedSongs)
-                                            Toast.makeText(
-                                                applicationContext,
-                                                "Canciones agregadas a ${selected_ListName}",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
+                                            Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
                                         })
                                 }
                                 refreshAll()
@@ -169,7 +158,8 @@ class ViewSongsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_songs)
 
         title = getString(R.string.view_songs_title)
-        songsAdapter = SongAdapter(this, songsList)
+        songsAdapter =
+            SongAdapter(this, songsList)
         songsListView = findViewById<ListView>(R.id.lvListofSongs)
         songsListView.adapter = songsAdapter
 

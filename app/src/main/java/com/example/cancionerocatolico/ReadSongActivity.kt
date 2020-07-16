@@ -10,6 +10,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cancionerocatolico.api.CancioneroAPI
+import com.example.cancionerocatolico.objects.LyricsLine
+import com.example.cancionerocatolico.objects.Song
+import com.example.cancionerocatolico.utils.Lyrics
+import com.example.cancionerocatolico.utils.UserHelper
 import kotlinx.android.synthetic.main.activity_read_song.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,7 +24,7 @@ import kotlin.collections.HashMap
 
 class ReadSongActivity : AppCompatActivity() {
     var song_id : Int = 0
-    var cancAPI = CancioneroAPI()
+    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     val lyricsApi = Lyrics()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,10 +77,10 @@ class ReadSongActivity : AppCompatActivity() {
                         //to create New list
                         val df = SimpleDateFormat("yy_MM_dd_HH_mm_ss")
                         val currDate = Date()
-                        listNamesA.add("NuevaLista"+ df.format(currDate))
-
+                        listNamesA.add("Lista"+ df.format(currDate))
                         val listNames = listNamesA.toArray(emptyArray<String>())
                         var selected_ListName = ""
+
                         val builder = AlertDialog.Builder(this@ReadSongActivity)
                         builder.setTitle(R.string.choose_list)
                         builder.setIcon(R.drawable.ic_add_to_list)
@@ -83,7 +88,7 @@ class ReadSongActivity : AppCompatActivity() {
                             selected_ListName = listNames[i]
 
                             var myListSongs = HashMap<Int, Song>()
-                            myListSongs[song_id] = ViewSongsActivity.songsList[song_id]
+                            myListSongs[song_id] = ViewSongsActivity.songsList.find { s -> s.songID  == song_id }!!
 
                             var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
 //

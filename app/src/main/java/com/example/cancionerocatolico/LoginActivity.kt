@@ -1,9 +1,10 @@
 package com.example.cancionerocatolico
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
+import com.example.cancionerocatolico.objects.UserInfo
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,9 +15,17 @@ class LoginActivity : AppCompatActivity() {
 
         val loginBtn = findViewById<Button>(R.id.btnLogin)
         loginBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            loginUser()
         }
 
+    }
+    fun loginUser(){
+        //set if Firebase will be needed or just the DB, so far it will be manually
+        val userID = 1.toString()
+        val savedInfo =
+            UserInfo(applicationContext)
+        savedInfo.saveUserInfo(userID)
+        Toast.makeText(applicationContext, "Login successful", Toast.LENGTH_SHORT).show()
+        finish()
     }
 }

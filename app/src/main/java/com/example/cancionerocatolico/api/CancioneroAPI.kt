@@ -1,33 +1,62 @@
-package com.example.cancionerocatolico
+package com.example.cancionerocatolico.api
 
 import android.net.Uri
-import java.net.URLEncoder
+import com.example.cancionerocatolico.ViewMyListsActivity
+import com.example.cancionerocatolico.objects.ListSongs
+import com.example.cancionerocatolico.utils.MyAsyncTask
+import com.example.cancionerocatolico.objects.Song
+import com.example.cancionerocatolico.ViewSongsActivity
+import java.util.function.Supplier
 
-open class CancioneroAPI {
+open class CancioneroAPI(val userID : () -> String) {
 
     /***************************************************                SONGS                     ******************************************************************/
     fun loadSongs(){
         /*dummy data*/
         ViewSongsActivity.songsList.add(
-            Song(1, "Un padre como el nuestro", "Entrenados", "Ula ula ula ula", "Entrada, Salmos"))
+            Song(
+                1,
+                "Un padre como el nuestro",
+                "Entrenados",
+                "Ula ula ula ula",
+                "Entrada, Salmos"
+            )
+        )
         ViewSongsActivity.songsList.add(
-            Song(2, "Solamente una vez", "Entrenados", "Ula ula ula ula", "Paz, Salmos"))
+            Song(
+                2,
+                "Solamente una vez",
+                "Entrenados",
+                "Ula ula ula ula",
+                "Paz, Salmos"
+            )
+        )
         ViewSongsActivity.songsList.add(
-            Song(3, "Una vez nada mas", "Entrenados", "Ula ula ula ula", "Paz, Salmos"))
+            Song(
+                3,
+                "Una vez nada mas",
+                "Entrenados",
+                "Ula ula ula ula",
+                "Paz, Salmos"
+            )
+        )
     }
 
     fun loadSongs(keyword : String, startFrom : Int, success : (ArrayList<Song>) -> Unit, fail : (Any?) -> Unit){
         //Search into DB based on keyword and updates the List
-        val content = URLEncoder.encode(keyword, "utf-8")
-        val url = "http://10.0.2.2:8000/cancionero/" +
-                "get_songs.php?case=1&keyword=${keyword}&startFrom=${startFrom}"
+        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
+            .buildUpon()
+            .appendQueryParameter("case", "1")
+            .appendQueryParameter("keyword", keyword)
+            .appendQueryParameter("startFrom", startFrom.toString())
+            .build()
+            .toString()
+
         MyAsyncTask(
             onFail = {
-//                Toast.makeText(applicationContext, "Retrieving posts failed", Toast.LENGTH_SHORT).show()
                 fail(null)
             },
             onSuccess = { listOfSongs ->
-//                Toast.makeText(applicationContext, "Loading posts", Toast.LENGTH_SHORT).show()
                 success(listOfSongs as ArrayList<Song>)
             }
         ).execute(url)
@@ -66,8 +95,8 @@ open class CancioneroAPI {
             .toString()
 
         MyAsyncTask(
-            onFail = {  },
-            onSuccess = {song ->
+            onFail = { },
+            onSuccess = { song ->
                 success(song as Song)
             }
         ).execute(url)
@@ -83,9 +112,10 @@ open class CancioneroAPI {
             .toString()
 
         MyAsyncTask(
-            onFail = {  },
-            onSuccess = {listOfSongs ->
-                val songs = listOfSongs as ArrayList<Song>
+            onFail = { },
+            onSuccess = { listOfSongs ->
+                val songs =
+                    listOfSongs as ArrayList<Song>
                 success(songs[0])
             }
         ).execute(url)
@@ -108,8 +138,8 @@ open class CancioneroAPI {
             .toString()
 
         MyAsyncTask(
-            onFail = {  },
-            onSuccess = {songID ->
+            onFail = { },
+            onSuccess = { songID ->
                 success(null)
             }
         ).execute(url)
@@ -140,16 +170,14 @@ open class CancioneroAPI {
         //Search in DB all the lists only with name and ID.
         val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_listsongs.php?")
             .buildUpon()
-            .appendQueryParameter("user_id", "1")
+            .appendQueryParameter("user_id", userID.invoke())
             .build()
             .toString()
 
         MyAsyncTask(
             onFail = {
-//                Toast.makeText(applicationContext, "Retrieving songs failed", Toast.LENGTH_SHORT).show()
             },
             onSuccess = { listsongs ->
-//                Toast.makeText(applicationContext, "Loading songs", Toast.LENGTH_SHORT).show()
                 success(listsongs as ArrayList<ListSongs>)
             }
         ).execute(url)
@@ -167,10 +195,8 @@ open class CancioneroAPI {
 
         MyAsyncTask(
             onFail = {
-//                Toast.makeText(applicationContext, "Retrieving songs failed", Toast.LENGTH_SHORT).show()
             },
             onSuccess = { listOfSongs ->
-//                Toast.makeText(applicationContext, "Loading songs", Toast.LENGTH_SHORT).show()
                 success(listOfSongs as ArrayList<Song>)
             }
         ).execute(url)
@@ -185,16 +211,14 @@ open class CancioneroAPI {
             .buildUpon()
             .appendQueryParameter("case", "1")
             .appendQueryParameter("list_name", listName)
-            .appendQueryParameter("user_id", "1")
+            .appendQueryParameter("user_id", userID.invoke())
             .build()
             .toString()
 
         MyAsyncTask(
             onFail = {
-//                Toast.makeText(applicationContext, "Creating list failed", Toast.LENGTH_SHORT).show()
             },
-            onSuccess = {listID ->
-//                Toast.makeText(applicationContext, "Creating list successful", Toast.LENGTH_SHORT).show()
+            onSuccess = { listID ->
                 success(listID as Int)
             }
         ).execute(url)
@@ -211,10 +235,8 @@ open class CancioneroAPI {
 
         MyAsyncTask(
             onFail = {
-//                Toast.makeText(applicationContext, "Creating list failed", Toast.LENGTH_SHORT).show()
             },
             onSuccess = {
-//                Toast.makeText(applicationContext, "Creating list successful", Toast.LENGTH_SHORT).show()
                 success(listName)
             }
         ).execute(url)
@@ -231,7 +253,6 @@ open class CancioneroAPI {
 
         MyAsyncTask(
             onFail = {
-//                Toast.makeText(applicationContext, "Removing list failed", Toast.LENGTH_SHORT).show()
             },
             onSuccess = {
                 success(true)
@@ -251,10 +272,8 @@ open class CancioneroAPI {
 
         MyAsyncTask(
             onFail = {
-//                Toast.makeText(applicationContext, "Adding into list failed", Toast.LENGTH_SHORT).show()
             },
             onSuccess = {
-//                songsAdapter!!.notifyDataSetChanged()
             }
         ).execute(url)
     }
@@ -271,12 +290,37 @@ open class CancioneroAPI {
 
         MyAsyncTask(
             onFail = {
-//                Toast.makeText(applicationContext, "Removing from list failed", Toast.LENGTH_SHORT).show()
             },
             onSuccess = {
-//                songsAdapter!!.notifyDataSetChanged()
             }
         ).execute(url)
+    }
+
+    fun generateList(qty : Int) : ArrayList<ListSongs> {
+        //dummy data
+        var listOfListsSongs = ArrayList<ListSongs>()
+        for(x in 1 until qty){
+            val randSong = Song(
+                100,
+                "Un padre como el nuestro",
+                "Entrenados",
+                "Ula ula ula ula",
+                "Entrada, Salmos"
+            )
+            var hashMap = HashMap<Int, Song>()
+            hashMap.put(1, randSong)
+            hashMap.put(2, randSong)
+            hashMap.put(3, randSong)
+
+            listOfListsSongs.add(
+                ListSongs(
+                    x,
+                    "Favorites ${x}",
+                    hashMap
+                )
+            )
+        }
+        return listOfListsSongs
     }
 
 

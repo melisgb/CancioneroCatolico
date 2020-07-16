@@ -1,4 +1,4 @@
-package com.example.cancionerocatolico
+package com.example.cancionerocatolico.objects
 
 class ListSongs(listSongsID: Int, listSongsName: String, songsList: HashMap<Int, Song>) {
     var listSongsID = listSongsID

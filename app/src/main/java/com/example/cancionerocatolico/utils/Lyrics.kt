@@ -1,4 +1,6 @@
-package com.example.cancionerocatolico
+package com.example.cancionerocatolico.utils
+
+import com.example.cancionerocatolico.objects.LyricsLine
 
 class Lyrics {
     val newLyrics = ArrayList<LyricsLine>()
@@ -7,7 +9,8 @@ class Lyrics {
         val allContent = lyrics.reader().readLines()
 
         for(line in allContent){
-            var type = LyricsLine.LyricsLineType.BLANK
+            var type =
+                LyricsLine.LyricsLineType.BLANK
             val lineArr = line.trim().split(Regex("\\s+"))
 
             type = when {
@@ -18,7 +21,12 @@ class Lyrics {
                     isChord(word) } -> LyricsLine.LyricsLineType.CHORDS
                 else -> LyricsLine.LyricsLineType.VERSE
             }
-            newLyrics.add(LyricsLine(line, type))
+            newLyrics.add(
+                LyricsLine(
+                    line,
+                    type
+                )
+            )
         }
         return newLyrics
     }

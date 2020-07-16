@@ -1,21 +1,21 @@
-package com.example.cancionerocatolico
+package com.example.cancionerocatolico.adapter
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.Group
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cancionerocatolico.objects.ListSongs
+import com.example.cancionerocatolico.R
+import com.example.cancionerocatolico.ViewSpecificListActivity
 
 class MyListAdapter(val context: Context, private val listOfLists : List<ListSongs>) : RecyclerView.Adapter<MyListAdapter.ViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         //to inflate the item layout and create holder
         val context = parent.context
         val inflater = LayoutInflater.from(context)

@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.example.cancionerocatolico.adapter.SongAdapter
+import com.example.cancionerocatolico.api.CancioneroAPI
+import com.example.cancionerocatolico.objects.Song
+import com.example.cancionerocatolico.utils.UserHelper
 import kotlinx.android.synthetic.main.activity_view_specific_list.*
 
 class ViewSpecificListActivity : AppCompatActivity() {
     var mySongsList = ArrayList<Song>()
     var songsAdapter : SongAdapter? = null
-    var cancAPI = CancioneroAPI()
+    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +45,11 @@ class ViewSpecificListActivity : AppCompatActivity() {
             success = { currentList ->
                 mySongsList.clear()
                 mySongsList.addAll(currentList as ArrayList<Song>)
-                songsAdapter = SongAdapter(this, mySongsList)
+                songsAdapter =
+                    SongAdapter(
+                        this,
+                        mySongsList
+                    )
                 var songsListView = findViewById<ListView>(R.id.lvSpecificList)
                 songsListView.adapter = songsAdapter
 
@@ -59,11 +67,32 @@ class ViewSpecificListActivity : AppCompatActivity() {
     fun loadSongs(){
         /*dummy data*/
         mySongsList.add(
-            Song(8, "Carlos' Love", "Entrenados", "Ula ula ula ula", "Entrada, Salmos"))
+            Song(
+                8,
+                "Carlos' Love",
+                "Entrenados",
+                "Ula ula ula ula",
+                "Entrada, Salmos"
+            )
+        )
         mySongsList.add(
-            Song(9, "Melingo's Love", "Entrenados", "Ula ula ula ula", "Paz, Salmos"))
+            Song(
+                9,
+                "Melingo's Love",
+                "Entrenados",
+                "Ula ula ula ula",
+                "Paz, Salmos"
+            )
+        )
         mySongsList.add(
-            Song(10, "Loving him", "Entrenados", "Ula ula ula ula", "Paz, Salmos"))
+            Song(
+                10,
+                "Loving him",
+                "Entrenados",
+                "Ula ula ula ula",
+                "Paz, Salmos"
+            )
+        )
 
     }
 

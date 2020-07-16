@@ -1,9 +1,9 @@
-package com.example.cancionerocatolico
+package com.example.cancionerocatolico.utils
 
-import android.app.Activity
-import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
+import com.example.cancionerocatolico.objects.ListSongs
+import com.example.cancionerocatolico.objects.Song
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -58,13 +58,15 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 val listOfSongs = ArrayList<Song>()
                 for(i in 0 until songsInfoArr.length()){
                     val songInfo = songsInfoArr.getJSONObject(i)
-                    listOfSongs.add(Song(
-                        songInfo.getInt("song_id"),
-                        songInfo.getString("song_title"),
-                        songInfo.getString("song_artist"),
-                        songInfo.getString("song_lyrics"),
-                        songInfo.getString("song_tags")
-                    ))
+                    listOfSongs.add(
+                        Song(
+                            songInfo.getInt("song_id"),
+                            songInfo.getString("song_title"),
+                            songInfo.getString("song_artist"),
+                            songInfo.getString("song_lyrics"),
+                            songInfo.getString("song_tags")
+                        )
+                    )
                 }
                 Log.d("Songs loaded successful", "Qty songs: ${listOfSongs.size}")
                 onSuccess(listOfSongs)
@@ -98,11 +100,13 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 val listOfLists = ArrayList<ListSongs>()
                 for(i in 0 until listsInfoArr.length()){
                     val listsongInfo = listsInfoArr.getJSONObject(i)
-                    listOfLists.add(ListSongs(
-                        listsongInfo.getInt("listsong_id"),
-                        listsongInfo.getString("listsong_name"),
-                        HashMap<Int, Song>()
-                    ))
+                    listOfLists.add(
+                        ListSongs(
+                            listsongInfo.getInt("listsong_id"),
+                            listsongInfo.getString("listsong_name"),
+                            HashMap<Int, Song>()
+                        )
+                    )
                 }
                 Log.d("Summary lists loaded successful", "Qty lists: ${listOfLists.size}")
                 onSuccess(listOfLists)

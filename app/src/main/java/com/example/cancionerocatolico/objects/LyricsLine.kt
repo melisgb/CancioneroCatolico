@@ -1,4 +1,4 @@
-package com.example.cancionerocatolico
+package com.example.cancionerocatolico.objects
 
 class LyricsLine(line: String, type: LyricsLineType) {
     val line : String = line

@@ -1,4 +1,4 @@
-package com.example.cancionerocatolico
+package com.example.cancionerocatolico.objects
 
 class Song(var songID: Int,
            var songTitle: String,

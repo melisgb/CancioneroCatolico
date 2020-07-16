@@ -1,20 +1,13 @@
-package com.example.cancionerocatolico
+package com.example.cancionerocatolico.adapter
 
 import android.app.Activity
-import android.content.Intent
 import android.view.*
 import android.widget.BaseAdapter
-import android.widget.CheckBox
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
+import com.example.cancionerocatolico.R
+import com.example.cancionerocatolico.objects.Song
 import kotlinx.android.synthetic.main.element_view_songs.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 import kotlin.collections.HashSet
-import kotlin.random.Random
 
 class SongAdapter(val context: Activity, val songsList: ArrayList<Song>) : BaseAdapter(){
     val layoutInflater = LayoutInflater.from(context)
