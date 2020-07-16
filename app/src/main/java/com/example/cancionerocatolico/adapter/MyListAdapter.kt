@@ -56,7 +56,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
 
         viewgroup.setOnLongClickListener {
             val id = list.listSongsID
-            showPopUpMenu(viewgroup, id, list.listSongsName)
+            showPopUpMenu(listNameTxtView, id, list.listSongsName)
             true
         }
     }
@@ -69,7 +69,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun showPopUpMenu(v : View, listID : Int, listName : String){
-        val popup = PopupMenu(context, v, Gravity.RIGHT )
+        val popup = PopupMenu(context, v, Gravity.END)
         popup.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
                 R.id.act_shareList -> {
@@ -107,7 +107,9 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
             }
         }
         popup.inflate(R.menu.popup_list_menu)
-        popup.setForceShowIcon(true)
+        if (Build.VERSION.SDK_INT >= 29) {
+            popup.setForceShowIcon(true)
+        }
         popup.show()
     }
 

@@ -9,7 +9,7 @@ import com.example.cancionerocatolico.ViewSongsActivity
 import java.util.function.Supplier
 
 open class CancioneroAPI(val userID : () -> String) {
-
+    val SERVER_URL = "https://8118ee7f3f8b.ngrok.io"
     /***************************************************                SONGS                     ******************************************************************/
     fun loadSongs(){
         /*dummy data*/
@@ -44,7 +44,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun loadSongs(keyword : String, startFrom : Int, success : (ArrayList<Song>) -> Unit, fail : (Any?) -> Unit){
         //Search into DB based on keyword and updates the List
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/get_songs.php?")
             .buildUpon()
             .appendQueryParameter("case", "1")
             .appendQueryParameter("keyword", keyword)
@@ -64,7 +64,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun loadSongsByTags(tags : String, success : (ArrayList<Song>) -> Unit, fail : (Any?) -> Unit){
         //Search into DB based on tags
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/get_songs.php?")
             .buildUpon()
             .appendQueryParameter("case", "4")
             .appendQueryParameter("song_tags", tags)
@@ -84,7 +84,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun addSong(song: Song, success: (Song) -> Unit) {
         //Update a song
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/edit_song.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/edit_song.php?")
             .buildUpon()
             .appendQueryParameter("case", "1")
             .appendQueryParameter("song_title", song.songTitle)
@@ -104,7 +104,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun readSong(songID: Int, success: (Song) -> Unit) {
         //Reads a song
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/get_songs.php?")
             .buildUpon()
             .appendQueryParameter("case", "3")
             .appendQueryParameter("song_id", songID.toString())
@@ -126,7 +126,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun updateSong(song: Song, success: (Any?) -> Unit ) {
         //Update a song
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/edit_song.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/edit_song.php?")
             .buildUpon()
             .appendQueryParameter("case", "2")
             .appendQueryParameter("song_id", song.songID.toString())
@@ -147,7 +147,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun deleteSong( songID: Int, success: (Any?) -> Unit, fail: (Any?) -> Unit ) {
         //Deletes a song
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/edit_song.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/edit_song.php?")
             .buildUpon()
             .appendQueryParameter("case", "3")
             .appendQueryParameter("song_id", songID.toString())
@@ -168,7 +168,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun loadSummaryLists(success : (ArrayList<ListSongs>) -> Unit) {
         //Search in DB all the lists only with name and ID.
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_listsongs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/get_listsongs.php?")
             .buildUpon()
             .appendQueryParameter("user_id", userID.invoke())
             .build()
@@ -186,7 +186,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun loadCurrentList(listID : Int, success : (ArrayList<Song>) -> Unit) {
         //Search into DB the specific songsList
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/get_songs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/get_songs.php?")
             .buildUpon()
             .appendQueryParameter("case", "2")
             .appendQueryParameter("listsong_id", listID.toString())
@@ -207,7 +207,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun createList(listName : String, success : (Int) -> Unit ) {
         //Insert a new list in DB
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/listsongs.php?")
             .buildUpon()
             .appendQueryParameter("case", "1")
             .appendQueryParameter("list_name", listName)
@@ -225,7 +225,7 @@ open class CancioneroAPI(val userID : () -> String) {
     }
     fun updateList(listID: Int, listName : String, success : (String) -> Unit ) {
         //Insert a new list in DB
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/listsongs.php?")
             .buildUpon()
             .appendQueryParameter("case", "2")
             .appendQueryParameter("list_id", listID.toString())
@@ -244,7 +244,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun removeWholeList(listID:Int, success: (Boolean) -> Unit) {
         //Remove songsList and its relation  [two tables affected]
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/listsongs.php?")
             .buildUpon()
             .appendQueryParameter("case", "3")
             .appendQueryParameter("list_id", listID.toString())
@@ -262,7 +262,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun insertToList(listID:Int, songsIDs:String) {
         //Insert songs into songsList
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/listsongs.php?")
             .buildUpon()
             .appendQueryParameter("case", "4")
             .appendQueryParameter("list_id", listID.toString())
@@ -280,7 +280,7 @@ open class CancioneroAPI(val userID : () -> String) {
 
     fun removeFromList(listID:Int, songsIDs:String) {
         //Remove songs from songsList
-        val url = Uri.parse("http://10.0.2.2:8000/cancionero/listsongs.php?")
+        val url = Uri.parse("$SERVER_URL/cancionero/listsongs.php?")
             .buildUpon()
             .appendQueryParameter("case", "5")
             .appendQueryParameter("list_id", listID.toString())
