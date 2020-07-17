@@ -44,4 +44,5 @@
     <string name="chip_advent">Adviento</string>
     <string name="chip_christmas">Navidad</string>
     <string name="view_songs_by_key_title">Listado Canciones por Clave</string>
+    <string name="refresh_Filters">Borrar filtros</string>
 </resources>

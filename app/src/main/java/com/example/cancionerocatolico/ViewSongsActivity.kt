@@ -159,7 +159,7 @@ class ViewSongsActivity : AppCompatActivity() {
 
         title = getString(R.string.view_songs_title)
         songsAdapter =
-            SongAdapter(this, songsList)
+            SongAdapter(this, songsList, selectedSongs)
         songsListView = findViewById<ListView>(R.id.lvListofSongs)
         songsListView.adapter = songsAdapter
 

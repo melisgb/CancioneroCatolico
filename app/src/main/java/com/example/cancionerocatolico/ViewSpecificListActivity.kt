@@ -48,7 +48,8 @@ class ViewSpecificListActivity : AppCompatActivity() {
                 songsAdapter =
                     SongAdapter(
                         this,
-                        mySongsList
+                        mySongsList,
+                        HashSet<Int>()
                     )
                 var songsListView = findViewById<ListView>(R.id.lvSpecificList)
                 songsListView.adapter = songsAdapter

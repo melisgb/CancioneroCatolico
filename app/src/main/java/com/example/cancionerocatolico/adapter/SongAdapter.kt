@@ -9,9 +9,8 @@ import kotlinx.android.synthetic.main.element_view_songs.view.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 
-class SongAdapter(val context: Activity, val songsList: ArrayList<Song>) : BaseAdapter(){
+class SongAdapter(val context: Activity, val songsList: ArrayList<Song>, val selectedSongs : HashSet<Int>?) : BaseAdapter(){
     val layoutInflater = LayoutInflater.from(context)
-    var selectedSongs = HashSet<Int>()
     var actionMode : ActionMode? = null
 
 
@@ -26,7 +25,7 @@ class SongAdapter(val context: Activity, val songsList: ArrayList<Song>) : BaseA
         myElementView.txtvSongArtistElem.text = currentSong.songArtist
         myElementView.txtvSongTagsElem.text = currentSong.songTags
 
-        if(selectedSongs.contains(currentSong.songID)){
+        if(selectedSongs!!.contains(currentSong.songID)){
             myElementView.chkboxSongElem.visibility = View.VISIBLE
             myElementView.chkboxSongElem.isChecked = true
         }

@@ -23,18 +23,18 @@
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:chipBackgroundColor="@color/chip_style"
-                            android:theme="@style/Theme.MaterialComponents"
+                            android:onClick="chipClicked"
                             android:text="@string/chip_entrance"
-                            android:onClick="chipClicked" />
+                            android:theme="@style/Theme.MaterialComponents"
+                            app:chipBackgroundColor="@color/chip_style" />
                         <!-- preferred: @style/Theme.MaterialComponents-->
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:chipBackgroundColor="@color/chip_style"
-                            android:theme="@style/Theme.MaterialComponents"
+                            android:onClick="chipClicked"
                             android:text="@string/chip_mercy"
-                            android:onClick="chipClicked" />
+                            android:theme="@style/Theme.MaterialComponents"
+                            app:chipBackgroundColor="@color/chip_style" />
 
                         <com.google.android.material.chip.Chip
                             android:layout_width="wrap_content"

@@ -9,7 +9,9 @@ import com.example.cancionerocatolico.ViewSongsActivity
 import java.util.function.Supplier
 
 open class CancioneroAPI(val userID : () -> String) {
-    val SERVER_URL = "https://8118ee7f3f8b.ngrok.io"
+//    val SERVER_URL = "https://8118ee7f3f8b.ngrok.io"
+    val SERVER_URL = "http://10.0.2.2:8000" //local
+
     /***************************************************                SONGS                     ******************************************************************/
     fun loadSongs(){
         /*dummy data*/
