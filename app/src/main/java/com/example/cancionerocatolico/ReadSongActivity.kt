@@ -26,6 +26,7 @@ class ReadSongActivity : AppCompatActivity() {
     var song_id : Int = 0
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     val lyricsApi = Lyrics()
+    var lyricLines = listOf<LyricsLine>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_song)
@@ -46,14 +47,8 @@ class ReadSongActivity : AppCompatActivity() {
                 txtvReadSongArtist.text = song.songArtist
                 txtvReadSongTags.text = song.songTags
 
-                val lyricsArray = transform(song.songLyrics)
-                val spannArray = ArrayList<Spannable>()
-                for(lyr in lyricsArray){
-                    spannArray.add(lyricsToSpannable(lyr))
-                }
-
-                txtvReadSongLyrics.text = spannArray.joinToSpannedString("\n")
-//                txtvReadSongLyrics.text = song.songLyrics
+                lyricLines = transform(song.songLyrics)
+                showLyricsInTextView()
             }
         )
     }
@@ -66,6 +61,18 @@ class ReadSongActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {
         return when (item.itemId) {
+            R.id.action_increase_note -> {
+                increaseSemiNote()
+                showLyricsInTextView()
+                true
+            }
+            R.id.action_decrease_note -> {
+                for(i in 0..10){
+                    increaseSemiNote()
+                }
+                showLyricsInTextView()
+                true
+            }
             R.id.action_addSongToList -> {
                 cancAPI.loadSummaryLists(
                     //get all listSongs summarized from DB
@@ -190,5 +197,29 @@ class ReadSongActivity : AppCompatActivity() {
     fun <T> Iterable<T>.joinToSpannedString(separator: CharSequence = ", ", prefix: CharSequence = "", postfix: CharSequence = "", limit: Int = -1, truncated: CharSequence = "...", transform: ((T) -> CharSequence)? = null): SpannedString {
         return joinTo(SpannableStringBuilder(), separator, prefix, postfix, limit, truncated, transform)
             .let { SpannedString(it) }
+    }
+
+    fun increaseSemiNote(){
+        val lyricsArray = ArrayList<LyricsLine>()
+        for(lyr in lyricLines){
+            if(lyr.type == LyricsLine.LyricsLineType.CHORDS)
+            {
+                val newChords = Lyrics().increaseSemiNote(lyr.line)
+                val newLyr = LyricsLine(newChords, lyr.type)
+                lyricsArray.add(newLyr)
+            }
+            else{
+                lyricsArray.add(lyr)
+            }
+        }
+        lyricLines = lyricsArray
+    }
+
+    fun showLyricsInTextView(){
+        val spannArray = ArrayList<Spannable>()
+        for(lyr in lyricLines){
+            spannArray.add(lyricsToSpannable(lyr))
+        }
+        txtvReadSongLyrics.text = spannArray.joinToSpannedString("\n")
     }
 }

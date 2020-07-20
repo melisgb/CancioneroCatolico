@@ -2,6 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_increase_note"
+        android:icon="@drawable/ic_increase_note"
+        android:iconTintMode="src_in"
+        android:title="@string/increase_note"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_decrease_note"
+        android:icon="@drawable/ic_decrease_note"
+        android:iconTintMode="src_in"
+        android:title="@string/decrease_note"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_addSongToList"
         android:title="@string/add_toList"
         app:showAsAction="always"
