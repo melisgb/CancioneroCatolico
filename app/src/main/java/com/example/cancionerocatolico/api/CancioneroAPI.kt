@@ -280,7 +280,7 @@ open class CancioneroAPI(val userID : () -> String) {
         ).execute(url)
     }
 
-    fun removeFromList(listID:Int, songsIDs:String) {
+    fun removeFromList(listID:Int, songsIDs:String, success: (Boolean) -> Unit) {
         //Remove songs from songsList
         val url = Uri.parse("$SERVER_URL/cancionero/listsongs.php?")
             .buildUpon()
@@ -294,6 +294,7 @@ open class CancioneroAPI(val userID : () -> String) {
             onFail = {
             },
             onSuccess = {
+                success(true)
             }
         ).execute(url)
     }
