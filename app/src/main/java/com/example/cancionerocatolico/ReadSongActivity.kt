@@ -25,8 +25,10 @@ import kotlin.collections.HashMap
 class ReadSongActivity : AppCompatActivity() {
     var song_id : Int = 0
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
-    val lyricsApi = Lyrics()
     var lyricLines = listOf<LyricsLine>()
+    var transposedLevel = 0
+    var transformedLyricLine = listOf<LyricsLine>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_song)
@@ -47,7 +49,8 @@ class ReadSongActivity : AppCompatActivity() {
                 txtvReadSongArtist.text = song.songArtist
                 txtvReadSongTags.text = song.songTags
 
-                lyricLines = transform(song.songLyrics)
+                lyricLines = parseLyrics(song.songLyrics)
+                transformedLyricLine = lyricLines
                 showLyricsInTextView()
             }
         )
@@ -62,14 +65,24 @@ class ReadSongActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {
         return when (item.itemId) {
             R.id.action_increase_note -> {
-                increaseSemiNote()
+                if(transposedLevel == 11){
+                    transposedLevel = 0
+                }
+                else{
+                    ++transposedLevel
+                }
+                transformedLyricLine = increaseSemiNote(transposedLevel)
                 showLyricsInTextView()
                 true
             }
             R.id.action_decrease_note -> {
-                for(i in 0..10){
-                    increaseSemiNote()
+                if(transposedLevel == 0) {
+                    transposedLevel = 11
                 }
+                else{
+                    --transposedLevel
+                }
+                transformedLyricLine = increaseSemiNote(transposedLevel)
                 showLyricsInTextView()
                 true
             }
@@ -173,8 +186,8 @@ class ReadSongActivity : AppCompatActivity() {
         }
     }
 
-    fun transform(lyrics : String) : ArrayList<LyricsLine> {
-        return lyricsApi.transformLyrics(lyrics)
+    fun parseLyrics(lyrics : String) : ArrayList<LyricsLine> {
+        return Lyrics.parseLyricsFromSong(lyrics)
     }
 
     fun lyricsToSpannable(lyricLine : LyricsLine) : Spannable {
@@ -199,25 +212,25 @@ class ReadSongActivity : AppCompatActivity() {
             .let { SpannedString(it) }
     }
 
-    fun increaseSemiNote(){
+    fun increaseSemiNote(level : Int) : ArrayList<LyricsLine> {
         val lyricsArray = ArrayList<LyricsLine>()
-        for(lyr in lyricLines){
-            if(lyr.type == LyricsLine.LyricsLineType.CHORDS)
-            {
-                val newChords = Lyrics().increaseSemiNote(lyr.line)
+
+        for (lyr in lyricLines) {
+            if (lyr.type == LyricsLine.LyricsLineType.CHORDS) {
+                val newChords = Lyrics.increaseSemiNote(lyr.line, level)
                 val newLyr = LyricsLine(newChords, lyr.type)
                 lyricsArray.add(newLyr)
-            }
-            else{
+            } else {
                 lyricsArray.add(lyr)
             }
         }
-        lyricLines = lyricsArray
+
+        return lyricsArray
     }
 
     fun showLyricsInTextView(){
         val spannArray = ArrayList<Spannable>()
-        for(lyr in lyricLines){
+        for(lyr in transformedLyricLine){
             spannArray.add(lyricsToSpannable(lyr))
         }
         txtvReadSongLyrics.text = spannArray.joinToSpannedString("\n")
