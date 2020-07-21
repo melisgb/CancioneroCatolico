@@ -74,23 +74,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etxtSongArtist" />
 
-    <EditText
-        android:id="@+id/etxtSongTags"
-        android:layout_width="0dp"
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/tagsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16sp"
-        android:layout_marginRight="16sp"
-        android:autofillHints=""
-        android:ems="10"
-        android:focusable="true"
-        android:fontFamily="@font/roboto_mono_medium"
-        android:hint="@string/hint_song_tags"
-        android:inputType="textMultiLine"
-        android:textSize="16sp"
+        app:alignContent="space_around"
+        app:alignItems="stretch"
+        android:paddingBottom="10dp"
+        android:background="@color/blackColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtSongLyrics" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtSongLyrics"
+        app:showDivider="beginning|middle|end" >
 
+        <EditText
+            android:id="@+id/etxtSongTags"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            app:layout_flexGrow ="1"
+            android:layout_marginLeft="16sp"
+            android:layout_marginRight="16sp"
+            android:autofillHints=""
+            android:ems="10"
+            android:focusable="true"
+            android:fontFamily="@font/roboto_mono_medium"
+            android:hint="@string/hint_song_tags"
+            android:textColor="@color/whiteColor"
+            android:inputType="text"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etxtSongLyrics" />
+    </com.google.android.flexbox.FlexboxLayout>
 
     <Button
         android:id="@+id/btnCreateSong"
@@ -104,7 +119,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtSongTags" />
+        app:layout_constraintTop_toBottomOf="@+id/tagsLayout" />
 
     <Button
         android:id="@+id/btnUpdateSong"
@@ -118,6 +133,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtSongTags" />
+        app:layout_constraintTop_toBottomOf="@+id/tagsLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

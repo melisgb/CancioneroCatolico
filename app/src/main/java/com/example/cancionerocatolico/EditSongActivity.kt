@@ -2,11 +2,14 @@ package com.example.cancionerocatolico
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.utils.UserHelper
+import com.google.android.flexbox.FlexboxLayout
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_edit_song.*
 
 /* Activity to CREATE or EDIT a SONG */
@@ -19,6 +22,7 @@ class EditSongActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_song)
         val btnCreateSong = findViewById<Button>(R.id.btnCreateSong)
         val btnUpdateSong = findViewById<Button>(R.id.btnUpdateSong)
+        val tagsLayout = findViewById<FlexboxLayout>(R.id.tagsLayout)
 
         if(intent.extras != null){
             txtvEditSongTitle.text = "Update Song"
@@ -58,8 +62,6 @@ class EditSongActivity : AppCompatActivity() {
             val title = etxtSongTitle.text.toString()
             val artist = etxtSongArtist.text.toString()
             val lyrics = etxtSongLyrics.text.toString()
-//            val lyricsUnformatted = etxtSongLyrics.text.toString()
-//            val lyrics = formatLyrics(lyricsUnformatted)
             val tags = etxtSongTags.text.toString()
 
             val currSong = Song(
@@ -71,6 +73,8 @@ class EditSongActivity : AppCompatActivity() {
             )
             updateSongDB(currSong)
         }
+        addNewChip("add", tagsLayout)
+        addNewChip("close", tagsLayout)
     }
 
     fun addSongDB(song : Song){
@@ -95,8 +99,14 @@ class EditSongActivity : AppCompatActivity() {
         //TODO: Create a fail behaviour?
     }
 
-    fun formatLyrics(lyricsUnformatted : String) : String {
-        val lyr = lyricsUnformatted.reader().readLines()
-        return lyr.joinToString("|")
+    fun addNewChip(tag: String, chipGroup: FlexboxLayout){
+        val chip = layoutInflater.inflate(R.layout.chip_elem, chipGroup, false) as Chip
+        chip.text = tag
+        chip.isCloseIconVisible = true
+        chip.isClickable = true
+        chipGroup.addView(chip as View, chipGroup.childCount -1)
+        chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
     }
+
+
 }
