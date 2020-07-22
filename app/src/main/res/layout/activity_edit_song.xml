@@ -42,12 +42,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etxtSongTitle" />
 
+<!-- Useful link for Flexbox Layout
+https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-components-library-to-input-field-in-android-->
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/tagsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:alignContent="space_around"
+        android:layout_marginLeft="16sp"
+        android:layout_marginRight="16sp"
         app:alignItems="stretch"
+        app:flexWrap="wrap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etxtSongArtist"
@@ -56,24 +60,34 @@
         <AutoCompleteTextView
             android:id="@+id/etxtSongTags"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginLeft="16sp"
-            android:layout_marginRight="16sp"
-            android:autofillHints=""
-            android:dropDownHeight="70dp"
-            android:dropDownHorizontalOffset="0dp"
-            android:dropDownVerticalOffset="-190dp"
-            android:ems="10"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_mono_medium"
+            android:gravity="bottom"
             android:hint="@string/hint_song_tags"
+            android:layout_marginStart="3sp"
+            android:completionThreshold="1"
             android:inputType="text"
-            android:textColor="@color/whiteColor"
             android:textSize="16sp"
+            android:dropDownAnchor="@id/dividerSongTags"
+            android:dropDownVerticalOffset = "5dp"
+            android:background="#00000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etxtSongArtist"
-            app:layout_flexGrow="1" />
+            app:layout_flexGrow="1"/>
     </com.google.android.flexbox.FlexboxLayout>
+
+    <View
+        android:id="@+id/dividerSongTags"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tagsLayout"/>
 
     <EditText
         android:id="@+id/etxtSongLyrics"

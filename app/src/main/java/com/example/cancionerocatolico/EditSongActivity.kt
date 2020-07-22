@@ -3,10 +3,11 @@ package com.example.cancionerocatolico
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.utils.UserHelper
@@ -25,7 +26,7 @@ class EditSongActivity : AppCompatActivity() {
         val btnCreateSong = findViewById<Button>(R.id.btnCreateSong)
         val btnUpdateSong = findViewById<Button>(R.id.btnUpdateSong)
         val tagsLayout = findViewById<FlexboxLayout>(R.id.tagsLayout)
-        var tagsInput = findViewById<AutoCompleteTextView>(R.id.etxtSongTags)
+        val etxtSongTags = findViewById<AutoCompleteTextView>(R.id.etxtSongTags)
 
         if(intent.extras != null){
             title = getString(R.string.edit_song_title)
@@ -76,9 +77,21 @@ class EditSongActivity : AppCompatActivity() {
             )
             updateSongDB(currSong)
         }
-        tagsInput.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-            listOf("Entrada", "Comunion", "Salida1", "Salida2", "Salida3")))
-//        addNewChip("add", tagsLayout)
+        val tagsList = listOf("Entrada", "Piedad", "Gloria", "Salmo", "Proclamacion", "Ofertorio", "Paz", "Cordero", "Comunion", "Salida", "Ordinario", "Cuaresma", "Pascua", "Pentecostes", "Adviento", "Navidad", "Maria")
+        etxtSongTags.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+            tagsList))
+
+        etxtSongTags.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus) etxtSongTags.showDropDown()
+        }
+        etxtSongTags.setOnDismissListener {
+            if(etxtSongTags.isFocused) etxtSongTags.showDropDown()
+        }
+        etxtSongTags.setOnItemClickListener { parent, view, position, id ->
+            addNewChip((view as AppCompatTextView).text.toString(), tagsLayout)
+            etxtSongTags.setText("")
+        }
+
     }
 
     fun addSongDB(song : Song){
@@ -104,10 +117,13 @@ class EditSongActivity : AppCompatActivity() {
     }
 
     fun addNewChip(tag: String, chipGroup: FlexboxLayout){
+//        val lp = FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
+//        lp.setMargins(-10,-20,-10,-20)
         val chip = layoutInflater.inflate(R.layout.chip_elem, chipGroup, false) as Chip
         chip.text = tag
         chip.isCloseIconVisible = true
         chip.isClickable = true
+//        chip.layoutParams = lp
         chipGroup.addView(chip as View, chipGroup.childCount -1)
         chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
     }
