@@ -3,6 +3,8 @@ package com.example.cancionerocatolico
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.Toast
 import com.example.cancionerocatolico.api.CancioneroAPI
@@ -23,9 +25,10 @@ class EditSongActivity : AppCompatActivity() {
         val btnCreateSong = findViewById<Button>(R.id.btnCreateSong)
         val btnUpdateSong = findViewById<Button>(R.id.btnUpdateSong)
         val tagsLayout = findViewById<FlexboxLayout>(R.id.tagsLayout)
+        var tagsInput = findViewById<AutoCompleteTextView>(R.id.etxtSongTags)
 
         if(intent.extras != null){
-            txtvEditSongTitle.text = "Update Song"
+            title = getString(R.string.edit_song_title)
             btnUpdateSong.isEnabled = true
             btnCreateSong.isEnabled = false
             //Para Editar Cancion
@@ -37,7 +40,7 @@ class EditSongActivity : AppCompatActivity() {
             etxtSongTags.setText(bundle.getString("songTags"))
         }
         else{
-            txtvEditSongTitle.text = "Create Song"
+            title = getString(R.string.create_song_title)
             btnUpdateSong.isEnabled = false
             btnCreateSong.isEnabled = true
         }
@@ -73,8 +76,9 @@ class EditSongActivity : AppCompatActivity() {
             )
             updateSongDB(currSong)
         }
-        addNewChip("add", tagsLayout)
-        addNewChip("close", tagsLayout)
+        tagsInput.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+            listOf("Entrada", "Comunion", "Salida1", "Salida2", "Salida3")))
+//        addNewChip("add", tagsLayout)
     }
 
     fun addSongDB(song : Song){

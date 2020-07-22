@@ -50,5 +50,6 @@
     <string name="view_my_lists_title">Mis listas</string>
     <string name="view_specific_list_title">Detalle lista</string>
     <string name="view_songs_title">Listado canciones</string>
-    <string name="edit_song_title">Crear cancion</string>
+    <string name="edit_song_title">Actualizar</string>
+    <string name="create_song_title">Crear cancion</string>
 </resources>
