@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_edit_song.*
 class EditSongActivity : AppCompatActivity() {
     var songID : Int = 0
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
-
+    var selectedTags = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_song)
@@ -57,7 +57,7 @@ class EditSongActivity : AppCompatActivity() {
                 title,
                 artist,
                 lyrics,
-                tags
+                selectedTags.joinToString(", ")
             )
             addSongDB(newSong)
         }
@@ -73,7 +73,7 @@ class EditSongActivity : AppCompatActivity() {
                 title,
                 artist,
                 lyrics,
-                tags
+                selectedTags.joinToString(", ")
             )
             updateSongDB(currSong)
         }
@@ -124,8 +124,16 @@ class EditSongActivity : AppCompatActivity() {
         chip.isCloseIconVisible = true
         chip.isClickable = true
 //        chip.layoutParams = lp
-        chipGroup.addView(chip as View, chipGroup.childCount -1)
-        chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
+
+        if(!selectedTags.contains(chip.text.toString())) {
+            selectedTags.add(chip.text.toString())
+            chipGroup.addView(chip as View, chipGroup.childCount -1)
+        }
+
+        chip.setOnCloseIconClickListener {
+            selectedTags.remove(chip.text.toString())
+            chipGroup.removeView(chip as View)
+        }
     }
 
 
