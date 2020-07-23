@@ -61,20 +61,21 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
             android:id="@+id/etxtSongTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3sp"
+            android:background="#00000000"
+            android:completionThreshold="1"
+            android:dropDownAnchor="@id/dividerSongTags"
+            android:dropDownVerticalOffset="5dp"
             android:fontFamily="@font/roboto_mono_medium"
             android:gravity="bottom"
             android:hint="@string/hint_song_tags"
-            android:layout_marginStart="3sp"
-            android:completionThreshold="1"
             android:inputType="text"
+            android:imeOptions="actionNext"
             android:textSize="16sp"
-            android:dropDownAnchor="@id/dividerSongTags"
-            android:dropDownVerticalOffset = "5dp"
-            android:background="#00000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etxtSongArtist"
-            app:layout_flexGrow="1"/>
+            app:layout_flexGrow="1" />
     </com.google.android.flexbox.FlexboxLayout>
 
     <View

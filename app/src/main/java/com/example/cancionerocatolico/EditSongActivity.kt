@@ -1,5 +1,6 @@
 package com.example.cancionerocatolico
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -20,6 +21,7 @@ class EditSongActivity : AppCompatActivity() {
     var songID : Int = 0
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     var selectedTags = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_song)
@@ -38,7 +40,8 @@ class EditSongActivity : AppCompatActivity() {
             etxtSongTitle.setText(bundle.getString("songTitle"))
             etxtSongArtist.setText(bundle.getString("songArtist"))
             etxtSongLyrics.setText(bundle.getString("songLyrics"))
-            etxtSongTags.setText(bundle.getString("songTags"))
+            formatTags(bundle.getString("songTags")!!)
+//            etxtSongTags.setText(bundle.getString("songTags"))
         }
         else{
             title = getString(R.string.create_song_title)
@@ -81,11 +84,9 @@ class EditSongActivity : AppCompatActivity() {
         etxtSongTags.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
             tagsList))
 
-        etxtSongTags.setOnFocusChangeListener { v, hasFocus ->
-            if(hasFocus) etxtSongTags.showDropDown()
-        }
-        etxtSongTags.setOnDismissListener {
-            if(etxtSongTags.isFocused) etxtSongTags.showDropDown()
+        etxtSongTags.setOnClickListener {
+            etxtSongTags.showDropDown()
+            true
         }
         etxtSongTags.setOnItemClickListener { parent, view, position, id ->
             addNewChip((view as AppCompatTextView).text.toString(), tagsLayout)
@@ -136,5 +137,14 @@ class EditSongActivity : AppCompatActivity() {
         }
     }
 
+    fun formatTags(tagsConcatenated: String){
+        if(tagsConcatenated == "") etxtSongTags.setText("")
+        else{
+            val tagsArr = tagsConcatenated.split(", ")
+            for(tag in tagsArr){
+                addNewChip(tag, tagsLayout)
+            }
+        }
+    }
 
 }
