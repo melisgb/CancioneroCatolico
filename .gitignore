@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 *.log
+NodeJS Server/node_modules
+NodeJS Server/package-lock.json
