@@ -8,6 +8,7 @@ var logger = require('morgan');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var songs = require('./routes/songs');
+var listsongs = require('./routes/listsongs');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/songs', songs);
+app.use('/listsongs', listsongs);
 
 const hostname = '127.0.0.1';
 const port = 3000;
