@@ -23,7 +23,8 @@ router.get('/insert', function(req, res, next){
     }
 
     var fullQuery = `insert ignore into cancionerocatolico.listsong_songs
-                    (listsong_id, listsong_song_id) values`;
+                            (listsong_id, listsong_song_id) 
+                     values `;
 
     var songsIDS = querydata.songs_ids.split(',');                
     var idsFormatted = songsIDS.map(formatInsert)
@@ -58,7 +59,7 @@ router.get('/create', function(req, res, next){
     
     var myQuery =  `
                     insert into cancionerocatolico.listsong
-                    (listsong_name, listsong_user_id)
+                           (listsong_name, listsong_user_id)
                     values ('${querydata.list_name}', '${querydata.user_id}');                  
                     `;
 
@@ -89,8 +90,8 @@ router.get('/edit', function(req, res, next){
     connection.connect();
     
     var myQuery =  `
-                    update cancionerocatolico.listsong set
-                     listsong_name = '${querydata.list_name}'
+                    update cancionerocatolico.listsong 
+                       set listsong_name = '${querydata.list_name}'
                      where listsong_id = ${querydata.list_id};                  
                     `;
 
@@ -119,10 +120,9 @@ router.get('/delete', function(req, res, next){
     var connection = mysql.createConnection(config);
     connection.connect();
     
-    var myQuery =   `
-                        delete from cancionerocatolico.listsong
-                            where listsong_id = ${querydata.list_id};                  
-                        `;
+    var myQuery =   `delete from cancionerocatolico.listsong
+                      where listsong_id = ${querydata.list_id};                  
+                    `;
 
     connection.query(myQuery,
         function(err, rows, fields){
