@@ -119,13 +119,6 @@ router.get('/delete', function(req, res, next){
     var connection = mysql.createConnection(config);
     connection.connect();
     
-    var myQueryDet =  `
-                    delete from cancionerocatolico.listsong_songs
-    	             where listsong_id = ${querydata.list_id};                  
-                    `;
-
-    connection.query(myQueryDet);
-
     var myQuery =   `
                         delete from cancionerocatolico.listsong
                             where listsong_id = ${querydata.list_id};                  
