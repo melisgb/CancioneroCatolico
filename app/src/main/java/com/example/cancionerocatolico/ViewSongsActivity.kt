@@ -60,7 +60,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                 listNamesA.add(list.listSongsName)
                             }
                             //to create New list
-                            val df = SimpleDateFormat("yy_MM_dd_HH_mm_ss")
+                            val df = SimpleDateFormat("dd_MM_yy_HH_mm_ss")
                             val currDate = Date()
                             listNamesA.add("Lista"+ df.format(currDate))
 

@@ -8,8 +8,43 @@ var config = {
         database : 'cancionerocatolico'
     };
 
-//Case 4 - Insert songs into songlist
-//Call-> http://127.0.0.1:3000/listsongs/insert?list_id=29&songs_ids=10,11,12
+//GET ALL LISTSONGS (get_listsongs)
+//Call-> http://127.0.0.1:3000/listsongs/?user_id=2
+router.get('/', function(req, res, next){
+    res.header('Access-Control-Allow-Origin', '*'); //security
+    var querydata = req.query;
+
+    var connection = mysql.createConnection(config);
+    connection.connect();
+
+
+    var myQuery =  `
+                    select listsong_id, listsong_name 
+                      from cancionerocatolico.listsong
+                     where listsong_user_id = ${querydata.user_id} 
+                     order by listsong_name asc 
+                     limit 30;
+                    `;
+    
+    connection.query(myQuery,
+        function(err, rows, fields){
+            if(err){
+                console.log(err);
+                res.send({'msg' : 'Error running query'});
+            }
+            else{
+                res.send({
+                    'msg' : 'Loading summary lists - successful', 
+                    'listsongs': rows 
+                });
+            }
+        });
+        connection.end();
+});
+
+
+//INSERT SONGS into songlist  (case 4 listsongs)
+//Call-> http://127.0.0.1:3000/listsongs/insert?list_id=49&songs_ids=26,27,28
 router.get('/insert', function(req, res, next){
     console.log("h")
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -18,7 +53,7 @@ router.get('/insert', function(req, res, next){
     var connection = mysql.createConnection(config);
     connection.connect();
     
-    function formatInsert(song_id){
+    function formatSong(song_id){
         return ` (${querydata.list_id}, ${song_id} )`;
     }
 
@@ -26,7 +61,7 @@ router.get('/insert', function(req, res, next){
                     (listsong_id, listsong_song_id) values`;
 
     var songsIDS = querydata.songs_ids.split(',');                
-    var idsFormatted = songsIDS.map(formatInsert)
+    var idsFormatted = songsIDS.map(formatSong)
     var idsConcat = idsFormatted.join(", ")              
     fullQuery += idsConcat +";"
     
@@ -46,8 +81,38 @@ router.get('/insert', function(req, res, next){
         connection.end();
 });
 
+//DELETE SONG from listsong (case 5 listsongs)
+//Call -> http://127.0.0.1:3000/listsongs/remove?list_id=50&songs_ids=26,27,28
+router.get('/remove', function(req, res, next){
+    res.header('Access-Control-Allow-Origin', '*'); //security
+    var querydata = req.query;
 
-//CREATE LISTSONG
+    var connection = mysql.createConnection(config);
+    connection.connect();
+    
+    var myQuery =   `
+                        delete from cancionerocatolico.listsong_songs
+                         where listsong_id = ${querydata.list_id}
+                           and listsong_song_id in (${querydata.songs_ids} );             
+                        `;
+
+    connection.query(myQuery,
+        function(err, rows, fields){
+            if(err){
+                console.log(err);
+                res.send({'msg' : 'Listsong failed to edit'});
+            }
+            else{
+                res.send({
+                    'msg' : 'Removing songs from listsongs - successful'
+                });
+            }
+        });
+        connection.end();
+});
+
+
+//CREATE LISTSONG (case 1 listsongs)
 //Call -> http://127.0.0.1:3000/listsongs/create?list_name=ListaPrueba&user_id=1
 router.get('/create', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -79,7 +144,7 @@ router.get('/create', function(req, res, next){
 });
 
 
-//EDIT LISTSONG
+//EDIT LISTSONG (case 2 listsongs)
 //Call -> http://127.0.0.1:3000/listsongs/edit?list_id=29&list_name=Nueva Luz
 router.get('/edit', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -110,7 +175,7 @@ router.get('/edit', function(req, res, next){
 });
 
 
-//DELETE LISTSONG
+//DELETE LISTSONG (case 3 listsongs)
 //Call -> http://127.0.0.1:3000/listsongs/delete?list_id=50
 router.get('/delete', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security

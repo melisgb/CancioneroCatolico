@@ -8,8 +8,8 @@ var config = {
         database : 'cancionerocatolico'
     };
 
-//Case 1
-//Call-> http://127.0.0.1:3000/songs/?keyword=&start_from=0
+//SELECT ALL SONGS WITH KEYWORD (case 1 get_songs)
+//Call-> http://127.0.0.1:3000/songs/?keyword=&startFrom=0
 router.get('/', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
     var querydata = req.query;
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next){
                      where song_title like '%${querydata.keyword}%' 
                         or song_artist like '%${querydata.keyword}%' 
                         or song_lyrics like '%${querydata.keyword}%'
-                     order by song_title asc limit 30 offset ${querydata.start_from};
+                     order by song_title asc limit 30 offset ${querydata.startFrom};
                     `;
     
     connection.query(myQuery,
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next){
             }
             else{
                 res.send({
-                    'msg' : 'Loading songs successful', 
+                    'msg' : 'Loading songs - successful', 
                     'songsInfo': rows 
                 });
             }
@@ -47,7 +47,7 @@ router.get('/', function(req, res, next){
 });
 
 
-//Case 2
+//SELECT SONGS FROM LISTSONG (case 2 get_songs)
 //Call -> http://127.0.0.1:3000/songs/list?listsong_id=2
 router.get('/list', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -74,7 +74,7 @@ router.get('/list', function(req, res, next){
             }
             else{
                 res.send({
-                    'msg' : 'Loading songs successful', 
+                    'msg' : 'Loading songs - successful', 
                     'songsInfo': rows 
                 });
             }
@@ -82,7 +82,7 @@ router.get('/list', function(req, res, next){
         connection.end();
 });
 
-//Case 3
+//SELECT SPECIFIC SONG (case 3 get_songs)
 //Call -> http://127.0.0.1:3000/songs/song?song_id=15
 router.get('/song', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -105,7 +105,7 @@ router.get('/song', function(req, res, next){
             }
             else{
                 res.send({
-                    'msg' : 'Loading songs successful', 
+                    'msg' : 'Loading songs - successful', 
                     'songsInfo': rows 
                 });
             }
@@ -114,7 +114,7 @@ router.get('/song', function(req, res, next){
 });
 
 
-//Case 4
+//SELECT SONGS FILTERED BY TAG (case 4 get_songs)
 //Call -> http://127.0.0.1:3000/songs/tags?song_tags=Ordinario,Salmos
 router.get('/tags', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -145,7 +145,7 @@ router.get('/tags', function(req, res, next){
             }
             else{
                 res.send({
-                    'msg' : 'Loading songs successful', 
+                    'msg' : 'Loading songs - successful', 
                     'songsInfo': rows 
                 });
             }
@@ -155,7 +155,7 @@ router.get('/tags', function(req, res, next){
 
 
 
-//CREATE SONG
+//CREATE SONG (case 1 edit_song)
 //Call -> http://127.0.0.1:3000/songs/create?song_title=La paz te doy a ti mi hermano&song_artist=Aleluya&song_lyrics=para ser santo hay que ser sencillo&song_tags=Ordinario
 router.get('/create', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -188,7 +188,7 @@ router.get('/create', function(req, res, next){
 });
 
 
-//EDIT SONG
+//EDIT SONG (case 2 edit_song)
 //Call -> http://127.0.0.1:3000/songs/edit?song_id=6&song_title=La paz te doy a ti mi hermano&song_artist=Aleluya&song_lyrics=para ser santo hay que ser sencillo&song_tags=Ordinario
 router.get('/edit', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -222,7 +222,7 @@ router.get('/edit', function(req, res, next){
 });
 
 
-//DELETE SONG
+//DELETE SONG (case 3 edit_song)
 //Call -> http://127.0.0.1:3000/songs/delete?song_id=30
 router.get('/delete', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
