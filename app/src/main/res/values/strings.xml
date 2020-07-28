@@ -8,6 +8,7 @@
     <string name="string_demo">Demo text</string>
     <string name="button_addSong">Agregar</string>
     <string name="button_updateSong">Actualizar</string>
+    <string name="button_register">Register</string>
     <string name="edit_song">Editar</string>
     <string name="delete_song">Eliminar</string>
     <!-- Hints  -->
@@ -52,4 +53,7 @@
     <string name="view_songs_title">Listado canciones</string>
     <string name="edit_song_title">Actualizar</string>
     <string name="create_song_title">Crear cancion</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="button_goto_register">New user</string>
 </resources>

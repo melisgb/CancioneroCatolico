@@ -6,49 +6,50 @@ import com.example.cancionerocatolico.objects.ListSongs
 import com.example.cancionerocatolico.utils.MyAsyncTask
 import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.ViewSongsActivity
+import com.example.cancionerocatolico.objects.User
 import java.util.function.Supplier
 
-open class CancioneroAPI(val userID : () -> String) {
+open class CancioneroAPI(val userID : () -> Int) {
 //    val SERVER_URL = "https://8118ee7f3f8b.ngrok.io"
     val SERVER_URL = "http://10.0.2.2:3000" //local
 
 
     /***************************************************                USERS                     ******************************************************************/
-//    fun loadUser(userEmail : String, success : (String) -> Unit, fail : (Any?) -> Unit){
-//        //TODO: Define USER OBJECT
-//        val url = Uri.parse("$SERVER_URL/users/?")
-//            .buildUpon()
-//            .appendQueryParameter("email", userEmail)
-//            .build()
-//            .toString()
-//
-//        MyAsyncTask(
-//            onFail = {
-//                fail(null)
-//            },
-//            onSuccess = { username ->
-//                success(username as String)
-//            }
-//        ).execute(url)
-//    }
-//
-//    fun addUser(username: String, email: String, password: String, success: (Song) -> Unit) {
-//        //Update a song
-//        val url = Uri.parse("$SERVER_URL/users/add?")
-//            .buildUpon()
-//            .appendQueryParameter("username", username)
-//            .appendQueryParameter("email", email)
-//            .appendQueryParameter("password", password)
-//            .build()
-//            .toString()
-//
-//        MyAsyncTask(
-//            onFail = { },
-//            onSuccess = { song ->
-//                success(song as Song)
-//            }
-//        ).execute(url)
-//    }
+    fun loadUser(userEmail : String, success : (User) -> Unit, fail : (Any?) -> Unit){
+        //TODO: Define USER OBJECT
+        val url = Uri.parse("$SERVER_URL/users/?")
+            .buildUpon()
+            .appendQueryParameter("email", userEmail)
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = {
+                fail(null)
+            },
+            onSuccess = { user ->
+                success(user as User)
+            }
+        ).execute(url)
+    }
+
+    fun addUser(username: String, email: String, password: String, success: (Int) -> Unit) {
+        //Update a song
+        val url = Uri.parse("$SERVER_URL/users/add?")
+            .buildUpon()
+            .appendQueryParameter("username", username)
+            .appendQueryParameter("email", email)
+            .appendQueryParameter("password", password)
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = { },
+            onSuccess = { userID ->
+                success(userID as Int)
+            }
+        ).execute(url)
+    }
 
     /***************************************************                SONGS                     ******************************************************************/
     fun loadSongs(){
@@ -204,7 +205,7 @@ open class CancioneroAPI(val userID : () -> String) {
         //Search in DB all the lists only with name and ID.
         val url = Uri.parse("$SERVER_URL/listsongs/?")
             .buildUpon()
-            .appendQueryParameter("user_id", userID.invoke())
+            .appendQueryParameter("user_id", userID.invoke().toString())
             .build()
             .toString()
 
@@ -243,7 +244,7 @@ open class CancioneroAPI(val userID : () -> String) {
         val url = Uri.parse("$SERVER_URL/listsongs/create?")
             .buildUpon()
             .appendQueryParameter("list_name", listName)
-            .appendQueryParameter("user_id", userID.invoke())
+            .appendQueryParameter("user_id", userID.invoke().toString())
             .build()
             .toString()
 

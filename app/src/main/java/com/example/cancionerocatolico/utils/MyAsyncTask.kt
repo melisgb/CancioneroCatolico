@@ -4,6 +4,7 @@ import android.os.AsyncTask
 import android.util.Log
 import com.example.cancionerocatolico.objects.ListSongs
 import com.example.cancionerocatolico.objects.Song
+import com.example.cancionerocatolico.objects.User
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -40,17 +41,21 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
             val msg = json.getString("msg")
 
             /****************************************      USER ACCESS           ********************************************/
-            if(msg== "Register User is added"){
-//                Log.d("UserRegistration", msg)
-//                onSuccess(null)
+            if(msg== "User created - successful"){
+                val userInfo = JSONArray(json.getString("userInfo")).getJSONObject(0)
+                val newUserID = userInfo.getInt("user_id")
+                Log.d("User created successfully","New ID $newUserID")
+                onSuccess(newUserID)
             }
-            else if(msg== "Login Successful"){
-//                val msgInfo = JSONArray(json.getString("info"))
-//                val userInfo = msgInfo.getJSONObject(0)
-//                val user_id = userInfo.getString("user_id")
-//                val username = userInfo.getString("user_name")
-//                Log.d("UserLogin", username)
-//                onSuccess(user_id)
+            else if(msg== "Loading user - successful"){
+                val userInfo = JSONArray(json.getString("userInfo")).getJSONObject(0)
+                val newUser = User(
+                    userInfo.getInt("user_id"),
+                    userInfo.getString("user_name"),
+                    userInfo.getString("user_email")
+                )
+                Log.d("UserLogin", newUser.username)
+                onSuccess(newUser)
             }
             /****************************************         SONGS           ********************************************/
             else if(msg== "Loading songs - successful"){
@@ -73,7 +78,6 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
             }
             else if(msg== "Song saved"){ //For Edit Song - add
                 val songInfoArr = JSONArray(json.getString("songInfo"))
-                val listOfSongs = ArrayList<Song>()
                 val songInfo = songInfoArr.getJSONObject(0)
                 val newSong = Song(
                     songInfo.getInt("song_id"),

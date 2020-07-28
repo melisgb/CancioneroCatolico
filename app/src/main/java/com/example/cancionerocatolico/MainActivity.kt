@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        UserInfo(this).saveUserInfo("2") //provisional
+//        UserInfo(this).saveUserInfo(2) //provisional
 
         val viewSongsBtn = findViewById<Button>(R.id.btnViewSongs)
         viewSongsBtn.setOnClickListener {

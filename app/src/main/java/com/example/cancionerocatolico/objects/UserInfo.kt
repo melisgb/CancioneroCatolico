@@ -1,33 +1,34 @@
 package com.example.cancionerocatolico.objects
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import com.example.cancionerocatolico.LoginActivity
 
 class UserInfo(context: Context) {
     var context : Context? = context
     var sharedRef : SharedPreferences? = null
-    var userID = ""
-
     init {
         sharedRef = context.getSharedPreferences("myRef", Context.MODE_PRIVATE)
     }
-    fun saveUserInfo(userID : String){
+    fun saveUserInfo(userID : Int, username : String){
         val editor = sharedRef!!.edit()
-        editor.putString("userID", userID)
+        editor.putInt("userID", userID)
+        editor.putString("username", username)
         editor.commit()
-        loadUserInfo()
+        getUserID()
     }
-    fun loadUserInfo(){
-//        userID = "1"
-        userID = sharedRef!!.getString("userID", "0").toString()
 
-        if(userID == "0")
-        { //start the login activity, otherwise not
-            val intent = Intent(context, LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context!!.startActivity(intent)
-        }
+    fun getUserID() : Int {
+        val userID = sharedRef!!.getInt("userID", 0)
+//        if(userID == "0")
+//        { //start the login activity, otherwise not
+//            val intent = Intent(context, LoginActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            context!!.startActivity(intent)
+//        }
+        return userID
+    }
+    fun getUserName() : String {
+        val userName = sharedRef!!.getString("username", "noname").toString()
+        return userName
     }
 }

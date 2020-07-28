@@ -32,7 +32,7 @@ router.get('/', function(req, res, next){
             }
             else{
                 res.send({
-                    'msg' : 'Loading user', 
+                    'msg' : 'Loading user - successful', 
                     'userInfo': rows 
                 });
             }
