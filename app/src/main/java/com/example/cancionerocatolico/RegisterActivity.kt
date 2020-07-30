@@ -30,8 +30,6 @@ class RegisterActivity : AppCompatActivity() {
                 val savedInfo = UserInfo(applicationContext)
                 savedInfo.saveUserInfo(userID, usernameEText)
                 Toast.makeText(applicationContext, "Register successful", Toast.LENGTH_SHORT).show()
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
                 finish()
             })
     }

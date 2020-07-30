@@ -34,9 +34,19 @@ class LoginActivity : AppCompatActivity() {
         registerBtn.setOnClickListener {
             val intent = Intent(applicationContext, RegisterActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        val savedInfo = UserInfo(applicationContext)
+        val userID = savedInfo.getUserID()
+        if(userID != 0){
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
     private fun loginUser(){
         //TODO: see if Firebase will be needed or just the DB, so far it will be manually

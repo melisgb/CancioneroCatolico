@@ -26,14 +26,15 @@ router.get('/', function(req, res, next){
 
     connection.query(myQuery,
         function(err, rows, fields){
-            if(err){
+            if(err || rows.length==0){
                 console.log(err);
                 res.send({'msg' : 'Error running query'});
+                //res.status(401).send({'msg' : 'Error running query'});
             }
             else{
                 res.send({
                     'msg' : 'Loading user - successful', 
-                    'userInfo': rows 
+                    'userInfo': rows
                 });
             }
         });

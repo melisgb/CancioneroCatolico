@@ -26,9 +26,13 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
             val url = URL(p0[0])
             val urlConnect = url.openConnection() as HttpURLConnection
             urlConnect.connectTimeout = 5000
+//            if (urlConnect.responseCode != 200) {
+//                onFail()
+//            } else {
             var inString = convertStreamToString(urlConnect.inputStream)
             //this function will publish the progress to the UI
             publishProgress(inString)
+//            }
         } catch (ex: Exception) {
             Log.e("Exception error", ex.message, ex)
         }
@@ -42,8 +46,7 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
 
             /****************************************      USER ACCESS           ********************************************/
             if(msg== "User created - successful"){
-                val userInfo = JSONArray(json.getString("userInfo")).getJSONObject(0)
-                val newUserID = userInfo.getInt("user_id")
+                val newUserID = json.getInt("userID")
                 Log.d("User created successfully","New ID $newUserID")
                 onSuccess(newUserID)
             }
@@ -121,7 +124,6 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 onSuccess(listID)
             }
             else if(msg== "Updating listsongs - successful"){
-                //TODO: check if neccesary to retrieve new listname
                 Log.d("Updating listsong successful", "Successful")
                 onSuccess(null)
             }
