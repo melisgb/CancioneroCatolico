@@ -119,8 +119,10 @@ class ReadSongActivity : AppCompatActivity() {
                                         listID = newlistID
                                         cancAPI.loadCurrentList(listID!!,
                                             success = { currentList ->
-                                                cancAPI.insertToList(listID!!, song_id.toString())
-                                                Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                                cancAPI.insertToList(listID!!, song_id.toString(),
+                                                success = {
+                                                    Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                                })
                                             })
                                     })
                             }
@@ -128,9 +130,10 @@ class ReadSongActivity : AppCompatActivity() {
                                 //   When there is a LISTID / the list is already created
                                 cancAPI.loadCurrentList(listID!!,
                                     success = { currentList ->
-                                        cancAPI.insertToList(listID!!, song_id.toString())
-                                        Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT
-                                        ).show()
+                                        cancAPI.insertToList(listID!!, song_id.toString(),
+                                            success = {
+                                                Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                            })
                                     })
                             }
                             dialogInterface.dismiss()
@@ -150,12 +153,25 @@ class ReadSongActivity : AppCompatActivity() {
                     success = { listOfLists ->
                         var selected_ListName = "Favoritos"
                         val listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
-                        //   When there is a LISTID / the list is already created
-                        cancAPI.loadCurrentList(listID!!,
-                            success = { currentList ->
-                                cancAPI.insertToList(listID!!, song_id.toString())
-                                Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
-                            })
+                        if(listID == null){
+                            cancAPI.createList("Favoritos",
+                                success = {listID ->
+                                    cancAPI.insertToList(listID, song_id.toString(),
+                                        success = {
+                                            Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                        })
+
+                                })
+                        }
+                        else {
+                            cancAPI.loadCurrentList(listID,
+                                success = { currentList ->
+                                    cancAPI.insertToList(listID, song_id.toString(),
+                                        success = {
+                                            Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                        })
+                                })
+                        }
                     })
                 true
             }

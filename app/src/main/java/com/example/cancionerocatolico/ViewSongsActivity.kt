@@ -82,8 +82,14 @@ class ViewSongsActivity : AppCompatActivity() {
                                             cancAPI.loadCurrentList(listID!!,
                                                 success = { currentList ->
                                                     var strSelectedSongs = copySelectedSongs.joinToString(",")
-                                                    cancAPI.insertToList(listID!!, strSelectedSongs)
-                                                    Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}", Toast.LENGTH_SHORT).show()
+                                                    cancAPI.insertToList(listID!!, strSelectedSongs,
+                                                        success = {
+                                                            Toast.makeText(
+                                                                applicationContext,
+                                                                "Canciones agregadas a ${selected_ListName}",
+                                                                Toast.LENGTH_SHORT
+                                                            ).show()
+                                                        })
                                                 })
                                         })
                                 } else {
@@ -91,8 +97,10 @@ class ViewSongsActivity : AppCompatActivity() {
                                     cancAPI.loadCurrentList(listID!!,
                                         success = { currentList ->
                                             var strSelectedSongs = copySelectedSongs.joinToString(",")
-                                            cancAPI.insertToList(listID!!, strSelectedSongs)
-                                            Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                            cancAPI.insertToList(listID!!, strSelectedSongs,
+                                                success = {
+                                                    Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                                })
                                         })
                                 }
                                 refreshAll()
@@ -115,18 +123,30 @@ class ViewSongsActivity : AppCompatActivity() {
                             val copySelectedSongs = HashSet<Int>(selectedSongs)
                             var selected_ListName = "Favoritos"
                             val listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
-                            //   When there is a LISTID / the list is already created
-                            cancAPI.loadCurrentList(listID!!,
-                                success = { currentList ->
-                                    var strSelectedSongs =
-                                        copySelectedSongs.joinToString(",")
-                                    cancAPI.insertToList(listID!!, strSelectedSongs)
-                                    Toast.makeText(
-                                        applicationContext,
-                                        "Canciones agregadas a ${selected_ListName}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                })
+                            if(listID == null){
+                                cancAPI.createList("Favoritos",
+                                    success = {listID ->
+                                        var strSelectedSongs =
+                                            copySelectedSongs.joinToString(",")
+                                        cancAPI.insertToList(listID, strSelectedSongs,
+                                            success = {
+                                                Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                            })
+
+                                } )
+                            }
+                            else {
+                                //   When there is a LISTID
+                                cancAPI.loadCurrentList(listID!!,
+                                    success = { currentList ->
+                                        var strSelectedSongs =
+                                            copySelectedSongs.joinToString(",")
+                                        cancAPI.insertToList(listID!!, strSelectedSongs,
+                                            success = {
+                                                Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                            })
+                                    })
+                            }
                             refreshAll()
                             mode.finish() // Action picked, so close the CAB
                         })

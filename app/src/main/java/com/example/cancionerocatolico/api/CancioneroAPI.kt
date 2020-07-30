@@ -102,7 +102,7 @@ open class CancioneroAPI(val userID : () -> Int) {
         ).execute(url)
     }
 
-    fun loadSongsByTags(tags : String, success : (ArrayList<Song>) -> Unit, fail : (Any?) -> Unit){
+    fun loadSongsByTags(tags : String, success : (ArrayList<Song>) -> Unit, fail : () -> Unit){
         //Search into DB based on tags
         val url = Uri.parse("$SERVER_URL/songs/tags?")
             .buildUpon()
@@ -112,6 +112,7 @@ open class CancioneroAPI(val userID : () -> Int) {
 
         MyAsyncTask(
             onFail = {
+                fail()
             },
             onSuccess = { listOfSongs ->
                 success(listOfSongs as ArrayList<Song>)
@@ -291,7 +292,7 @@ open class CancioneroAPI(val userID : () -> Int) {
         ).execute(url)
     }
 
-    fun insertToList(listID:Int, songsIDs:String) {
+    fun insertToList(listID:Int, songsIDs:String, success: () -> Unit) {
         //Insert songs into songsList
         val url = Uri.parse("$SERVER_URL/listsongs/insert?")
             .buildUpon()
@@ -304,13 +305,14 @@ open class CancioneroAPI(val userID : () -> Int) {
             onFail = {
             },
             onSuccess = {
+                success()
             }
         ).execute(url)
     }
 
     fun removeFromList(listID:Int, songsIDs:String, success: (Boolean) -> Unit) {
         //Remove songs from songsList
-        val url = Uri.parse("$SERVER_URL/listsongs/remove.php?")
+        val url = Uri.parse("$SERVER_URL/listsongs/remove?")
             .buildUpon()
             .appendQueryParameter("list_id", listID.toString())
             .appendQueryParameter("songs_ids", songsIDs)
