@@ -93,7 +93,7 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
     <EditText
         android:id="@+id/etxtSongLyrics"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="390dp"
         android:layout_marginLeft="16sp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="16sp"
@@ -110,13 +110,12 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tagsLayout" />
 
-
     <Button
         android:id="@+id/btnCreateSong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="39dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/my_button"
         android:text="@string/button_addSong"
         android:textColor="@color/whiteColor"
@@ -129,8 +128,8 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
         android:id="@+id/btnUpdateSong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="39dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/my_button"
         android:text="@string/button_updateSong"
         android:textColor="@color/whiteColor"

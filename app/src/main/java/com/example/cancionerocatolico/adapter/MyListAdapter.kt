@@ -12,14 +12,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.Group
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cancionerocatolico.objects.ListSongs
 import com.example.cancionerocatolico.R
-import com.example.cancionerocatolico.ViewMyListsActivity
 import com.example.cancionerocatolico.ViewSpecificListActivity
 import com.example.cancionerocatolico.api.CancioneroAPI
+import com.example.cancionerocatolico.objects.ListSongs
 import com.example.cancionerocatolico.utils.UserHelper
-import java.lang.StringBuilder
+
 
 class MyListAdapter(val context: Context, private val listOfLists : ArrayList<ListSongs>) : RecyclerView.Adapter<MyListAdapter.ViewHolder>() {
 
