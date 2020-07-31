@@ -1,11 +1,9 @@
 package com.example.cancionerocatolico
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.UserHandle
 import android.widget.Button
-import com.example.cancionerocatolico.objects.UserInfo
+import androidx.appcompat.app.AppCompatActivity
 import com.example.cancionerocatolico.utils.UserHelper
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         //Para declarar un subtitulo en el menu
         val actBar = supportActionBar
-        actBar?.setSubtitle(UserHelper.getUserName(this))
+        actBar?.subtitle = UserHelper.getUserName(this)
 
         val viewSongsBtn = findViewById<Button>(R.id.btnViewSongs)
         viewSongsBtn.setOnClickListener {

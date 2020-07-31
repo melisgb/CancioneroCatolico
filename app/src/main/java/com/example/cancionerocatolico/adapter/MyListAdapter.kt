@@ -35,6 +35,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
 
     override fun getItemCount(): Int {
         //to determine the number of items
+        if(listOfLists.size == 0)Toast.makeText(context, R.string.toast_nolists, Toast.LENGTH_SHORT).show()
         return listOfLists.size
     }
 
@@ -44,7 +45,6 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
         val list : ListSongs = listOfLists[position]
         val listNameTxtView = holder.listNameTxtView
         listNameTxtView.text = list.listSongsName
-
         val viewgroup = holder.viewg
         viewgroup.setOnClickListener {
             val intent = Intent(context, ViewSpecificListActivity::class.java)
@@ -76,7 +76,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
                     cancAPI.loadCurrentList(listID,
                         success = { list ->
                             val sharingIntent = Intent(Intent.ACTION_SEND)
-                            sharingIntent.setType("text/plain")
+                            sharingIntent.type = "text/plain"
                             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Lista Canciones: $listName")
 
                             val stringOfSongs = StringBuilder()

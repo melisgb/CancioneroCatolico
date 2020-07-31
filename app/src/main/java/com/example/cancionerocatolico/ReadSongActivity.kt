@@ -42,7 +42,7 @@ class ReadSongActivity : AppCompatActivity() {
         super.onRestart()
     }
 
-    fun loadSong(songID : Int)  {
+    private fun loadSong(songID : Int)  {
         cancAPI.readSong(songID, 
             success = { song ->
                 txtvReadSongTitle.text = song.songTitle
@@ -90,7 +90,7 @@ class ReadSongActivity : AppCompatActivity() {
                 cancAPI.loadSummaryLists(
                     //get all listSongs summarized from DB
                     success = { listOfLists  ->
-                        var listNamesA = ArrayList<String>()
+                        val listNamesA = ArrayList<String>()
                         for(list in listOfLists) {
                             listNamesA.add(list.listSongsName)
                         }
@@ -107,7 +107,7 @@ class ReadSongActivity : AppCompatActivity() {
                         builder.setSingleChoiceItems(listNames, -1)  { dialogInterface, i ->
                             selected_ListName = listNames[i]
 
-                            var myListSongs = HashMap<Int, Song>()
+                            val myListSongs = HashMap<Int, Song>()
                             myListSongs[song_id] = ViewSongsActivity.songsList.find { s -> s.songID  == song_id }!!
 
                             var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
@@ -117,28 +117,22 @@ class ReadSongActivity : AppCompatActivity() {
                                 cancAPI.createList(selected_ListName,
                                     success = { newlistID ->
                                         listID = newlistID
-                                        cancAPI.loadCurrentList(listID!!,
-                                            success = { currentList ->
-                                                cancAPI.insertToList(listID!!, song_id.toString(),
-                                                success = {
-                                                    Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
-                                                })
+                                        cancAPI.insertToList(listID!!, song_id.toString(),
+                                            success = {
+                                                Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
                                             })
                                     })
                             }
                             else {
                                 //   When there is a LISTID / the list is already created
-                                cancAPI.loadCurrentList(listID!!,
-                                    success = { currentList ->
-                                        cancAPI.insertToList(listID!!, song_id.toString(),
-                                            success = {
-                                                Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
-                                            })
+                                cancAPI.insertToList(listID!!, song_id.toString(),
+                                    success = {
+                                        Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
                                     })
                             }
                             dialogInterface.dismiss()
                         }
-                        builder.setNeutralButton("Cancelar") { dialog, which ->
+                        builder.setNeutralButton("Cancelar") { dialog, _ ->
                             dialog.cancel()
                         }
                         val mDialog = builder.create()
@@ -151,25 +145,24 @@ class ReadSongActivity : AppCompatActivity() {
                 cancAPI.loadSummaryLists(
                     //get all listSongs summarized from DB
                     success = { listOfLists ->
-                        var selected_ListName = "Favoritos"
-                        val listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
+                        val selected_ListName = "Favoritos"
+                        var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
+
                         if(listID == null){
                             cancAPI.createList("Favoritos",
-                                success = {listID ->
-                                    cancAPI.insertToList(listID, song_id.toString(),
+                                success = {newlistID ->
+                                    listID = newlistID
+                                    cancAPI.insertToList(listID!!, song_id.toString(),
                                         success = {
-                                            Toast.makeText(applicationContext,"Cancion agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
                                         })
 
                                 })
                         }
                         else {
-                            cancAPI.loadCurrentList(listID,
-                                success = { currentList ->
-                                    cancAPI.insertToList(listID, song_id.toString(),
-                                        success = {
-                                            Toast.makeText(applicationContext,"Cancion agregada a ${selected_ListName}",Toast.LENGTH_SHORT).show()
-                                        })
+                           cancAPI.insertToList(listID!!, song_id.toString(),
+                                success = {
+                                    Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
                                 })
                         }
                     })
@@ -202,11 +195,11 @@ class ReadSongActivity : AppCompatActivity() {
         }
     }
 
-    fun parseLyrics(lyrics : String) : ArrayList<LyricsLine> {
+    private fun parseLyrics(lyrics : String) : ArrayList<LyricsLine> {
         return Lyrics.parseLyricsFromSong(lyrics)
     }
 
-    fun lyricsToSpannable(lyricLine : LyricsLine) : Spannable {
+    private fun lyricsToSpannable(lyricLine : LyricsLine) : Spannable {
         val lineToSpan: Spannable = SpannableString(lyricLine.line)
         if(lyricLine.type == LyricsLine.LyricsLineType.VERSE){
             lineToSpan.setSpan(
@@ -223,12 +216,12 @@ class ReadSongActivity : AppCompatActivity() {
         return lineToSpan
     }
 
-    fun <T> Iterable<T>.joinToSpannedString(separator: CharSequence = ", ", prefix: CharSequence = "", postfix: CharSequence = "", limit: Int = -1, truncated: CharSequence = "...", transform: ((T) -> CharSequence)? = null): SpannedString {
+    private fun <T> Iterable<T>.joinToSpannedString(separator: CharSequence = ", ", prefix: CharSequence = "", postfix: CharSequence = "", limit: Int = -1, truncated: CharSequence = "...", transform: ((T) -> CharSequence)? = null): SpannedString {
         return joinTo(SpannableStringBuilder(), separator, prefix, postfix, limit, truncated, transform)
             .let { SpannedString(it) }
     }
 
-    fun increaseSemiNote(level : Int) : ArrayList<LyricsLine> {
+    private fun increaseSemiNote(level : Int) : ArrayList<LyricsLine> {
         val lyricsArray = ArrayList<LyricsLine>()
 
         for (lyr in lyricLines) {
@@ -244,7 +237,7 @@ class ReadSongActivity : AppCompatActivity() {
         return lyricsArray
     }
 
-    fun showLyricsInTextView(){
+    private fun showLyricsInTextView(){
         val spannArray = ArrayList<Spannable>()
         for(lyr in transformedLyricLine){
             spannArray.add(lyricsToSpannable(lyr))

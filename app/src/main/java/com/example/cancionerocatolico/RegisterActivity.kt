@@ -1,6 +1,5 @@
 package com.example.cancionerocatolico
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -31,7 +30,12 @@ class RegisterActivity : AppCompatActivity() {
                 savedInfo.saveUserInfo(userID, usernameEText)
                 Toast.makeText(applicationContext, "Register successful", Toast.LENGTH_SHORT).show()
                 finish()
+            },
+            fail ={
+                Toast.makeText(applicationContext, "Registration failed", Toast.LENGTH_SHORT).show()
             })
+
+
     }
 
 }

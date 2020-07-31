@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cancionerocatolico.adapter.MyListAdapter
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.ListSongs
-import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.utils.UserHelper
 
 class ViewMyListsActivity : AppCompatActivity() {
@@ -31,8 +30,6 @@ class ViewMyListsActivity : AppCompatActivity() {
             listsRecyclerView!!.adapter = listsAdapter
             listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
         })
-
-
     }
 
     override fun onRestart() {
@@ -45,21 +42,13 @@ class ViewMyListsActivity : AppCompatActivity() {
             listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
         })
         super.onRestart()
-
     }
 
-    fun getSummaryLists(success : (Any?) -> Unit){
+    private fun getSummaryLists(success : (Any?) -> Unit){
         cancAPI.loadSummaryLists( success = { listOfLists ->
             listOfListsSongs.clear()
             listOfListsSongs.addAll(listOfLists)
             success(null)
         })
     }
-
-    fun deleteList(listID : Int, success : (Boolean) -> Unit){
-        cancAPI.removeWholeList(listID, success = { result ->
-            success(true)
-        })
-    }
-
 }

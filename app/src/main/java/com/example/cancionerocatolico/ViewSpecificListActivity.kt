@@ -12,8 +12,6 @@ import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.utils.UserHelper
 import kotlinx.android.synthetic.main.activity_view_specific_list.*
 import kotlinx.android.synthetic.main.element_view_songs.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 
@@ -33,7 +31,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
 
         val extras = intent.extras
         listID = extras!!.getInt("listID")
-        val listName = extras!!.getString("listName")
+        val listName = extras.getString("listName")
         val currentListNameTxtV = findViewById<TextView>(R.id.txtvMyListName)
         currentListNameTxtV.text = listName
 
@@ -107,6 +105,19 @@ class ViewSpecificListActivity : AppCompatActivity() {
             })
     }
 
+    override fun onRestart() {
+        getSongsCurrentList(
+            listID,
+            success = { currentList ->
+                mySongsList.clear()
+                mySongsList.addAll(currentList as ArrayList<Song>)
+                songsAdapter = SongAdapter(this, mySongsList, HashSet<Int>())
+                var songsListView = findViewById<ListView>(R.id.lvSpecificList)
+                songsListView.adapter = songsAdapter
+            })
+        super.onRestart()
+    }
+
     private val actionModeCallback = object : ActionMode.Callback {
         // Called when the action mode is created
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
@@ -162,14 +173,14 @@ class ViewSpecificListActivity : AppCompatActivity() {
         })
     }
 
-    fun editListName(listID: Int){
+    private fun editListName(listID: Int){
         val builder = AlertDialog.Builder(this@ViewSpecificListActivity)
         var newListName : String
         val dialogView = layoutInflater.inflate(R.layout.dialog_edit_list_name, null)
         builder.setTitle(R.string.msg_edit_list_name)
         builder.setView(dialogView)
         builder.setIcon(R.drawable.ic_edit_song)
-        var newListNameEditTxt = dialogView.findViewById<EditText>(R.id.etxtEditListName)
+        val newListNameEditTxt = dialogView.findViewById<EditText>(R.id.etxtEditListName)
 
         cancAPI.loadSummaryLists(
             //get all listSongs summarized from DB

@@ -34,7 +34,7 @@ open class CancioneroAPI(val userID : () -> Int) {
         ).execute(url)
     }
 
-    fun addUser(username: String, email: String, password: String, success: (Int) -> Unit) {
+    fun addUser(username: String, email: String, password: String, success: (Int) -> Unit, fail : (Any?) -> Unit) {
         //Update a song
         val url = Uri.parse("$SERVER_URL/users/add?")
             .buildUpon()
@@ -45,7 +45,9 @@ open class CancioneroAPI(val userID : () -> Int) {
             .toString()
 
         MyAsyncTask(
-            onFail = { },
+            onFail = {
+                fail(null)
+            },
             onSuccess = { userID ->
                 success(userID as Int)
             }

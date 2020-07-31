@@ -1,14 +1,13 @@
 package com.example.cancionerocatolico
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.utils.UserHelper
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_edit_song.*
 
 /* Activity to CREATE or EDIT a SONG */
 class EditSongActivity : AppCompatActivity() {
-    var songID : Int = 0
+    private var songID : Int = 0
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     var selectedTags = ArrayList<String>()
 
@@ -54,7 +53,7 @@ class EditSongActivity : AppCompatActivity() {
             val title = etxtSongTitle.text.toString()
             val artist = etxtSongArtist.text.toString()
             val lyrics = etxtSongLyrics.text.toString()
-            val tags = etxtSongTags.text.toString()
+
             val newSong = Song(
                 id,
                 title,
@@ -69,7 +68,6 @@ class EditSongActivity : AppCompatActivity() {
             val title = etxtSongTitle.text.toString()
             val artist = etxtSongArtist.text.toString()
             val lyrics = etxtSongLyrics.text.toString()
-            val tags = etxtSongTags.text.toString()
 
             val currSong = Song(
                 songID,
@@ -86,7 +84,6 @@ class EditSongActivity : AppCompatActivity() {
 
         etxtSongTags.setOnClickListener {
             etxtSongTags.showDropDown()
-            true
         }
         etxtSongTags.setOnItemClickListener { parent, view, position, id ->
             addNewChip((view as AppCompatTextView).text.toString(), tagsLayout)
@@ -95,19 +92,18 @@ class EditSongActivity : AppCompatActivity() {
 
     }
 
-    fun addSongDB(song : Song){
+    private fun addSongDB(song : Song){
         //Adds the song in DB
         cancAPI.addSong(song,
             success = { nSong ->
-                val newSong  = nSong as Song
-                songID = newSong.songID
+                songID = nSong.songID
                 Toast.makeText(applicationContext, R.string.toast_createSong, Toast.LENGTH_SHORT).show()
                 finish()
             })
         //TODO: Create a fail behaviour?
     }
 
-    fun updateSongDB(song : Song){
+    private fun updateSongDB(song : Song){
         //Updates the song in DB
         cancAPI.updateSong(song,
             success = {
@@ -117,7 +113,7 @@ class EditSongActivity : AppCompatActivity() {
         //TODO: Create a fail behaviour?
     }
 
-    fun addNewChip(tag: String, chipGroup: FlexboxLayout){
+    private fun addNewChip(tag: String, chipGroup: FlexboxLayout){
 //        val lp = FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
 //        lp.setMargins(-10,-20,-10,-20)
         val chip = layoutInflater.inflate(R.layout.chip_elem, chipGroup, false) as Chip
@@ -137,7 +133,7 @@ class EditSongActivity : AppCompatActivity() {
         }
     }
 
-    fun formatTags(tagsConcatenated: String){
+    private fun formatTags(tagsConcatenated: String){
         if(tagsConcatenated == "") etxtSongTags.setText("")
         else{
             val tagsArr = tagsConcatenated.split(", ")

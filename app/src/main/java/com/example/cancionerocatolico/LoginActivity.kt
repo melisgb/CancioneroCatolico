@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.UserInfo
-import com.example.cancionerocatolico.utils.UserHelper
 
 class LoginActivity : AppCompatActivity() {
     var cancAPI = CancioneroAPI({ -1 })
