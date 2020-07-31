@@ -1,7 +1,8 @@
 package com.example.cancionerocatolico
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,11 +30,10 @@ class ViewMyListsActivity : AppCompatActivity() {
                 listOfListsSongs
             )
             listsRecyclerView!!.adapter = listsAdapter
-            listsRecyclerView!!.addItemDecoration(
-                DividerItemDecoration(
-                applicationContext,
-                DividerItemDecoration.VERTICAL
-            ))
+
+            val itemDecorator = DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL)
+            itemDecorator.setDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.list_separator)!!)
+            listsRecyclerView!!.addItemDecoration(itemDecorator)
             listsRecyclerView!!.layoutManager = LinearLayoutManager(this)
         })
     }

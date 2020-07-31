@@ -14,7 +14,7 @@
         android:layout_marginBottom="30dp"
         android:clickable="true"
         android:tint="#F3E142"
-        app:backgroundTint="#673AB7"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />

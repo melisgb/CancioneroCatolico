@@ -107,9 +107,6 @@ class ReadSongActivity : AppCompatActivity() {
                         builder.setSingleChoiceItems(listNames, -1)  { dialogInterface, i ->
                             selected_ListName = listNames[i]
 
-                            val myListSongs = HashMap<Int, Song>()
-                            myListSongs[song_id] = ViewSongsActivity.songsList.find { s -> s.songID  == song_id }!!
-
                             var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
 //
                             if(listID == null){
