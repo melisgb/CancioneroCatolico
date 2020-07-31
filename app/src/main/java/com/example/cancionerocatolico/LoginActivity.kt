@@ -51,7 +51,8 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser(){
         //TODO: see if Firebase will be needed or just the DB, so far it will be manually
         val emailEText = findViewById<EditText>(R.id.etEmailLogin)
-        cancAPI.loadUser(emailEText.text.toString(),
+        val passEText = findViewById<EditText>(R.id.etPasswordLogin)
+        cancAPI.loadUser(emailEText.text.toString(), passEText.text.toString(),
             success = {user ->
                 val savedInfo = UserInfo(applicationContext)
                 savedInfo.saveUserInfo(user.userID, user.username)

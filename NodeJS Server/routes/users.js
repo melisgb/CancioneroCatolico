@@ -4,7 +4,7 @@ var mysql = require('mysql');
 
 
 //SELECT SPECIFIC USER by email
-//Call -> http://127.0.0.1:3000/users/?email=prueba@ccca
+//Call -> http://127.0.0.1:3000/users/?email=prueba@ccca&pass=555
 router.get('/', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
     var querydata = req.query;
@@ -21,7 +21,8 @@ router.get('/', function(req, res, next){
     var myQuery =  `
                     select user_id, user_name, user_email
                       from cancionerocatolico.user
-	                 where user_email = '${querydata.email}';                   
+                     where user_email = '${querydata.email}'
+                     and user_password = '${querydata.pass}';                   
                     `;
 
     connection.query(myQuery,

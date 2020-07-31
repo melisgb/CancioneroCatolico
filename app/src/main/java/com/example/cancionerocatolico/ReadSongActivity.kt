@@ -158,7 +158,7 @@ class ReadSongActivity : AppCompatActivity() {
                                 success = {listID ->
                                     cancAPI.insertToList(listID, song_id.toString(),
                                         success = {
-                                            Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(applicationContext,"Cancion agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
                                         })
 
                                 })

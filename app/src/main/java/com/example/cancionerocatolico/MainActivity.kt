@@ -12,7 +12,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        UserInfo(this).saveUserInfo(2) //provisional
+
+        //Para declarar un subtitulo en el menu
+        val actBar = supportActionBar
+        actBar?.setSubtitle(UserHelper.getUserName(this))
 
         val viewSongsBtn = findViewById<Button>(R.id.btnViewSongs)
         viewSongsBtn.setOnClickListener {
