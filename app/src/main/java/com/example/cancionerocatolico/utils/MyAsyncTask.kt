@@ -53,7 +53,7 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
             return
         }
         try {
-            var json = JSONObject(values[0])
+            val json = JSONObject(values[0])
             val msg = json.getString("msg")
 
             /****************************************      USER ACCESS           ********************************************/
@@ -105,14 +105,6 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Song saved successful", "")
                 onSuccess(newSong)
             }
-//            else if(msg== "Song updated"){ //For Edit Song - update
-//                Log.d("Song updated successfully", "")
-//                onSuccess(null)
-//            }
-//            else if(msg== "Song deleted"){ //For Edit Song - update
-//                Log.d("Song deleted successfully", "")
-//                onSuccess(null)
-//            }
 
             /****************************************         LISTS           ********************************************/
             else if(msg== "Loading summary lists - successful"){
@@ -136,31 +128,16 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Creating listsong successful", "Successful")
                 onSuccess(listID)
             }
-//            else if(msg== "Updating listsongs - successful"){
-//                Log.d("Updating listsong successful", "Successful")
-//                onSuccess(null)
-//            }
-//            else if(msg== "Deleting listsongs - successful"){
-//                Log.d("Deleting listsong successful", "Successful")
-//                onSuccess(null)
-//            }
-//            else if(msg== "Adding songs into listsongs - successful"){
-//                Log.d("Adding songs into listsongs successful", "Successful")
-//                onSuccess(null)
-//            }
-//            else if(msg== "Removing songs from listsongs - successful"){
-//                Log.d("Removing songs from listsongs successful", "Successful")
-//                onSuccess(null)
-//            }
+
             else{
                 /*
                 this response will group all the OK responses that wont retrieve information, such as:
-                    Song updated
-                    Song deleted
-                    Updating listsongs - successful
-                    Deleting listsongs - successful
-                    Adding songs into listsongs - successful
-                    Removing songs from listsongs - successful
+                    Song updated   --> SONGS
+                    Song deleted   --> SONGS
+                    Updating listsongs - successful   --> LISTSONGS
+                    Deleting listsongs - successful   --> LISTSONGS
+                    Adding songs into listsongs - successful   --> LISTSONGS
+                    Removing songs from listsongs - successful   --> LISTSONGS
                 */
                 Log.d(msg.toString(), "")
                 onSuccess(null)
@@ -176,7 +153,7 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
     fun convertStreamToString(inputStrm: InputStream) : String{
         val bufferReader = BufferedReader(InputStreamReader(inputStrm))
         var line: String?
-        var allString :String = ""
+        var allString  = ""
 
         try{
             do {
