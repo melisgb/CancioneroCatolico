@@ -30,7 +30,7 @@ router.get('/', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Error running query'});
+                res.status(400).send({'msg' : 'Error running query'});
             }
             else{
                 res.send({
@@ -69,7 +69,7 @@ router.get('/insert', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Listsong failed to edit'});
+                res.status(400).send({'msg' : 'Listsong failed to edit'});
             }
             else{
                 console.log(rows)
@@ -100,7 +100,7 @@ router.get('/remove', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Listsong failed to edit'});
+                res.status(400).send({'msg' : 'Listsong failed to edit'});
             }
             else{
                 res.send({
@@ -131,7 +131,7 @@ router.get('/create', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Listsong failed to edit'});
+                res.status(400).send({'msg' : 'Listsong failed to edit'});
             }
             else{
                 res.send({
@@ -163,7 +163,7 @@ router.get('/edit', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Listsong failed to edit'});
+                res.status(400).send({'msg' : 'Listsong failed to edit'});
             }
             else{
                 res.send({
@@ -193,7 +193,7 @@ router.get('/delete', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Listsong failed to edit'});
+                res.status(400).send({'msg' : 'Listsong failed to edit'});
             }
             else{
                 res.send({

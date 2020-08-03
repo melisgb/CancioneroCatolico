@@ -26,13 +26,19 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
             val url = URL(p0[0])
             val urlConnect = url.openConnection() as HttpURLConnection
             urlConnect.connectTimeout = 5000
-//            if (urlConnect.responseCode != 200) {
-//                onFail()
-//            } else {
-            var inString = convertStreamToString(urlConnect.inputStream)
-            //this function will publish the progress to the UI
-            publishProgress(inString)
-//            }
+
+            if (urlConnect.responseCode != 200) {
+                //400 = bad request - for parameters
+                //401 = unauthorized
+                //500 = server error
+                publishProgress("DB Error")
+            }
+            else {
+            //Responsecode 200
+                var inString = convertStreamToString(urlConnect.inputStream)
+                //this function will publish the progress to the UI
+                publishProgress(inString)
+            }
         } catch (ex: Exception) {
             Log.e("Exception error", ex.message, ex)
         }
@@ -40,6 +46,12 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
     }
 
     override fun onProgressUpdate(vararg values: String?) {
+        if(values[0].equals("DB Error")) {
+            //TODO: Retrieve the response message from DB error
+            Log.d("Failed", "Database Error")
+            onFail()
+            return
+        }
         try {
             var json = JSONObject(values[0])
             val msg = json.getString("msg")
@@ -93,14 +105,15 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Song saved successful", "")
                 onSuccess(newSong)
             }
-            else if(msg== "Song updated"){ //For Edit Song - update
-                Log.d("Song updated successfully", "")
-                onSuccess(null)
-            }
-            else if(msg== "Song deleted"){ //For Edit Song - update
-                Log.d("Song deleted successfully", "")
-                onSuccess(null)
-            }
+//            else if(msg== "Song updated"){ //For Edit Song - update
+//                Log.d("Song updated successfully", "")
+//                onSuccess(null)
+//            }
+//            else if(msg== "Song deleted"){ //For Edit Song - update
+//                Log.d("Song deleted successfully", "")
+//                onSuccess(null)
+//            }
+
             /****************************************         LISTS           ********************************************/
             else if(msg== "Loading summary lists - successful"){
                 val listsInfoArr = JSONArray(json.getString("listsongs"))
@@ -123,27 +136,34 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 Log.d("Creating listsong successful", "Successful")
                 onSuccess(listID)
             }
-            else if(msg== "Updating listsongs - successful"){
-                Log.d("Updating listsong successful", "Successful")
+//            else if(msg== "Updating listsongs - successful"){
+//                Log.d("Updating listsong successful", "Successful")
+//                onSuccess(null)
+//            }
+//            else if(msg== "Deleting listsongs - successful"){
+//                Log.d("Deleting listsong successful", "Successful")
+//                onSuccess(null)
+//            }
+//            else if(msg== "Adding songs into listsongs - successful"){
+//                Log.d("Adding songs into listsongs successful", "Successful")
+//                onSuccess(null)
+//            }
+//            else if(msg== "Removing songs from listsongs - successful"){
+//                Log.d("Removing songs from listsongs successful", "Successful")
+//                onSuccess(null)
+//            }
+            else{
+                /*
+                this response will group all the OK responses that wont retrieve information, such as:
+                    Song updated
+                    Song deleted
+                    Updating listsongs - successful
+                    Deleting listsongs - successful
+                    Adding songs into listsongs - successful
+                    Removing songs from listsongs - successful
+                */
+                Log.d(msg.toString(), "")
                 onSuccess(null)
-            }
-            else if(msg== "Deleting listsongs - successful"){
-                Log.d("Deleting listsong successful", "Successful")
-                onSuccess(null)
-            }
-            else if(msg== "Adding songs into listsongs - successful"){
-                //TODO check if necessary to load the listsong
-                Log.d("Adding songs into listsongs successful", "Successful")
-                onSuccess(null)
-            }
-            else if(msg== "Removing songs from listsongs - successful"){
-                //TODO check if necessary to load the listsong
-                Log.d("Removing songs from listsongs successful", "Successful")
-                onSuccess(null)
-            }
-            else {
-                Log.d("Failed", msg)
-                onFail()
             }
         } catch (ex: Exception) {
             Log.e("Exception error", ex.message, ex)

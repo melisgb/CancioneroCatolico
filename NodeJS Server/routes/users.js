@@ -14,10 +14,16 @@ router.get('/', function(req, res, next){
         password : 'catolico', 
         database : 'cancionerocatolico'
     }
-
+    
+    if(!querydata.email || !querydata.pass ){
+        //checks if parameters are null or empty
+        res.status(400).send({'msg' : 'Email and password required'});
+        return;
+    }
     var connection = mysql.createConnection(config);
     connection.connect();
-    
+
+
     var myQuery =  `
                     select user_id, user_name, user_email
                       from cancionerocatolico.user
@@ -29,8 +35,7 @@ router.get('/', function(req, res, next){
         function(err, rows, fields){
             if(err || rows.length==0){
                 console.log(err);
-                res.send({'msg' : 'Error running query'});
-                //res.status(401).send({'msg' : 'Error running query'});
+                res.status(401).send({'msg' : 'No user matches'});
             }
             else{
                 res.send({
@@ -66,7 +71,7 @@ router.get('/add', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'User failed to edit'});
+                res.status(400).send({'msg' : 'User failed to insert'});
             }
             else{
                 res.send({
@@ -103,7 +108,7 @@ router.get('/update', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'User failed to edit'});
+                res.status(400).send({'msg' : 'User failed to update'});
             }
             else{
                 res.send({
@@ -137,7 +142,7 @@ router.get('/delete', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'User failed to edit'});
+                res.status(400).send({'msg' : 'User failed to delete'});
             }
             else{
                 res.send({

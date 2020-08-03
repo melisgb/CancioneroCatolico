@@ -176,6 +176,7 @@ class ReadSongActivity : AppCompatActivity() {
                 true
             }
             R.id.action_deleteSong-> {
+                //Important notice: When an ADMIN user deletes a song it will get deleted from every list.
                 cancAPI.deleteSong(
                     song_id,
                     success = {

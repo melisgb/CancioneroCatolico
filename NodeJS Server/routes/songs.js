@@ -33,7 +33,7 @@ router.get('/', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Error running query'});
+                res.status(400).send({'msg' : 'Error running query'});
             }
             else{
                 res.send({
@@ -70,7 +70,7 @@ router.get('/list', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Error running query'});
+                res.status(400).send({'msg' : 'Error running query'});
             }
             else{
                 res.send({
@@ -101,7 +101,7 @@ router.get('/song', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Error running query'});
+                res.status(400).send({'msg' : 'Error running query'});
             }
             else{
                 res.send({
@@ -141,7 +141,7 @@ router.get('/tags', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Error running query'});
+                res.status(400).send({'msg' : 'Error running query'});
             }
             else{
                 res.send({
@@ -175,7 +175,7 @@ router.get('/create', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Song failed to edit'});
+                res.status(400).send({'msg' : 'Song failed to edit'});
             }
             else{
                 res.send({
@@ -210,7 +210,7 @@ router.get('/edit', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Song failed to edit'});
+                res.status(400).send({'msg' : 'Song failed to edit'});
             }
             else{
                 res.send({
@@ -240,7 +240,7 @@ router.get('/delete', function(req, res, next){
         function(err, rows, fields){
             if(err){
                 console.log(err);
-                res.send({'msg' : 'Song failed to edit'});
+                res.status(400).send({'msg' : 'Song failed to edit'});
             }
             else{
                 res.send({
