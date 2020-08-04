@@ -3,7 +3,7 @@
     <string name="button_viewSongs">Ver canciones</string>
     <string name="button_viewSongsByTags">Canciones por Tags</string>
     <string name="button_viewMyLists">Mis listas</string>
-    <string name="button_login">Login</string>
+    <string name="button_login">Login with Google</string>
     <string name="list_icon_desc">iconoLista</string>
     <string name="string_demo">Demo text</string>
     <string name="button_addSong">Agregar</string>

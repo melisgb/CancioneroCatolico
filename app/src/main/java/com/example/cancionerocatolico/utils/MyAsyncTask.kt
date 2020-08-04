@@ -150,7 +150,7 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
         super.onPostExecute(result)        //after the task is done
     }
 
-    fun convertStreamToString(inputStrm: InputStream) : String{
+    private fun convertStreamToString(inputStrm: InputStream) : String{
         val bufferReader = BufferedReader(InputStreamReader(inputStrm))
         var line: String?
         var allString  = ""

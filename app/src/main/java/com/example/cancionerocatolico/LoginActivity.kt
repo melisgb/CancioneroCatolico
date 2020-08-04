@@ -38,25 +38,13 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        val loginBtn = findViewById<Button>(R.id.btnLogin)
-        loginBtn.setOnClickListener {
-            val account = GoogleSignIn.getLastSignedInAccount(this)
-            updateUI(account)
-        }
-        val registerBtn = findViewById<Button>(R.id.btnGotoRegister)
-        registerBtn.setOnClickListener {
-            val intent = Intent(applicationContext, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-
         //REF: https://developers.google.com/identity/sign-in/android/sign-in
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        val googleSigninBtn = findViewById<SignInButton>(R.id.btnGoogleSignin)
-        googleSigninBtn.setSize(SignInButton.SIZE_STANDARD)
+        val googleSigninBtn = findViewById<Button>(R.id.btnLogin)
         googleSigninBtn.setOnClickListener {
-            signin()
+            val signinIntent = mGoogleSignInClient!!.signInIntent
+            startActivityForResult(signinIntent, 100)
         }
-
     }
 
     override fun onRestart() {
@@ -69,27 +57,6 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
-    private fun loginUser(email: String){
-//        val emailEText = findViewById<EditText>(R.id.etEmailLogin)
-//        val passEText = findViewById<EditText>(R.id.etPasswordLogin)
-        cancAPI.loadUser(email,
-            success = {user ->
-                val savedInfo = UserInfo(applicationContext)
-                savedInfo.saveUserInfo(user.userID, user.username)
-                Toast.makeText(applicationContext, "Login successful", Toast.LENGTH_SHORT).show()
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            },
-            fail = {
-                Toast.makeText(applicationContext, "Login failed", Toast.LENGTH_SHORT).show()
-            })
-    }
-    fun signin(){
-        val signinIntent = mGoogleSignInClient!!.signInIntent
-        startActivityForResult(signinIntent, 100)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -115,12 +82,44 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(signedIn : GoogleSignInAccount?){
         if(signedIn != null){
-            val username = signedIn.displayName.toString()
-            Toast.makeText(applicationContext, "GoogleRegister successful ${signedIn.email.toString()}", Toast.LENGTH_SHORT).show()
-//            registerUser(signedIn.displayName!!, signedIn.email!!)
+//            Toast.makeText(applicationContext, "GoogleRegister successful ${signedIn.email.toString()}", Toast.LENGTH_SHORT).show()
+            loginUser(signedIn.email!!, success = { result ->
+                if(result) {
+                    Toast.makeText(applicationContext, "Login successful", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else {
+                    registerUser(signedIn.displayName!!, signedIn.email!!)
+                }
+            })
         }
         else{
             Toast.makeText(applicationContext, "GoogleRegister failed", Toast.LENGTH_SHORT).show()
         }
+    }
+    private fun loginUser(email: String, success: (Boolean) -> Unit ) {
+        cancAPI.loadUser(email,
+            success = {user ->
+                val savedInfo = UserInfo(applicationContext)
+                savedInfo.saveUserInfo(user.userID, user.username)
+                success(true)
+            },
+            fail = {
+                success(false)
+            })
+    }
+    private fun registerUser(username : String, email : String){
+        cancAPI.addUser(username, email,
+            success = {userID ->
+                val savedInfo = UserInfo(applicationContext)
+                savedInfo.saveUserInfo(userID, username)
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            },
+            fail ={
+            })
     }
 }

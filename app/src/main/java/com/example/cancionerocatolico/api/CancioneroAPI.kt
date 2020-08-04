@@ -16,7 +16,6 @@ open class CancioneroAPI(val userID : () -> Int) {
 
     /***************************************************                USERS                     ******************************************************************/
     fun loadUser(userEmail : String, success : (User) -> Unit, fail : (Any?) -> Unit){
-        //TODO: Define USER OBJECT
         val url = Uri.parse("$SERVER_URL/users/?")
             .buildUpon()
             .appendQueryParameter("email", userEmail)

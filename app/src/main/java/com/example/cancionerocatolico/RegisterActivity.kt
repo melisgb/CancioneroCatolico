@@ -23,9 +23,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun registerUser(username : String, email : String){
-//        val emailEText = findViewById<EditText>(R.id.etEmailRegister).text.toString()
-//        val usernameEText = findViewById<EditText>(R.id.etUsernameRegister).text.toString()
-//        val passwordEText = findViewById<EditText>(R.id.etPasswordRegister).text.toString()
         cancAPI.addUser(username, email,
             success = {userID ->
                 val savedInfo = UserInfo(applicationContext)
