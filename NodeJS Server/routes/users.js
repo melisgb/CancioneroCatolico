@@ -4,7 +4,7 @@ var mysql = require('mysql');
 
 
 //SELECT SPECIFIC USER by email
-//Call -> http://127.0.0.1:3000/users/?email=prueba@ccca&pass=555
+//Call -> http://127.0.0.1:3000/users/?email=prueba@ccca
 router.get('/', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
     var querydata = req.query;
@@ -15,9 +15,9 @@ router.get('/', function(req, res, next){
         database : 'cancionerocatolico'
     }
     
-    if(!querydata.email || !querydata.pass ){
+    if(!querydata.email ){
         //checks if parameters are null or empty
-        res.status(400).send({'msg' : 'Email and password required'});
+        res.status(400).send({'msg' : 'Email required'});
         return;
     }
     var connection = mysql.createConnection(config);
@@ -27,8 +27,7 @@ router.get('/', function(req, res, next){
     var myQuery =  `
                     select user_id, user_name, user_email
                       from cancionerocatolico.user
-                     where user_email = '${querydata.email}'
-                     and user_password = '${querydata.pass}';                   
+                     where user_email = '${querydata.email}';                   
                     `;
 
     connection.query(myQuery,
@@ -48,7 +47,7 @@ router.get('/', function(req, res, next){
 });
 
 //CREATE USER
-//Call -> http://127.0.0.1:3000/users/add?username=Prueba&email=prueba@ccc&password=12345
+//Call -> http://127.0.0.1:3000/users/add?username=Prueba&email=prueba@ccc
 router.get('/add', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
     var querydata = req.query;
@@ -63,8 +62,8 @@ router.get('/add', function(req, res, next){
     connection.connect();
     
     var myQuery =  `
-                    insert into cancionerocatolico.user(user_name, user_password, user_email)
-	                 values ('${querydata.username}', '${querydata.password}', '${querydata.email}' );                   
+                    insert into cancionerocatolico.user(user_name, user_email)
+	                 values ('${querydata.username}', '${querydata.email}' );                   
                     `;
 
     connection.query(myQuery,

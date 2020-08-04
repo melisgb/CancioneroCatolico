@@ -10,17 +10,16 @@ import com.example.cancionerocatolico.objects.User
 import java.util.function.Supplier
 
 open class CancioneroAPI(val userID : () -> Int) {
-    val SERVER_URL = "https://4bddfea48b2b.ngrok.io"
+    val SERVER_URL = "https://fab48fcaa94c.ngrok.io"
 //    val SERVER_URL = "http://10.0.2.2:3000" //local
 
 
     /***************************************************                USERS                     ******************************************************************/
-    fun loadUser(userEmail : String, password : String, success : (User) -> Unit, fail : (Any?) -> Unit){
+    fun loadUser(userEmail : String, success : (User) -> Unit, fail : (Any?) -> Unit){
         //TODO: Define USER OBJECT
         val url = Uri.parse("$SERVER_URL/users/?")
             .buildUpon()
             .appendQueryParameter("email", userEmail)
-            .appendQueryParameter("pass", password)
             .build()
             .toString()
 
@@ -34,13 +33,12 @@ open class CancioneroAPI(val userID : () -> Int) {
         ).execute(url)
     }
 
-    fun addUser(username: String, email: String, password: String, success: (Int) -> Unit, fail : (Any?) -> Unit) {
+    fun addUser(username: String, email: String, success: (Int) -> Unit, fail : (Any?) -> Unit) {
         //Update a song
         val url = Uri.parse("$SERVER_URL/users/add?")
             .buildUpon()
             .appendQueryParameter("username", username)
             .appendQueryParameter("email", email)
-            .appendQueryParameter("password", password)
             .build()
             .toString()
 
