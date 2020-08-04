@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class UserInfo(context: Context) {
+    //to save and return the UserID or username
     var context : Context? = context
     var sharedRef : SharedPreferences? = null
     init {
