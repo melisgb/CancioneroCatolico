@@ -20,16 +20,15 @@ class UserInfo(context: Context) {
 
     fun getUserID() : Int {
         val userID = sharedRef!!.getInt("userID", 0)
-//        if(userID == "0")
-//        { //start the login activity, otherwise not
-//            val intent = Intent(context, LoginActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            context!!.startActivity(intent)
-//        }
         return userID
     }
     fun getUserName() : String {
         val userName = sharedRef!!.getString("username", "noname").toString()
         return userName
+    }
+    fun clearUserInfo(){
+        val editor = sharedRef!!.edit()
+        editor.clear()
+        editor.commit()
     }
 }

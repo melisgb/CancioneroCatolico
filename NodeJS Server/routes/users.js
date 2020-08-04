@@ -32,7 +32,11 @@ router.get('/', function(req, res, next){
 
     connection.query(myQuery,
         function(err, rows, fields){
-            if(err || rows.length==0){
+            if(err){
+                console.log(err);
+                res.status(500).send({'msg' : 'Error running query'});
+            }
+            else if(rows.length==0){
                 console.log(err);
                 res.status(401).send({'msg' : 'No user matches'});
             }

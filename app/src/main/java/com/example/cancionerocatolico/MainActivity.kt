@@ -2,8 +2,12 @@ package com.example.cancionerocatolico
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import com.example.cancionerocatolico.objects.UserInfo
 import com.example.cancionerocatolico.utils.UserHelper
 
 class MainActivity : AppCompatActivity() {
@@ -33,5 +37,21 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.logout_menu, menu)
+        val logoutItem = menu?.findItem(R.id.act_logout)
+
+        logoutItem!!.setOnMenuItemClickListener {
+            val savedInfo = UserInfo(applicationContext)
+            savedInfo.clearUserInfo()
+            Toast.makeText(applicationContext, "Successfully logged out", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            true
+        }
+        return true
     }
 }

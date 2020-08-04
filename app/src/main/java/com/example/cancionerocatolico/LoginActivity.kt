@@ -82,13 +82,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(signedIn : GoogleSignInAccount?){
         if(signedIn != null){
-//            Toast.makeText(applicationContext, "GoogleRegister successful ${signedIn.email.toString()}", Toast.LENGTH_SHORT).show()
             loginUser(signedIn.email!!, success = { result ->
                 if(result) {
-                    Toast.makeText(applicationContext, "Login successful", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(applicationContext, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    proceedToMain()
                 }
                 else {
                     registerUser(signedIn.displayName!!, signedIn.email!!)
@@ -96,7 +92,7 @@ class LoginActivity : AppCompatActivity() {
             })
         }
         else{
-            Toast.makeText(applicationContext, "GoogleRegister failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Login with Google failed", Toast.LENGTH_SHORT).show()
         }
     }
     private fun loginUser(email: String, success: (Boolean) -> Unit ) {
@@ -106,20 +102,31 @@ class LoginActivity : AppCompatActivity() {
                 savedInfo.saveUserInfo(user.userID, user.username)
                 success(true)
             },
-            fail = {
-                success(false)
+            fail = { errorMessage->
+                if(errorMessage.equals("No user matches")){
+                    success(false)
+                }
+                else{
+                    Log.e("Server error", errorMessage)
+                }
             })
     }
     private fun registerUser(username : String, email : String){
         cancAPI.addUser(username, email,
-            success = {userID ->
+            success = { userID ->
                 val savedInfo = UserInfo(applicationContext)
                 savedInfo.saveUserInfo(userID, username)
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                proceedToMain()
             },
             fail ={
             })
     }
+    fun proceedToMain(){
+        Toast.makeText(applicationContext, "Login successful", Toast.LENGTH_SHORT).show()
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+
 }

@@ -58,4 +58,5 @@
     <string name="button_goto_register">New user</string>
     <string name="toast_nolists">No hay listas para mostrar</string>
     <string name="hint_username">Username</string>
+    <string name="log_out">Log out</string>
 </resources>

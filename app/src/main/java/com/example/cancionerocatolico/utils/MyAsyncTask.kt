@@ -14,7 +14,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 //To use as HTTP Request
-class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : AsyncTask<String, String, String>() {
+class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: (String) -> Unit) : AsyncTask<String, String, String>() {
 
     override fun onPreExecute() {
         //before task started
@@ -31,11 +31,12 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
                 //400 = bad request - for parameters
                 //401 = unauthorized
                 //500 = server error
-                publishProgress("DB Error")
+                val inString = convertStreamToString(urlConnect.errorStream)
+                publishProgress("DB Error", inString)
             }
             else {
             //Responsecode 200
-                var inString = convertStreamToString(urlConnect.inputStream)
+                val inString = convertStreamToString(urlConnect.inputStream)
                 //this function will publish the progress to the UI
                 publishProgress(inString)
             }
@@ -49,7 +50,9 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: () -> Unit) : Async
         if(values[0].equals("DB Error")) {
             //TODO: Retrieve the response message from DB error
             Log.d("Failed", "Database Error")
-            onFail()
+            val json = JSONObject(values[1])
+            val msg = json.getString("msg")
+            onFail(msg)
             return
         }
         try {
