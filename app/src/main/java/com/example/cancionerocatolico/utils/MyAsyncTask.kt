@@ -95,18 +95,9 @@ class MyAsyncTask(val onSuccess: (Any?) -> Unit, val onFail: (String) -> Unit) :
                 onSuccess(listOfSongs)
             }
             else if(msg== "Song saved"){ //For Edit Song - add
-                val songInfoArr = JSONArray(json.getString("songInfo"))
-                val songInfo = songInfoArr.getJSONObject(0)
-                val newSong = Song(
-                    songInfo.getInt("song_id"),
-                    songInfo.getString("song_title"),
-                    songInfo.getString("song_artist"),
-                    songInfo.getString("song_lyrics"),
-                    songInfo.getString("song_tags")
-                )
-
+                val songID = json.getInt("songInfo")
                 Log.d("Song saved successful", "")
-                onSuccess(newSong)
+                onSuccess(songID)
             }
 
             /****************************************         LISTS           ********************************************/

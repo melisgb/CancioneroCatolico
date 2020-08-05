@@ -14,7 +14,6 @@ class SongAdapter(val context: Activity, val songsList: ArrayList<Song>, val sel
     var actionMode : ActionMode? = null
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        //TODO: Implement the layout to inflate and behaviour
         var currentSong = songsList[position]
 
         val myElementView = layoutInflater.inflate(R.layout.element_view_songs, null)

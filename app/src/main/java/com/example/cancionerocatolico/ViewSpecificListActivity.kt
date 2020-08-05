@@ -198,7 +198,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
                     if (newListName.length <= 35) {
                         cancAPI.updateList(listID, newListName,
                             success = {
-                                songsAdapter!!.notifyDataSetChanged() //verificar si solo es neceario notificar o si pasar todo la lista al adapter de nuevo
+                                songsAdapter!!.notifyDataSetChanged() //solo es neceario notificar al adapter de nuevo
                             })
                         txtvMyListName.text = newListName
                     } else {

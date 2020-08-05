@@ -60,7 +60,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                 listNamesA.add(list.listSongsName)
                             }
                             //to create New list
-                            val df = SimpleDateFormat("dd_MM_yy_HH_mm_ss")
+                            val df = SimpleDateFormat("dd_MM_yy_HHmmss")
                             val currDate = Date()
                             listNamesA.add("Lista"+ df.format(currDate))
 
@@ -270,7 +270,6 @@ class ViewSongsActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
-                //TODO: Search Songs in DB
                 getSongs(query!!, 0)
                 songsListView.adapter = songsAdapter
                 return false
@@ -280,7 +279,6 @@ class ViewSongsActivity : AppCompatActivity() {
         //val keyword_extra: String? = this.intent.getStringExtra(EXTRA_KEYWORD)
         val keyword_extra: String? = ""
         if (!keyword_extra.isNullOrEmpty()) {
-            //TODO: Search Songs in DB
             getSongs(keyword_extra, 0)
             songsListView.adapter = songsAdapter
 

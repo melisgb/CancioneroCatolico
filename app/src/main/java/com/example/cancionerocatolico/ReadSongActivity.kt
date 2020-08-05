@@ -3,7 +3,10 @@ package com.example.cancionerocatolico
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.*
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.SpannedString
 import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
@@ -12,14 +15,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.LyricsLine
-import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.utils.Lyrics
 import com.example.cancionerocatolico.utils.UserHelper
 import kotlinx.android.synthetic.main.activity_read_song.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 
 class ReadSongActivity : AppCompatActivity() {
@@ -95,7 +96,7 @@ class ReadSongActivity : AppCompatActivity() {
                             listNamesA.add(list.listSongsName)
                         }
                         //to create New list
-                        val df = SimpleDateFormat("dd_MM_yy_HH_mm_ss")
+                        val df = SimpleDateFormat("dd_MM_yy_HHmmss")
                         val currDate = Date()
                         listNamesA.add("Lista"+ df.format(currDate))
                         val listNames = listNamesA.toArray(emptyArray<String>())

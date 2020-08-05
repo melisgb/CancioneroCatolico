@@ -95,8 +95,8 @@ class EditSongActivity : AppCompatActivity() {
     private fun addSongDB(song : Song){
         //Adds the song in DB
         cancAPI.addSong(song,
-            success = { nSong ->
-                songID = nSong.songID
+            success = { newSongID ->
+                songID = newSongID
                 Toast.makeText(applicationContext, R.string.toast_createSong, Toast.LENGTH_SHORT).show()
                 finish()
             })

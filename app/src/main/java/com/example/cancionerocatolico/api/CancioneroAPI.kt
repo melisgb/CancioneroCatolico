@@ -10,7 +10,7 @@ import com.example.cancionerocatolico.objects.User
 import java.util.function.Supplier
 
 open class CancioneroAPI(val userID : () -> Int) {
-    val SERVER_URL = "https://fab48fcaa94c.ngrok.io"
+    val SERVER_URL = "https://abdf292d39d4.ngrok.io"
 //    val SERVER_URL = "http://10.0.2.2:3000" //local
 
 
@@ -122,7 +122,7 @@ open class CancioneroAPI(val userID : () -> Int) {
 
     /***                SONGS EDITION            ***/
 
-    fun addSong(song: Song, success: (Song) -> Unit) {
+    fun addSong(song: Song, success: (Int) -> Unit) {
         //Update a song
         val url = Uri.parse("$SERVER_URL/songs/create?")
             .buildUpon()
@@ -135,8 +135,8 @@ open class CancioneroAPI(val userID : () -> Int) {
 
         MyAsyncTask(
             onFail = { },
-            onSuccess = { song ->
-                success(song as Song)
+            onSuccess = { songID ->
+                success(songID as Int)
             }
         ).execute(url)
     }
