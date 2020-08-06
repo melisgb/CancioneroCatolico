@@ -1,39 +1,33 @@
 package com.example.cancionerocatolico
 
-import android.media.MediaPlayer
-import android.media.MediaPlayer.OnCompletionListener
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.cancionerocatolico.adapter.ChordAdapter
 import com.example.cancionerocatolico.objects.Chord
 
 class PlayChordActivity : AppCompatActivity() {
+    var chordsAdapter : ChordAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_play_chord)
+        setContentView(R.layout.activity_play_chords)
 
-        //creating buttons dynamically
-        for (chord in Chord.values().sortedBy { it.name }) {
-            val ll = findViewById<View>(R.id.linear) as LinearLayout
+        val chordsList = Chord.values().sortedBy { it.name }.toList()
 
-            val btn = Button(this)
-            btn.text = chord.name
-            btn.isAllCaps = false
-            btn.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            btn.setOnClickListener {
-                val currMediaPlayer = MediaPlayer.create(this, chord.chordUrl)
-                currMediaPlayer!!.setOnCompletionListener(
-                    { currMediaPlayer!!.release() }
-                )
-                currMediaPlayer!!.start()
-            }
-            ll.addView(btn)
-        }
+        val gridView = findViewById<GridView>(R.id.gridvChords)
+        chordsAdapter = ChordAdapter(this, chordsList)
+        gridView.adapter = chordsAdapter
+//
+//        gridView.setOnItemClickListener { parent, view, position, id ->
+//            val chord = chordsList[position] //calling getItemId
+////            Chord.valueOf(chord.toString())
+//            val currMediaPlayer = MediaPlayer.create(this, chord.chordUrl)
+//                currMediaPlayer!!.setOnCompletionListener(
+//                    { currMediaPlayer!!.release() }
+//                )
+//                currMediaPlayer!!.start()
+//        }
+//
 
     }
 }

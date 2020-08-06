@@ -45,7 +45,4 @@ class SongAdapter(val context: Activity, val songsList: ArrayList<Song>, val sel
     override fun getCount(): Int {
         return songsList.size
     }
-
-
-
 }
