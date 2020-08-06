@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_deleteSongFromList"
-        android:title="@string/delete_song"
+        android:title="@string/delete"
         app:showAsAction="always"
         android:icon="@drawable/ic_delete_elem"/>
 

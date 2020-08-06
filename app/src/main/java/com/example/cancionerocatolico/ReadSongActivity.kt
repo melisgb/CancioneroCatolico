@@ -192,6 +192,27 @@ class ReadSongActivity : AppCompatActivity() {
                 )
                 true
             }
+            R.id.action_shareSong -> {
+                val songTitle = txtvReadSongTitle.text.toString()
+                val songArtist = txtvReadSongArtist.text.toString()
+                val songLyrics = txtvReadSongLyrics.text.toString()
+                val songTags = txtvReadSongTags.text.toString()
+
+                val sharingIntent = Intent(Intent.ACTION_SEND)
+                sharingIntent.type = "text/plain"
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Cancion: $songTitle")
+
+                val stringOfSongs = StringBuilder()
+                stringOfSongs.append("*** Cancion ***")
+                stringOfSongs.append("$songTitle - $songArtist\n\n")
+                stringOfSongs.append("$songLyrics \n\n")
+                stringOfSongs.append("Tags: $songTags")
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, stringOfSongs.toString())
+                applicationContext.startActivity(Intent.createChooser(sharingIntent, "Share via")
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                Toast.makeText(this, "Compartiendo cancion", Toast.LENGTH_SHORT).show()
+                true
+            }
             else -> false
         }
     }

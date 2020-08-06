@@ -10,8 +10,9 @@
     <string name="button_addSong">Agregar</string>
     <string name="button_updateSong">Actualizar</string>
     <string name="button_register">Register</string>
-    <string name="edit_song">Editar</string>
-    <string name="delete_song">Eliminar</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="share">Compartir</string>
     <!-- Hints  -->
     <string name="hint_search_bar">Buscar...</string>
     <string name="hint_song_title">Titulo</string>

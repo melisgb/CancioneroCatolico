@@ -28,11 +28,16 @@
         android:icon="@drawable/ic_edit_song"
         android:iconTint="@color/whiteColor"
         android:iconTintMode="src_in"
-        android:title="@string/edit_song"
+        android:title="@string/edit"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_deleteSong"
-        android:title="@string/delete_song"
+        android:title="@string/delete"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_delete_elem"/>
+    <item
+        android:id="@+id/action_shareSong"
+        android:title="@string/share"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_share"/>
 </menu>

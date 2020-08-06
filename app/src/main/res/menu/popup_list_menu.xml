@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/act_shareList"
-        android:title="Share"
+        android:title="@string/share"
         android:icon="@drawable/ic_share" />
 
     <item
         android:id="@+id/act_deleteList"
-        android:title="Delete"
+        android:title="@string/delete"
         android:iconTint="@color/blackColor"
         android:icon="@drawable/ic_delete_elem"/>
 </menu>
