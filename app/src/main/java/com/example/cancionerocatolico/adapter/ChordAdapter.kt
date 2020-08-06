@@ -17,7 +17,7 @@ class ChordAdapter(val context: Activity, val chordsList: List<Chord>) : BaseAda
         var currentChord = chordsList[position]
 
         val myElementView = layoutInflater.inflate(R.layout.element_play_chords, null)
-        myElementView.btnChord.text = currentChord.chordEng
+        myElementView.btnChord.text = currentChord.chordAme
 
         myElementView.btnChord.setOnClickListener {
             val chord = chordsList[position] //calling getItemId

@@ -17,17 +17,7 @@ class PlayChordActivity : AppCompatActivity() {
         val gridView = findViewById<GridView>(R.id.gridvChords)
         chordsAdapter = ChordAdapter(this, chordsList)
         gridView.adapter = chordsAdapter
-//
-//        gridView.setOnItemClickListener { parent, view, position, id ->
-//            val chord = chordsList[position] //calling getItemId
-////            Chord.valueOf(chord.toString())
-//            val currMediaPlayer = MediaPlayer.create(this, chord.chordUrl)
-//                currMediaPlayer!!.setOnCompletionListener(
-//                    { currMediaPlayer!!.release() }
-//                )
-//                currMediaPlayer!!.start()
-//        }
-//
+
 
     }
 }

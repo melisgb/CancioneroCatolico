@@ -2,7 +2,7 @@ package com.example.cancionerocatolico.objects
 
 import com.example.cancionerocatolico.R
 
-enum class Chord (val chordSpa: String, val chordEng: String, val chordUrl: Int
+enum class Chord (val chordLat: String, val chordAme: String, val chordUrl: Int
 ){
     A("La", "A", R.raw.a),
     B("Si", "B", R.raw.b),

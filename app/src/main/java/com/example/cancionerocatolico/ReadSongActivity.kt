@@ -2,18 +2,20 @@ package com.example.cancionerocatolico
 
 import android.content.Intent
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.SpannedString
+import android.text.*
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cancionerocatolico.api.CancioneroAPI
+import com.example.cancionerocatolico.objects.Chord
 import com.example.cancionerocatolico.objects.LyricsLine
 import com.example.cancionerocatolico.utils.Lyrics
 import com.example.cancionerocatolico.utils.UserHelper
@@ -207,10 +209,37 @@ class ReadSongActivity : AppCompatActivity() {
             )
         }
         else if(lyricLine.type == LyricsLine.LyricsLineType.CHORDS){
-            lineToSpan.setSpan(
-                ForegroundColorSpan(Color.BLUE), 0, lyricLine.line.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+            var latinChordsPatt =
+                """\b(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m)?(sus|maj)?([2-9])?\b""".toRegex(RegexOption.IGNORE_CASE)
+            var ameriChordsPatt =
+                """\b([A-G])(#|b)?(m)?(sus|maj)?([2-9])?\b""".toRegex()
+            ameriChordsPatt.findAll(lyricLine.line)
+            val allOcurrences = ArrayList<MatchResult>()
+            allOcurrences.addAll(ameriChordsPatt.findAll(lyricLine.line))
+            allOcurrences.addAll(latinChordsPatt.findAll(lyricLine.line))
+            for(ocurr in allOcurrences){
+                val chordInOcurr = ocurr.value.toLowerCase().capitalize()
+                val chord = Chord.values().find { chord -> chord.name == chordInOcurr || chord.chordLat == chordInOcurr }
+                if(chord==null) continue
+
+                val clickableSpan = object : ClickableSpan(){
+                    override fun updateDrawState(ds: TextPaint) {
+                        ds.color = Color.BLUE
+                    }
+                    override fun onClick(widget: View) {
+                        val currMediaPlayer = MediaPlayer.create(applicationContext, chord.chordUrl)
+                        currMediaPlayer!!.setOnCompletionListener(
+                            { currMediaPlayer!!.release() }
+                        )
+                        currMediaPlayer!!.start()
+                    }
+
+                }
+                lineToSpan.setSpan(
+                    clickableSpan, ocurr.range.first, ocurr.range.last+1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
         }
         return lineToSpan
     }
@@ -242,5 +271,6 @@ class ReadSongActivity : AppCompatActivity() {
             spannArray.add(lyricsToSpannable(lyr))
         }
         txtvReadSongLyrics.text = spannArray.joinToSpannedString("\n")
+        txtvReadSongLyrics.movementMethod = LinkMovementMethod.getInstance()
     }
 }
