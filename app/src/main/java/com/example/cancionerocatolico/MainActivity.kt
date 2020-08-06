@@ -6,7 +6,6 @@ import android.view.Menu
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import com.example.cancionerocatolico.objects.UserInfo
 import com.example.cancionerocatolico.utils.UserHelper
 
@@ -34,6 +33,12 @@ class MainActivity : AppCompatActivity() {
         val viewMyListsBtn = findViewById<Button>(R.id.btnViewMyLists)
         viewMyListsBtn.setOnClickListener {
             val intent = Intent(this, ViewMyListsActivity::class.java)
+            startActivity(intent)
+        }
+
+        val playChordsBtn = findViewById<Button>(R.id.btnPlayChords)
+        playChordsBtn.setOnClickListener {
+            val intent = Intent(this, PlayChordActivity::class.java)
             startActivity(intent)
         }
 
