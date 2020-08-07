@@ -63,6 +63,12 @@ class ReadSongActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu( menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.read_song_menu, menu)
+        if(UserHelper.getUserID(applicationContext)!=1){
+            val editSongItem = menu!!.findItem(R.id.action_editSong)
+            editSongItem.isVisible = false
+            val deleteSongItem = menu!!.findItem(R.id.action_deleteSong)
+            deleteSongItem.isVisible = false
+        }
         return true
     }
 
