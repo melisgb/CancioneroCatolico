@@ -75,12 +75,16 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
                 R.id.act_shareList -> {
                     cancAPI.loadCurrentList(listID,
                         success = { list ->
+                            if(listName == "Favoritos") {
+                                Toast.makeText(context, "No se puede compartir lista Favoritos", Toast.LENGTH_SHORT).show()
+                                return@loadCurrentList
+                            }
                             val sharingIntent = Intent(Intent.ACTION_SEND)
                             sharingIntent.type = "text/plain"
                             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Lista Canciones: $listName")
 
                             val stringOfSongs = StringBuilder()
-                            stringOfSongs.append("*Lista Canciones ${listName} \n*")
+                            stringOfSongs.append("*Lista Canciones ${listName} *\n")
 
                             stringOfSongs.append(list.map { song -> song.songID.toString() +": " + song.songTitle }.joinToString("\n"))
                             sharingIntent.putExtra(Intent.EXTRA_TEXT, stringOfSongs.toString())

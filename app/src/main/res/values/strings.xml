@@ -61,4 +61,7 @@
     <string name="toast_nolists">No hay listas para mostrar</string>
     <string name="hint_username">Username</string>
     <string name="log_out">Log out</string>
+    <string name="import_list">Import list</string>
+    <string name="import_dialog_title">Import List</string>
+    <string name="hint_import_list">Paste the list to import</string>
 </resources>

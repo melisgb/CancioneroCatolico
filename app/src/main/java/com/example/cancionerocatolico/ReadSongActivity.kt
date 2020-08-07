@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.Chord
 import com.example.cancionerocatolico.objects.LyricsLine
+import com.example.cancionerocatolico.objects.UserInfo
 import com.example.cancionerocatolico.utils.Lyrics
 import com.example.cancionerocatolico.utils.UserHelper
 import kotlinx.android.synthetic.main.activity_read_song.*
@@ -156,7 +157,6 @@ class ReadSongActivity : AppCompatActivity() {
                                         success = {
                                             Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
                                         })
-
                                 })
                         }
                         else {
@@ -168,7 +168,7 @@ class ReadSongActivity : AppCompatActivity() {
                     })
                 true
             }
-            R.id.action_editSong -> {
+            R.id.action_editSong-> {
                 val intent = Intent(applicationContext, EditSongActivity::class.java )
                 intent.putExtra("songId", song_id)
                 intent.putExtra("songTitle", txtvReadSongTitle.text.toString())

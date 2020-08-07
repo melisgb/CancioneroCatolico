@@ -31,7 +31,6 @@ class ViewSongsActivity : AppCompatActivity() {
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     var selectedSongs = HashSet<Int>()
     var actionMode : ActionMode? = null
-    var currentList : ListSongs? = null  //For func loadCurrentList
 
     //    implementation of Songs Action mode - later implement it as class and interface.
     private val actionModeCallback = object : ActionMode.Callback {
@@ -79,28 +78,23 @@ class ViewSongsActivity : AppCompatActivity() {
                                     cancAPI.createList(selected_ListName,
                                         success = { newlistID ->
                                             listID = newlistID
-                                            cancAPI.loadCurrentList(listID!!,
-                                                success = { currentList ->
-                                                    var strSelectedSongs = copySelectedSongs.joinToString(",")
-                                                    cancAPI.insertToList(listID!!, strSelectedSongs,
-                                                        success = {
-                                                            Toast.makeText(
-                                                                applicationContext,
-                                                                "Canciones agregadas a ${selected_ListName}",
-                                                                Toast.LENGTH_SHORT
-                                                            ).show()
-                                                        })
-                                                })
-                                        })
-                                } else {
-                                    //   insert to already created list
-                                    cancAPI.loadCurrentList(listID!!,
-                                        success = { currentList ->
                                             var strSelectedSongs = copySelectedSongs.joinToString(",")
                                             cancAPI.insertToList(listID!!, strSelectedSongs,
                                                 success = {
-                                                    Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(
+                                                        applicationContext,
+                                                        "Canciones agregadas a ${selected_ListName}",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
                                                 })
+
+                                        })
+                                } else {
+                                    //   insert to already created list
+                                    var strSelectedSongs = copySelectedSongs.joinToString(",")
+                                    cancAPI.insertToList(listID!!, strSelectedSongs,
+                                        success = {
+                                            Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
                                         })
                                 }
                                 refreshAll()
@@ -136,15 +130,11 @@ class ViewSongsActivity : AppCompatActivity() {
                                 } )
                             }
                             else {
-                                //   When there is a LISTID
-                                cancAPI.loadCurrentList(listID!!,
-                                    success = { currentList ->
-                                        var strSelectedSongs =
-                                            copySelectedSongs.joinToString(",")
-                                        cancAPI.insertToList(listID!!, strSelectedSongs,
-                                            success = {
-                                                Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
-                                            })
+                                //   When there is a ListID
+                                var strSelectedSongs = copySelectedSongs.joinToString(",")
+                                cancAPI.insertToList(listID!!, strSelectedSongs,
+                                    success = {
+                                        Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
                                     })
                             }
                             refreshAll()
