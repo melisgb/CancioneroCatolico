@@ -11,6 +11,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import com.example.cancionerocatolico.adapter.SongAdapter
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.ListSongs
@@ -25,7 +26,6 @@ import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 class ViewSongsActivity : AppCompatActivity() {
-//    var songsList = ArrayList<Song>()
     var songsAdapter : SongAdapter? = null
     lateinit var songsListView : ListView
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
@@ -178,6 +178,7 @@ class ViewSongsActivity : AppCompatActivity() {
         getSongs("%", 0)
 
         val btn_FloatingAction = findViewById<FloatingActionButton>(R.id.btnFloatingAction)
+        btn_FloatingAction.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
         btn_FloatingAction.setOnClickListener {
             val intent = Intent(this, EditSongActivity::class.java)
             startActivity(intent)

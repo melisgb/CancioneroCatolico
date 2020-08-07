@@ -63,7 +63,7 @@ class ReadSongActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu( menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.read_song_menu, menu)
-        if(UserHelper.getUserID(applicationContext)!=1){
+        if(UserHelper.getUserID(applicationContext)!=1 || UserHelper.getUserID(applicationContext)!=2){
             val editSongItem = menu!!.findItem(R.id.action_editSong)
             editSongItem.isVisible = false
             val deleteSongItem = menu!!.findItem(R.id.action_deleteSong)
@@ -209,8 +209,8 @@ class ReadSongActivity : AppCompatActivity() {
                 sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Cancion: $songTitle")
 
                 val stringOfSongs = StringBuilder()
-                stringOfSongs.append("*** Cancion ***")
-                stringOfSongs.append("$songTitle - $songArtist\n\n")
+                stringOfSongs.append("*Cancion ")
+                stringOfSongs.append("$songTitle - $songArtist*\n\n")
                 stringOfSongs.append("$songLyrics \n\n")
                 stringOfSongs.append("Tags: $songTags")
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, stringOfSongs.toString())
@@ -228,6 +228,7 @@ class ReadSongActivity : AppCompatActivity() {
     }
 
     private fun lyricsToSpannable(lyricLine : LyricsLine) : Spannable {
+        //Sets the style depending on the type of Line it is, and for the chords will make each chord as playable
         val lineToSpan: Spannable = SpannableString(lyricLine.line)
         if(lyricLine.type == LyricsLine.LyricsLineType.VERSE){
             lineToSpan.setSpan(

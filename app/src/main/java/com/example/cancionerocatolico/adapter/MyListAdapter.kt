@@ -84,7 +84,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
                             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Lista Canciones: $listName")
 
                             val stringOfSongs = StringBuilder()
-                            stringOfSongs.append("*Lista Canciones ${listName} *\n")
+                            stringOfSongs.append("*Lista Canciones ${listName}*\n")
 
                             stringOfSongs.append(list.map { song -> song.songID.toString() +": " + song.songTitle }.joinToString("\n"))
                             sharingIntent.putExtra(Intent.EXTRA_TEXT, stringOfSongs.toString())
