@@ -69,12 +69,11 @@ class ReadSongActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu( menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.read_song_menu, menu)
-        if(UserHelper.getUserID(applicationContext)!=1 || UserHelper.getUserID(applicationContext)!=2){
-            val editSongItem = menu!!.findItem(R.id.action_editSong)
-            editSongItem.isVisible = false
-            val deleteSongItem = menu.findItem(R.id.action_deleteSong)
-            deleteSongItem.isVisible = false
-        }
+        val editSongItem = menu!!.findItem(R.id.action_editSong)
+        editSongItem.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
+        val deleteSongItem = menu.findItem(R.id.action_deleteSong)
+        deleteSongItem.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
+
         return true
     }
 
@@ -244,14 +243,10 @@ class ReadSongActivity : AppCompatActivity() {
         }
         else if(lyricLine.type == LyricsLine.LyricsLineType.CHORDS){
             val chordsPatt = """(D[oO]|R[eE]|M[iI]|F[aA]|S(ol|OL)|L[aA]|S[iI]|A|B|C|D|E|F|G)(#|b)?(m)?(sus|maj)?([2-9])?""".toRegex()
-//            var latinChordsPatt =
-//                """\b(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m)?(sus|maj)?([2-9])?""".toRegex(RegexOption.IGNORE_CASE)
-//            var ameriChordsPatt =
-//                """\b([A-G]\b)(#|b)?(m)?(sus|maj)?([2-9])?""".toRegex()
 
             val allOcurrences = ArrayList<MatchResult>()
             allOcurrences.addAll(chordsPatt.findAll(lyricLine.line))
-//            allOcurrences.addAll(latinChordsPatt.findAll(lyricLine.line))
+
             for(ocurr in allOcurrences){
                 val chordInOcurr = ocurr.value.toLowerCase().capitalize()
                 val chord = Chord.values().find { chord -> chord.chordAme == chordInOcurr || chord.chordLat == chordInOcurr }
@@ -267,13 +262,7 @@ class ReadSongActivity : AppCompatActivity() {
 
                             if(noteID!=null) soundPool.play(noteID, 1.0f/chord.notes.size, 1.0f/chord.notes.size, 1, 0, 1f)
                         }
-//                        val currMediaPlayer = MediaPlayer.create(applicationContext, chord.chordUrl)
-//                        currMediaPlayer!!.setOnCompletionListener(
-//                            { currMediaPlayer!!.release() }
-//                        )
-//                        currMediaPlayer!!.start()
                     }
-
                 }
                 lineToSpan.setSpan(
                     clickableSpan, ocurr.range.first, ocurr.range.last+1,
