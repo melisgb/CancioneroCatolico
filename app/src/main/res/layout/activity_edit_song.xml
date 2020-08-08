@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
+    android:scrollbars="vertical"
+    android:verticalScrollbarPosition="right"
     tools:context=".EditSongActivity">
 
     <EditText
@@ -43,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etxtSongTitle" />
 
-<!-- Useful link for Flexbox Layout
+    <!-- Useful link for Flexbox Layout
 https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-components-library-to-input-field-in-android-->
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/tagsLayout"
@@ -70,8 +72,8 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
             android:fontFamily="@font/roboto_mono_medium"
             android:gravity="bottom"
             android:hint="@string/hint_song_tags"
-            android:inputType="text"
             android:imeOptions="actionNext"
+            android:inputType="text"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,54 +91,52 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
         android:background="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagsLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/tagsLayout" />
 
     <EditText
         android:id="@+id/etxtSongLyrics"
         android:layout_width="match_parent"
-        android:layout_height="390dp"
+        android:layout_height="0dp"
         android:layout_marginLeft="16sp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="16sp"
-        android:autoSizeMaxTextSize="100sp"
+        android:layout_marginBottom="16dp"
+        android:autoSizeMaxTextSize="50sp"
         android:autoSizeMinTextSize="12sp"
         android:autoSizeStepGranularity="2sp"
-        android:autofillHints=""
         android:ems="10"
         android:fontFamily="@font/roboto_mono_medium"
         android:hint="@string/hint_song_lyrics"
-        android:inputType="textLongMessage|textMultiLine"
-        android:textSize="13sp"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateSong"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagsLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/dividerSongTags" />
 
     <Button
         android:id="@+id/btnCreateSong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/my_button"
         android:text="@string/button_addSong"
         android:textColor="@color/whiteColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtSongLyrics" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnUpdateSong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/my_button"
         android:text="@string/button_updateSong"
         android:textColor="@color/whiteColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtSongLyrics" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
