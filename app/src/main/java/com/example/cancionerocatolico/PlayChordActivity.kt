@@ -18,6 +18,8 @@ class PlayChordActivity : AppCompatActivity() {
         chordsAdapter = ChordAdapter(this, chordsList)
         gridView.adapter = chordsAdapter
 
-
+        chordsAdapter?.loadAllNotes()
     }
+
+    
 }
