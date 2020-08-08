@@ -2,7 +2,9 @@ package com.example.cancionerocatolico
 
 import android.content.Intent
 import android.graphics.Color
+import android.media.AudioAttributes
 import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Bundle
 import android.text.*
 import android.text.method.LinkMovementMethod
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.Chord
 import com.example.cancionerocatolico.objects.LyricsLine
+import com.example.cancionerocatolico.objects.Note
 import com.example.cancionerocatolico.objects.UserInfo
 import com.example.cancionerocatolico.utils.Lyrics
 import com.example.cancionerocatolico.utils.UserHelper
@@ -24,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_read_song.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class ReadSongActivity : AppCompatActivity() {
@@ -32,11 +36,13 @@ class ReadSongActivity : AppCompatActivity() {
     var lyricLines = listOf<LyricsLine>()
     var transposedLevel = 0
     var transformedLyricLine = listOf<LyricsLine>()
+    val soundPool = SoundPool.Builder().setMaxStreams(4).build()
+    val notesMap = HashMap<Note, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_song)
-
+        loadAllNotes()
         song_id = intent.extras!!.getInt("song_id")
         loadSong(song_id)
     }
@@ -66,7 +72,7 @@ class ReadSongActivity : AppCompatActivity() {
         if(UserHelper.getUserID(applicationContext)!=1 || UserHelper.getUserID(applicationContext)!=2){
             val editSongItem = menu!!.findItem(R.id.action_editSong)
             editSongItem.isVisible = false
-            val deleteSongItem = menu!!.findItem(R.id.action_deleteSong)
+            val deleteSongItem = menu.findItem(R.id.action_deleteSong)
             deleteSongItem.isVisible = false
         }
         return true
@@ -237,17 +243,18 @@ class ReadSongActivity : AppCompatActivity() {
             )
         }
         else if(lyricLine.type == LyricsLine.LyricsLineType.CHORDS){
-            var latinChordsPatt =
-                """\b(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m)?(sus|maj)?([2-9])?\b""".toRegex(RegexOption.IGNORE_CASE)
-            var ameriChordsPatt =
-                """\b([A-G])(#|b)?(m)?(sus|maj)?([2-9])?\b""".toRegex()
-            ameriChordsPatt.findAll(lyricLine.line)
+            val chordsPatt = """(D[oO]|R[eE]|M[iI]|F[aA]|S(ol|OL)|L[aA]|S[iI]|A|B|C|D|E|F|G)(#|b)?(m)?(sus|maj)?([2-9])?""".toRegex()
+//            var latinChordsPatt =
+//                """\b(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m)?(sus|maj)?([2-9])?""".toRegex(RegexOption.IGNORE_CASE)
+//            var ameriChordsPatt =
+//                """\b([A-G]\b)(#|b)?(m)?(sus|maj)?([2-9])?""".toRegex()
+
             val allOcurrences = ArrayList<MatchResult>()
-            allOcurrences.addAll(ameriChordsPatt.findAll(lyricLine.line))
-            allOcurrences.addAll(latinChordsPatt.findAll(lyricLine.line))
+            allOcurrences.addAll(chordsPatt.findAll(lyricLine.line))
+//            allOcurrences.addAll(latinChordsPatt.findAll(lyricLine.line))
             for(ocurr in allOcurrences){
                 val chordInOcurr = ocurr.value.toLowerCase().capitalize()
-                val chord = Chord.values().find { chord -> chord.name == chordInOcurr || chord.chordLat == chordInOcurr }
+                val chord = Chord.values().find { chord -> chord.chordAme == chordInOcurr || chord.chordLat == chordInOcurr }
                 if(chord==null) continue
 
                 val clickableSpan = object : ClickableSpan(){
@@ -255,11 +262,16 @@ class ReadSongActivity : AppCompatActivity() {
                         ds.color = Color.BLUE
                     }
                     override fun onClick(widget: View) {
-                        val currMediaPlayer = MediaPlayer.create(applicationContext, chord.chordUrl)
-                        currMediaPlayer!!.setOnCompletionListener(
-                            { currMediaPlayer!!.release() }
-                        )
-                        currMediaPlayer!!.start()
+                        for(note in chord.notes){
+                            val noteID = notesMap.get(note)
+
+                            if(noteID!=null) soundPool.play(noteID, 1.0f/chord.notes.size, 1.0f/chord.notes.size, 1, 0, 1f)
+                        }
+//                        val currMediaPlayer = MediaPlayer.create(applicationContext, chord.chordUrl)
+//                        currMediaPlayer!!.setOnCompletionListener(
+//                            { currMediaPlayer!!.release() }
+//                        )
+//                        currMediaPlayer!!.start()
                     }
 
                 }
@@ -300,5 +312,11 @@ class ReadSongActivity : AppCompatActivity() {
         }
         txtvReadSongLyrics.text = spannArray.joinToSpannedString("\n")
         txtvReadSongLyrics.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    fun loadAllNotes(){
+        for(note in Note.values()){
+            notesMap.put(note, soundPool.load(applicationContext, note.noteResourceId, 1))
+        }
     }
 }

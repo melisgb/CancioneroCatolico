@@ -22,7 +22,7 @@ class ChordAdapter(val context: Activity, val chordsList: List<Chord>) : BaseAda
         myElementView.btnChord.setOnClickListener {
             val chord = chordsList[position] //calling getItemId
 //            Chord.valueOf(chord.toString())
-            val currMediaPlayer = MediaPlayer.create(context, currentChord.chordUrl)
+            val currMediaPlayer = MediaPlayer.create(context, chord.notes[0].noteResourceId)
             currMediaPlayer!!.setOnCompletionListener(
                 { currMediaPlayer!!.release() }
             )
