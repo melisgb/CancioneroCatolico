@@ -6,17 +6,118 @@
     android:layout_height="match_parent"
     tools:context=".PlayChordActivity">
 
+    <HorizontalScrollView
+        android:id="@+id/chipsForChords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chordsChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            app:chipSpacingHorizontal="8dp"
+            android:layout_gravity="center">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chipClicked"
+                app:chipMinTouchTargetSize="0dp"
+                app:chipMinHeight="45dp"
+                android:minWidth="45dp"
+                android:textAlignment="center"
+                android:text="@string/chip_A"
+                android:theme="@style/Theme.MaterialComponents"
+                app:chipBackgroundColor="@color/chip_style" />
+            <!-- preferred: @style/Theme.MaterialComponents-->
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chipClicked"
+                app:chipMinTouchTargetSize="0dp"
+                app:chipMinHeight="45dp"
+                android:minWidth="45dp"
+                android:textAlignment="center"
+                android:text="@string/chip_B"
+                android:theme="@style/Theme.MaterialComponents"
+                app:chipBackgroundColor="@color/chip_style" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chipClicked"
+                app:chipMinTouchTargetSize="0dp"
+                app:chipMinHeight="45dp"
+                android:minWidth="45dp"
+                android:textAlignment="center"
+                android:text="@string/chip_C"
+                android:theme="@style/Theme.MaterialComponents"
+                app:chipBackgroundColor="@color/chip_style" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chipClicked"
+                app:chipMinTouchTargetSize="0dp"
+                app:chipMinHeight="45dp"
+                android:minWidth="45dp"
+                android:textAlignment="center"
+                android:text="@string/chip_D"
+                android:theme="@style/Theme.MaterialComponents"
+                app:chipBackgroundColor="@color/chip_style" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chipClicked"
+                app:chipMinTouchTargetSize="0dp"
+                app:chipMinHeight="45dp"
+                android:minWidth="45dp"
+                android:textAlignment="center"
+                android:text="@string/chip_E"
+                android:theme="@style/Theme.MaterialComponents"
+                app:chipBackgroundColor="@color/chip_style" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chipClicked"
+                app:chipMinTouchTargetSize="0dp"
+                app:chipMinHeight="45dp"
+                android:minWidth="45dp"
+                android:textAlignment="center"
+                android:text="@string/chip_F"
+                android:theme="@style/Theme.MaterialComponents"
+                app:chipBackgroundColor="@color/chip_style" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="chipClicked"
+                app:chipMinTouchTargetSize="0dp"
+                app:chipMinHeight="45dp"
+                android:minWidth="45dp"
+                android:textAlignment="center"
+                android:text="@string/chip_G"
+                android:theme="@style/Theme.MaterialComponents"
+                app:chipBackgroundColor="@color/chip_style" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
     <GridView
         android:id="@+id/gridvChords"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="15dp"
+        android:numColumns="3"
         android:verticalSpacing="10dp"
-        android:numColumns="4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

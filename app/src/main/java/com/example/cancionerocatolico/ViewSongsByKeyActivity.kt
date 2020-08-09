@@ -80,8 +80,6 @@ class ViewSongsByKeyActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {
-        val chipNames = ArrayList<String>()
-        chipNames.add("chip_entrance")
         return when (item.itemId) {
             R.id.action_refresh_filters-> {
                 val partsChips = findViewById<ViewGroup>(R.id.partsChipGroup)

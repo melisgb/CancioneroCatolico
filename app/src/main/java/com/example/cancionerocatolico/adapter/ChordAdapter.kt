@@ -15,7 +15,7 @@ import com.example.cancionerocatolico.objects.Chord
 import com.example.cancionerocatolico.objects.Note
 import kotlinx.android.synthetic.main.element_play_chords.view.*
 
-class ChordAdapter(val context: Activity, val chordsList: List<Chord>) : BaseAdapter(){
+class ChordAdapter(val context: Activity, var chordsList: List<Chord>) : BaseAdapter(){
     val layoutInflater = LayoutInflater.from(context)
     val soundPool = SoundPool.Builder().setMaxStreams(4).build()
     val notesMap = HashMap<Note, Int>()

@@ -64,4 +64,11 @@
     <string name="import_list">Import list</string>
     <string name="import_dialog_title">Import List</string>
     <string name="hint_import_list">Paste the list to import</string>
+    <string name="chip_A">A</string>
+    <string name="chip_B">B</string>
+    <string name="chip_C">C</string>
+    <string name="chip_D">D</string>
+    <string name="chip_E">E</string>
+    <string name="chip_F">F</string>
+    <string name="chip_G">G</string>
 </resources>
