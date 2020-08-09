@@ -131,7 +131,7 @@ class ReadSongActivity : AppCompatActivity() {
                                         listID = newlistID
                                         cancAPI.insertToList(listID!!, song_id.toString(),
                                             success = {
-                                                Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
                                             })
                                     })
                             }
@@ -139,7 +139,7 @@ class ReadSongActivity : AppCompatActivity() {
                                 //   When there is a LISTID / the list is already created
                                 cancAPI.insertToList(listID!!, song_id.toString(),
                                     success = {
-                                        Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
                                     })
                             }
                             dialogInterface.dismiss()
@@ -166,14 +166,14 @@ class ReadSongActivity : AppCompatActivity() {
                                     listID = newlistID
                                     cancAPI.insertToList(listID!!, song_id.toString(),
                                         success = {
-                                            Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
                                         })
                                 })
                         }
                         else {
                            cancAPI.insertToList(listID!!, song_id.toString(),
                                 success = {
-                                    Toast.makeText(applicationContext,"Cancion agregada a $selected_ListName",Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
                                 })
                         }
                     })
@@ -194,11 +194,11 @@ class ReadSongActivity : AppCompatActivity() {
                 cancAPI.deleteSong(
                     song_id,
                     success = {
-                        Toast.makeText( applicationContext,"Cancion eliminada", Toast.LENGTH_SHORT).show()
+                        Toast.makeText( applicationContext, R.string.toast_song_deleted, Toast.LENGTH_SHORT).show()
                         finish()
                     },
                     fail = {
-                        Toast.makeText( applicationContext,"No se pudo eliminar, pertenece a una lista", Toast.LENGTH_SHORT).show()
+                        Toast.makeText( applicationContext,R.string.toast_song_unable_to_delete, Toast.LENGTH_SHORT).show()
                     }
                 )
                 true
@@ -221,7 +221,7 @@ class ReadSongActivity : AppCompatActivity() {
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, stringOfSongs.toString())
                 applicationContext.startActivity(Intent.createChooser(sharingIntent, "Share via")
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                Toast.makeText(this, "Compartiendo cancion", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.toast_shareSong, Toast.LENGTH_SHORT).show()
                 true
             }
             else -> false

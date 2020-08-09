@@ -30,7 +30,7 @@ class EditSongActivity : AppCompatActivity() {
         val etxtSongTags = findViewById<AutoCompleteTextView>(R.id.etxtSongTags)
 
         if(intent.extras != null){
-            title = getString(R.string.edit_song_title)
+            title = getString(R.string.updateSong_title)
             btnUpdateSong.isEnabled = true
             btnCreateSong.isEnabled = false
             //Para Editar Cancion
@@ -43,7 +43,7 @@ class EditSongActivity : AppCompatActivity() {
 //            etxtSongTags.setText(bundle.getString("songTags"))
         }
         else{
-            title = getString(R.string.create_song_title)
+            title = getString(R.string.addSong_title)
             btnUpdateSong.isEnabled = false
             btnCreateSong.isEnabled = true
         }

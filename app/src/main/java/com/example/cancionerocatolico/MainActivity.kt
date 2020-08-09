@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         logoutItem!!.setOnMenuItemClickListener {
             val savedInfo = UserInfo(applicationContext)
             savedInfo.clearUserInfo()
-            Toast.makeText(applicationContext, "Successfully logged out", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.toast_logout_successful, Toast.LENGTH_SHORT).show()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()

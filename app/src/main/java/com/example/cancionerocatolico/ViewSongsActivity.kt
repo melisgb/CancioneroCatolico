@@ -14,7 +14,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import com.example.cancionerocatolico.adapter.SongAdapter
 import com.example.cancionerocatolico.api.CancioneroAPI
-import com.example.cancionerocatolico.objects.ListSongs
 import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.utils.UserHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,7 +21,6 @@ import kotlinx.android.synthetic.main.element_view_songs.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 class ViewSongsActivity : AppCompatActivity() {
@@ -83,7 +81,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                                 success = {
                                                     Toast.makeText(
                                                         applicationContext,
-                                                        "Canciones agregadas a ${selected_ListName}",
+                                                        getString(R.string.toast_songs_added_toList)+ selected_ListName,
                                                         Toast.LENGTH_SHORT
                                                     ).show()
                                                 })
@@ -94,7 +92,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                     var strSelectedSongs = copySelectedSongs.joinToString(",")
                                     cancAPI.insertToList(listID!!, strSelectedSongs,
                                         success = {
-                                            Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(applicationContext,getString(R.string.toast_songs_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
                                         })
                                 }
                                 refreshAll()
@@ -124,7 +122,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                             copySelectedSongs.joinToString(",")
                                         cancAPI.insertToList(listID, strSelectedSongs,
                                             success = {
-                                                Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(applicationContext,getString(R.string.toast_songs_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
                                             })
 
                                 } )
@@ -134,7 +132,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                 var strSelectedSongs = copySelectedSongs.joinToString(",")
                                 cancAPI.insertToList(listID!!, strSelectedSongs,
                                     success = {
-                                        Toast.makeText(applicationContext,"Canciones agregadas a ${selected_ListName}",Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(applicationContext,getString(R.string.toast_songs_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
                                     })
                             }
                             refreshAll()
@@ -167,7 +165,7 @@ class ViewSongsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_songs)
 
-        title = getString(R.string.view_songs_title)
+        title = getString(R.string.viewSongs_title)
         songsAdapter =
             SongAdapter(this, songsList, selectedSongs)
         songsListView = findViewById<ListView>(R.id.lvListofSongs)

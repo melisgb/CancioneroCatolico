@@ -27,7 +27,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_specific_list)
 
-        title = getString(R.string.view_specific_list_title)
+        title = getString(R.string.viewSpecificList_title)
 
         val extras = intent.extras
         listID = extras!!.getInt("listID")
@@ -138,7 +138,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
                 R.id.action_deleteSongFromList -> {
                     cancAPI.removeFromList(listID, selectedSongs.joinToString(","),
                     success = {
-                        Toast.makeText(applicationContext,"Cancion(es) eliminadas de lista", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext,getString(R.string.toast_songs_deleted_fromList), Toast.LENGTH_SHORT).show()
                         getSongsCurrentList(
                             listID,
                             success = { currentList ->
@@ -204,7 +204,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this@ViewSpecificListActivity,
-                            "Longitud no  permitida",
+                            getString(R.string.toast_maxLength_reached),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

@@ -46,7 +46,6 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:maxLines="1"
-                    android:text="@string/string_demo"
                     android:textColor="@color/blackColor"
                     android:textSize="20sp" />
 
@@ -70,7 +69,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="@string/string_demo"
                     android:textSize="14sp" />
 
                 <TextView
@@ -80,7 +78,6 @@
                     android:layout_weight="0.3"
                     android:gravity="center_vertical|end"
                     android:paddingRight="2dp"
-                    android:text="@string/string_demo"
                     android:textAlignment="textEnd"
                     android:textSize="10sp" />
             </LinearLayout>

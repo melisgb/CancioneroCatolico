@@ -1,28 +1,71 @@
 <resources>
-    <string name="app_name">Clave Dei</string>
+    <string name="app_name">Cancionero Catolico</string>
+
+    <!-- Buttons Main Activity  -->
     <string name="button_viewSongs">Ver canciones</string>
     <string name="button_viewSongsByTags">Canciones por Tags</string>
     <string name="button_viewMyLists">Mis listas</string>
     <string name="button_playChords">Acordes</string>
-    <string name="button_login">Login with Google</string>
-    <string name="list_icon_desc">iconoLista</string>
-    <string name="string_demo">Demo text</string>
+    <!-- Buttons Other Activities  -->
+    <string name="button_login">Acceder con Google</string>
     <string name="button_addSong">Agregar</string>
     <string name="button_updateSong">Actualizar</string>
-    <string name="button_register">Register</string>
-    <string name="edit">Editar</string>
-    <string name="delete">Eliminar</string>
-    <string name="share">Compartir</string>
+    <string name="button_register">Registrar</string>
+
+    <!-- Strings de Toast -->
+    <string name="toast_updateSong">Cancion actualizada</string>
+    <string name="toast_createSong">Cancion creada</string>
+    <string name="toast_noLists">No hay listas para mostrar</string>
+    <string name="toast_login_failed">Login with Google failed</string>
+    <string name="toast_login_successful">Login successful</string>
+    <string name="toast_logout_successful">Successfully logged out</string>
+    <string name="toast_song_unable_to_delete">No se pudo eliminar, pertenece a una lista</string>
+    <string name="toast_shareSong">Compartiendo cancion</string>
+    <string name="toast_shareList">Compartiendo lista</string>
+    <string name="toast_list_created_successful">Lista creada exitosamente</string>
+    <string name="toast_list_replaced_successful">Lista reemplazada exitosamente</string>
+    <string name="toast_list_deleted">Lista eliminada</string>
+    <string name="toast_maxLength_reached">Longitud no permitida</string>
+    <string name="toast_unableToShareFavsList">No se puede compartir lista Favoritos</string>
+    <string name="toast_song_added_toList">Cancion agregada a </string>
+    <string name="toast_songs_added_toList">Cancion(es) agregada(s) a </string>
+    <string name="toast_song_deleted">Cancion eliminada</string>
+    <string name="toast_songs_deleted_fromList">Cancion(es) eliminada(s) de lista</string>
+
+    <!-- Strings de menu y dialogs -->
+    <string name="refresh_filters">Borrar filtros</string>
+    <string name="increase_note">Subir semitono</string>
+    <string name="decrease_note">Bajar semitono</string>
+    <string name="add_toFavs">Agregar a Favs</string>
+    <string name="add_toList">Agregar a Lista</string>
+    <string name="choose_list">Elija la lista</string>
+    <string name="edit_song">Editar</string>
+    <string name="share">Compartir</string>  <!--Compartir lista, cancion-->
+    <string name="delete">Eliminar</string>  <!--Eliminar lista, cancion, cancion de lista seleccionada-->
+    <string name="msg_edit_list_name">Asigna un nuevo nombre</string>
+    <string name="import_list">Importar lista</string>
+    <string name="msg_import_list">Pega la lista a importar</string>
+    <string name="log_out">Cerrar Sesion</string>
+
+    <!-- Titulos -->
+    <string name="viewSongs_title">Listado canciones</string>
+    <string name="viewSongsByTags_title">Listado Canciones por Clave</string>
+    <string name="viewMyLists_title">Mis listas</string>
+    <string name="viewSpecificList_title">Detalle lista</string>
+    <string name="addSong_title">Crear cancion</string>
+    <string name="updateSong_title">Actualizar cancion</string>
+
+    <!-- Elements descriptions (accesibility)  -->
+    <string name="list_icon_desc">iconoLista</string>
     <!-- Hints  -->
     <string name="hint_search_bar">Buscar...</string>
     <string name="hint_song_title">Titulo</string>
     <string name="hint_song_artist">Artista</string>
     <string name="hint_song_lyrics">Letras</string>
     <string name="hint_song_tags">Tags</string>
-    <!-- Strings de Toast -->
-    <string name="toast_updateSong">Cancion actualizada</string>
-    <string name="toast_createSong">Cancion creada</string>
-    <!-- Partes de misa -->
+    <string name="hint_import_list">Nombre Lista\n  Cancion1\n  Cancion2\n  Cancion3\n  Cancion x</string> <!--Otra opcion de texto es: Pega el texto como te lo compartieron-->
+
+    <!-- Chips Partes de misa -->
     <string name="chip_entrance">Entrada</string>
     <string name="chip_mercy">Piedad</string>
     <string name="chip_glory">Gloria</string>
@@ -33,37 +76,14 @@
     <string name="chip_lambGod">Cordero</string>
     <string name="chip_communion">Comunion</string>
     <string name="chip_exit">Salida</string>
-    <!-- Tiempos de misa -->
+    <!-- Chips Tiempos de misa -->
     <string name="chip_ordinary">Ordinario</string>
     <string name="chip_lent">Cuaresma</string>
     <string name="chip_easter">Pascua</string>
     <string name="chip_pentecost">Pentecostes</string>
     <string name="chip_advent">Adviento</string>
     <string name="chip_christmas">Navidad</string>
-    <!-- Strings de menu -->
-    <string name="refresh_Filters">Borrar filtros</string>
-    <string name="increase_note">Increase note</string>
-    <string name="decrease_note">Decrease note</string>
-    <string name="add_toFavs">Agregar a Favs</string>
-    <string name="add_toList">Agregar a Lista</string>
-    <string name="choose_list">Elija la lista</string>
-    <string name="msg_edit_list_name">Asigna un nuevo nombre</string>
-    <!-- Titulos -->
-    <string name="view_songs_by_key_title">Listado Canciones por Clave</string>
-    <string name="view_my_lists_title">Mis listas</string>
-    <string name="view_specific_list_title">Detalle lista</string>
-    <string name="view_songs_title">Listado canciones</string>
-    <string name="edit_song_title">Actualizar</string>
-    <string name="create_song_title">Crear cancion</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="button_goto_register">New user</string>
-    <string name="toast_nolists">No hay listas para mostrar</string>
-    <string name="hint_username">Username</string>
-    <string name="log_out">Log out</string>
-    <string name="import_list">Import list</string>
-    <string name="import_dialog_title">Import List</string>
-    <string name="hint_import_list">Paste the list to import</string>
+    <!-- Chips Acordes -->
     <string name="chip_A">A</string>
     <string name="chip_B">B</string>
     <string name="chip_C">C</string>

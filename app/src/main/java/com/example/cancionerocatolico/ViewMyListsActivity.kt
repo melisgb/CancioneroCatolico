@@ -26,7 +26,7 @@ class ViewMyListsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_my_lists)
 
-        title = getString(R.string.view_my_lists_title)
+        title = getString(R.string.viewMyLists_title)
         listsRecyclerView = findViewById(R.id.recyclervMyLists)
 //        cancAPI.generateList(20) //dummy data
         getSummaryLists(success = {
@@ -58,7 +58,7 @@ class ViewMyListsActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_import_list -> {
                 val dialog = AlertDialog.Builder(this@ViewMyListsActivity)
-                dialog.setTitle(R.string.import_dialog_title)
+                dialog.setTitle(R.string.msg_import_list)
                 dialog.setIcon(R.drawable.ic_import_list_normal)
 
                 val view = layoutInflater.inflate(R.layout.dialog_import_list, null)
@@ -129,7 +129,7 @@ class ViewMyListsActivity : AppCompatActivity() {
                         cancAPI.insertToList(newlistID, strImportedSongs,
                             success = {
                                 Toast.makeText(applicationContext,
-                                    "Lista creada exitosamente", Toast.LENGTH_SHORT).show()
+                                    getString(R.string.toast_list_created_successful), Toast.LENGTH_SHORT).show()
                                 refreshAdapter()
                             })
                     })
@@ -152,7 +152,7 @@ class ViewMyListsActivity : AppCompatActivity() {
                             cancAPI.insertToList(newlistID, strImportedSongs,
                                 success = {
                                     Toast.makeText(applicationContext,
-                                        "Lista reemplazada exitosamente", Toast.LENGTH_SHORT).show()
+                                        getString(R.string.toast_list_replaced_successful), Toast.LENGTH_SHORT).show()
                                     refreshAdapter()
                                 })
                         })
@@ -168,7 +168,7 @@ class ViewMyListsActivity : AppCompatActivity() {
                                     cancAPI.insertToList(newlistID, strImportedSongs,
                                         success = {
                                             Toast.makeText(applicationContext,
-                                                "Lista reemplazada exitosamente", Toast.LENGTH_SHORT).show()
+                                                getString(R.string.toast_list_replaced_successful), Toast.LENGTH_SHORT).show()
                                             refreshAdapter()
                                         })
                                 })

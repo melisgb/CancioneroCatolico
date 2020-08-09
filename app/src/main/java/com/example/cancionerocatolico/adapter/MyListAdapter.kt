@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.Group
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cancionerocatolico.R
 import com.example.cancionerocatolico.ViewSpecificListActivity
@@ -35,7 +34,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
 
     override fun getItemCount(): Int {
         //to determine the number of items
-        if(listOfLists.size == 0)Toast.makeText(context, R.string.toast_nolists, Toast.LENGTH_SHORT).show()
+        if(listOfLists.size == 0)Toast.makeText(context, R.string.toast_noLists, Toast.LENGTH_SHORT).show()
         return listOfLists.size
     }
 
@@ -76,7 +75,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
                     cancAPI.loadCurrentList(listID,
                         success = { list ->
                             if(listName == "Favoritos") {
-                                Toast.makeText(context, "No se puede compartir lista Favoritos", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, context.getString(R.string.toast_unableToShareFavsList), Toast.LENGTH_SHORT).show()
                                 return@loadCurrentList
                             }
                             val sharingIntent = Intent(Intent.ACTION_SEND)
@@ -90,7 +89,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
                             sharingIntent.putExtra(Intent.EXTRA_TEXT, stringOfSongs.toString())
                             context.startActivity(Intent.createChooser(sharingIntent, "Share via")
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                            Toast.makeText(context, "Compartiendo lista", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.toast_shareList), Toast.LENGTH_SHORT).show()
                         })
                     true
                 }
@@ -101,7 +100,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
                                 listOfLists.clear()
                                 listOfLists.addAll(lists)
                                 notifyDataSetChanged()
-                                Toast.makeText(context, "Lista eliminada", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, context.getString(R.string.toast_list_deleted), Toast.LENGTH_SHORT).show()
                             }
                     })
                     true
