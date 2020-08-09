@@ -34,7 +34,7 @@ class MyListAdapter(val context: Context, private val listOfLists : ArrayList<Li
 
     override fun getItemCount(): Int {
         //to determine the number of items
-        if(listOfLists.size == 0)Toast.makeText(context, R.string.toast_noLists, Toast.LENGTH_SHORT).show()
+        if(listOfLists.size == 0)Toast.makeText(context, context.getString(R.string.toast_noLists), Toast.LENGTH_SHORT).show()
         return listOfLists.size
     }
 

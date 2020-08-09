@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        title = "Login"
+        title = getString(R.string.login_title)
 
         val savedInfo = UserInfo(applicationContext)
         val userID = savedInfo.getUserID()
@@ -92,7 +92,7 @@ class LoginActivity : AppCompatActivity() {
             })
         }
         else{
-            Toast.makeText(applicationContext, R.string.toast_login_failed, Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.toast_login_failed), Toast.LENGTH_SHORT).show()
         }
     }
     private fun loginUser(email: String, success: (Boolean) -> Unit ) {
@@ -122,7 +122,7 @@ class LoginActivity : AppCompatActivity() {
             })
     }
     fun proceedToMain(){
-        Toast.makeText(applicationContext, R.string.toast_login_successful, Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, getString(R.string.toast_login_successful), Toast.LENGTH_SHORT).show()
         val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
         finish()

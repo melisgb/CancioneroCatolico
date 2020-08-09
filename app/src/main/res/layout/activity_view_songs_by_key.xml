@@ -97,6 +97,22 @@
                             android:layout_height="wrap_content"
                             app:chipBackgroundColor="@color/chip_style"
                             android:theme="@style/Theme.MaterialComponents"
+                            android:text="@string/chip_postCommunion"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:chipBackgroundColor="@color/chip_style"
+                            android:theme="@style/Theme.MaterialComponents"
+                            android:text="@string/chip_mary"
+                            android:onClick="chipClicked" />
+
+                        <com.google.android.material.chip.Chip
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:chipBackgroundColor="@color/chip_style"
+                            android:theme="@style/Theme.MaterialComponents"
                             android:text="@string/chip_exit"
                             android:onClick="chipClicked" />
                 </com.google.android.material.chip.ChipGroup>

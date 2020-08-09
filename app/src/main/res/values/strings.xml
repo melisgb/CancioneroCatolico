@@ -39,6 +39,7 @@
     <string name="add_toFavs">Agregar a Favs</string>
     <string name="add_toList">Agregar a Lista</string>
     <string name="choose_list">Elija la lista</string>
+    <string name="choose_option">Elija una opcion</string>
     <string name="edit_song">Editar</string>
     <string name="share">Compartir</string>  <!--Compartir lista, cancion-->
     <string name="delete">Eliminar</string>  <!--Eliminar lista, cancion, cancion de lista seleccionada-->
@@ -53,7 +54,9 @@
     <string name="viewMyLists_title">Mis listas</string>
     <string name="viewSpecificList_title">Detalle lista</string>
     <string name="addSong_title">Crear cancion</string>
+    <string name="readSong_title">Cancion</string>
     <string name="updateSong_title">Actualizar cancion</string>
+    <string name="login_title">Iniciar Sesion</string>
 
     <!-- Elements descriptions (accesibility)  -->
     <string name="list_icon_desc">iconoLista</string>
@@ -75,6 +78,8 @@
     <string name="chip_peace">Paz</string>
     <string name="chip_lambGod">Cordero</string>
     <string name="chip_communion">Comunion</string>
+    <string name="chip_postCommunion">Reflexion</string>
+    <string name="chip_mary">Maria</string>
     <string name="chip_exit">Salida</string>
     <!-- Chips Tiempos de misa -->
     <string name="chip_ordinary">Ordinario</string>

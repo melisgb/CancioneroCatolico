@@ -43,6 +43,7 @@ class ReadSongActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_song)
         loadAllNotes()
+        title = getString(R.string.readSong_title)
         song_id = intent.extras!!.getInt("song_id")
         loadSong(song_id)
     }
@@ -194,11 +195,11 @@ class ReadSongActivity : AppCompatActivity() {
                 cancAPI.deleteSong(
                     song_id,
                     success = {
-                        Toast.makeText( applicationContext, R.string.toast_song_deleted, Toast.LENGTH_SHORT).show()
+                        Toast.makeText( applicationContext, getString(R.string.toast_song_deleted), Toast.LENGTH_SHORT).show()
                         finish()
                     },
                     fail = {
-                        Toast.makeText( applicationContext,R.string.toast_song_unable_to_delete, Toast.LENGTH_SHORT).show()
+                        Toast.makeText( applicationContext,getString(R.string.toast_song_unable_to_delete), Toast.LENGTH_SHORT).show()
                     }
                 )
                 true
@@ -221,7 +222,7 @@ class ReadSongActivity : AppCompatActivity() {
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, stringOfSongs.toString())
                 applicationContext.startActivity(Intent.createChooser(sharingIntent, "Share via")
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-                Toast.makeText(this, R.string.toast_shareSong, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toast_shareSong), Toast.LENGTH_SHORT).show()
                 true
             }
             else -> false

@@ -37,7 +37,7 @@ class ViewSongsActivity : AppCompatActivity() {
             // Inflate a menu resource providing context menu items
             val inflater: MenuInflater = mode.menuInflater
             inflater.inflate(R.menu.view_song_actions_menu, menu)
-            mode.title = "Elija una opcion"
+            mode.title = getString(R.string.choose_option)
             return true
         }
         // Called each time the action mode is shown. Always called after onCreateActionMode.

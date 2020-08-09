@@ -78,7 +78,7 @@ class EditSongActivity : AppCompatActivity() {
             )
             updateSongDB(currSong)
         }
-        val tagsList = listOf("Entrada", "Piedad", "Gloria", "Salmo", "Proclamacion", "Ofertorio", "Paz", "Cordero", "Comunion", "Salida", "Ordinario", "Cuaresma", "Pascua", "Pentecostes", "Adviento", "Navidad", "Maria")
+        val tagsList = listOf("Entrada", "Piedad", "Gloria", "Salmo", "Proclamacion", "Ofertorio", "Paz", "Cordero", "Comunion", "Reflexion", "Maria", "Salida", "Ordinario", "Cuaresma", "Pascua", "Pentecostes", "Adviento", "Navidad")
         etxtSongTags.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
             tagsList))
 
@@ -97,7 +97,7 @@ class EditSongActivity : AppCompatActivity() {
         cancAPI.addSong(song,
             success = { newSongID ->
                 songID = newSongID
-                Toast.makeText(applicationContext, R.string.toast_createSong, Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.toast_createSong), Toast.LENGTH_SHORT).show()
                 finish()
             })
         //TODO: Create a fail behaviour?
@@ -107,7 +107,7 @@ class EditSongActivity : AppCompatActivity() {
         //Updates the song in DB
         cancAPI.updateSong(song,
             success = {
-                Toast.makeText(applicationContext, R.string.toast_updateSong, Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.toast_updateSong), Toast.LENGTH_SHORT).show()
                 finish()
             })
         //TODO: Create a fail behaviour?

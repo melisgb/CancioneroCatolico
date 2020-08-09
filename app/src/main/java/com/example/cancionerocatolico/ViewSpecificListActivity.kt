@@ -124,7 +124,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
             // Inflate a menu resource providing context menu items
             val inflater: MenuInflater = mode.menuInflater
             inflater.inflate(R.menu.view_list_actions_menu, menu)
-            mode.title = "Elija una opcion"
+            mode.title = getString(R.string.choose_option)
             return true
         }
         // Called each time the action mode is shown. Always called after onCreateActionMode.
@@ -138,7 +138,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
                 R.id.action_deleteSongFromList -> {
                     cancAPI.removeFromList(listID, selectedSongs.joinToString(","),
                     success = {
-                        Toast.makeText(applicationContext,getString(R.string.toast_songs_deleted_fromList), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, getString(R.string.toast_songs_deleted_fromList), Toast.LENGTH_SHORT).show()
                         getSongsCurrentList(
                             listID,
                             success = { currentList ->
