@@ -28,7 +28,7 @@ enum class Chord (val chordLat: String, val chordAme: String, val notes: Array<N
 
     Cm7("Dom7", "Cm7", arrayOf(Note.C3, Note.D3Sharp, Note.G3, Note.A3Sharp)),
     Dm7("Rem7", "Dm7", arrayOf(Note.D3, Note.F3, Note.A3, Note.C4)),
-    Em7("M7im7", "Em7", arrayOf(Note.E3, Note.G3, Note.B3, Note.D4)),
+    Em7("Mim7", "Em7", arrayOf(Note.E3, Note.G3, Note.B3, Note.D4)),
     Fm7("Fam7", "Fm7", arrayOf(Note.F3, Note.G3Sharp, Note.C4, Note.D4Sharp)),
     Gm7("Solm7", "Gm7",  arrayOf(Note.G3, Note.A3Sharp, Note.D4, Note.F4)),
     Am7("Lam7", "Am7", arrayOf(Note.A3, Note.C4, Note.E4, Note.G4)),
