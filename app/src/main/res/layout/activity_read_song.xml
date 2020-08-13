@@ -54,32 +54,28 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <ScrollView
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="8dp"
-            android:paddingBottom="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtvReadSongLyrics"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="13dp"
-                    android:fontFamily="@font/roboto_mono_medium"
-                    android:gravity="top|left"
-                    android:hint="@string/hint_song_lyrics"
-                    android:scrollHorizontally="true"
-                    android:textColor="@color/blackColor"
-                    android:textSize="15sp" />
-            </LinearLayout>
-        </ScrollView>
-
+            android:layout_height="wrap_content">
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingTop="8dp"
+                android:paddingBottom="10dp">
+                    <TextView
+                        android:id="@+id/txtvReadSongLyrics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="13dp"
+                        android:fontFamily="@font/roboto_mono_medium"
+                        android:gravity="top|start"
+                        android:hint="@string/hint_song_lyrics"
+                        android:scrollHorizontally="true"
+                        android:textColor="@color/blackColor"
+                        android:textSize="15sp" />
+            </ScrollView>
+        </HorizontalScrollView>
 
     </LinearLayout>
 

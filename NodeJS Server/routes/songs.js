@@ -22,11 +22,11 @@ router.get('/', function(req, res, next){
     // }
 
     var myQuery =  `
-                    select * from cancionerocatolico.song 
+                    select song_id, song_title, song_artist, "" as song_lyrics, song_tags from cancionerocatolico.song 
                      where song_title like '%${querydata.keyword}%' 
                         or song_artist like '%${querydata.keyword}%' 
                         or song_lyrics like '%${querydata.keyword}%'
-                     order by song_title asc limit 30 offset ${querydata.startFrom};
+                     order by song_id asc limit 400 offset ${querydata.startFrom};
                     `;
     
     connection.query(myQuery,

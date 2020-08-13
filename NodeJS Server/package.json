@@ -9,13 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "mysql": "^2.18.1",
-    "url": "^0.11.0",
+    "compression": "^1.7.4",
     "cookie-parser": "~1.4.3",
     "debug": "~4.1.1",
+    "express": "^4.17.1",
     "http-errors": "~1.7.1",
     "morgan": "~1.9.1",
-    "pug": "~2.0.3"
+    "mysql": "^2.18.1",
+    "pug": "~2.0.3",
+    "url": "^0.11.0"
   }
 }

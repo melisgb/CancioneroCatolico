@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var compression = require('compression');
 
 // Routes
 var index = require('./routes/index');
@@ -18,6 +19,7 @@ app.set('view engine', 'pug');
 
 // Middleware
 app.use(logger('dev'));
+app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
