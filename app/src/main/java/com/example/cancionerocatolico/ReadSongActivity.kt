@@ -36,7 +36,6 @@ class ReadSongActivity : AppCompatActivity() {
     var transformedLyricLine = listOf<LyricsLine>()
     val soundPool = SoundPool.Builder().setMaxStreams(4).build()
     val notesMap = HashMap<Note, Int>()
-    var lang = 1 //TODO: Receive the language of song
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,7 +133,7 @@ class ReadSongActivity : AppCompatActivity() {
                                         listID = newlistID
                                         cancAPI.insertToList(listID!!, song_id.toString(),
                                             success = {
-                                                Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selected_ListName),Toast.LENGTH_SHORT).show()
                                             })
                                     })
                             }
@@ -142,7 +141,7 @@ class ReadSongActivity : AppCompatActivity() {
                                 //   When there is a LISTID / the list is already created
                                 cancAPI.insertToList(listID!!, song_id.toString(),
                                     success = {
-                                        Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selected_ListName),Toast.LENGTH_SHORT).show()
                                     })
                             }
                             dialogInterface.dismiss()
@@ -164,19 +163,19 @@ class ReadSongActivity : AppCompatActivity() {
                         var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
 
                         if(listID == null){
-                            cancAPI.createList("Favoritos",
+                            cancAPI.createList(selected_ListName,
                                 success = {newlistID ->
                                     listID = newlistID
                                     cancAPI.insertToList(listID!!, song_id.toString(),
                                         success = {
-                                            Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selected_ListName),Toast.LENGTH_SHORT).show()
                                         })
                                 })
                         }
                         else {
                            cancAPI.insertToList(listID!!, song_id.toString(),
                                 success = {
-                                    Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selected_ListName),Toast.LENGTH_SHORT).show()
                                 })
                         }
                     })
@@ -299,7 +298,6 @@ class ReadSongActivity : AppCompatActivity() {
 
     private fun changeChordsLanguage(lyricLines : List<LyricsLine>, isSameLanguage: Boolean) : ArrayList<LyricsLine> {
         if(isSameLanguage) return ArrayList(lyricLines) //return without changes
-        //language 1 = English, 2 = Spanish
         val lyricsArray = ArrayList<LyricsLine>()
 
         for (lyr in lyricLines) {

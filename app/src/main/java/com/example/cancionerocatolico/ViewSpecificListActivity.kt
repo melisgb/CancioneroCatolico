@@ -136,9 +136,10 @@ class ViewSpecificListActivity : AppCompatActivity() {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             return when (item.itemId) {
                 R.id.action_deleteSongFromList -> {
+                    val songsQty = selectedSongs.size
                     cancAPI.removeFromList(listID, selectedSongs.joinToString(","),
                     success = {
-                        Toast.makeText(applicationContext, getString(R.string.toast_songs_deleted_fromList), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, resources.getQuantityString(R.plurals.toast_songs_deleted_fromList, songsQty), Toast.LENGTH_SHORT).show()
                         getSongsCurrentList(
                             listID,
                             success = { currentList ->
@@ -204,7 +205,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this@ViewSpecificListActivity,
-                            getString(R.string.toast_maxLength_reached),
+                            getString(R.string.toast_list_name_maxLengthReached),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

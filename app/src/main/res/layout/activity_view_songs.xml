@@ -14,6 +14,7 @@
         android:layout_marginBottom="30dp"
         android:clickable="true"
         android:tint="#F3E142"
+        android:tooltipText="@string/add_new_song"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -13,31 +13,43 @@
     <string name="button_register">Registrar</string>
 
     <!-- Strings de Toast -->
-    <string name="toast_updateSong">Cancion actualizada</string>
-    <string name="toast_createSong">Cancion creada</string>
-    <string name="toast_noLists">No hay listas para mostrar</string>
-    <string name="toast_login_failed">Login with Google failed</string>
-    <string name="toast_login_successful">Login successful</string>
-    <string name="toast_logout_successful">Successfully logged out</string>
+    <string name="toast_login_failed">Inicio sesion con Google fallido</string>
+    <string name="toast_login_successful">Inicio sesion exitosa</string>
+    <string name="toast_logout_successful">Sesion finalizada exitosamente</string>
+    <string name="toast_searching_by">Buscando %s</string>
+
+    <string name="toast_song_created">Cancion creada</string>
+    <string name="toast_song_updated">Cancion actualizada</string>
+    <string name="toast_song_deleted">Cancion eliminada</string>
     <string name="toast_song_unable_to_delete">No se pudo eliminar, pertenece a una lista</string>
     <string name="toast_shareSong">Compartiendo cancion</string>
-    <string name="toast_shareList">Compartiendo lista</string>
+    <string name="toast_song_added_toList">Cancion agregada a %s</string>
+
+    <string name="toast_noLists">No hay listas para mostrar</string>
     <string name="toast_list_created_successful">Lista creada exitosamente</string>
     <string name="toast_list_replaced_successful">Lista reemplazada exitosamente</string>
     <string name="toast_list_deleted">Lista eliminada</string>
-    <string name="toast_maxLength_reached">Longitud no permitida</string>
+    <string name="toast_shareList">Compartiendo lista</string>
     <string name="toast_unableToShareFavsList">No se puede compartir lista Favoritos</string>
-    <string name="toast_song_added_toList">Cancion agregada a </string>
-    <string name="toast_songs_added_toList">Cancion(es) agregada(s) a </string>
-    <string name="toast_song_deleted">Cancion eliminada</string>
-    <string name="toast_songs_deleted_fromList">Cancion(es) eliminada(s) de lista</string>
+    <string name="toast_list_name_maxLengthReached">Longitud no permitida</string>
+    <plurals name="toast_songs_added_toList">
+        <item quantity="one">Cancion agregada a %s</item>
+        <item quantity="other">Canciones agregadas a %s</item>
+    </plurals>
+    <plurals name="toast_songs_deleted_fromList">
+        <item quantity="one">Cancion eliminada de la lista</item>
+        <item quantity="other">Canciones eliminadas de la lista</item>
+    </plurals>
 
     <!-- Strings de menu y dialogs -->
+    <string name="search_by_songs">Buscar…</string>
+    <string name="add_new_song">Nueva Cancion</string>
     <string name="refresh_filters">Borrar filtros</string>
     <string name="increase_note">Subir semitono</string>
     <string name="decrease_note">Bajar semitono</string>
-    <string name="add_toFavs">Agregar a Favs</string>
+    <string name="translate_chord">Traducir acorde</string>
     <string name="add_toList">Agregar a Lista</string>
+    <string name="add_toFavs">Agregar a Favs</string>
     <string name="choose_list">Elija la lista</string>
     <string name="choose_option">Elija una opcion</string>
     <string name="edit_song">Editar</string>
@@ -61,7 +73,7 @@
     <!-- Elements descriptions (accesibility)  -->
     <string name="list_icon_desc">iconoLista</string>
     <!-- Hints  -->
-    <string name="hint_search_bar">Buscar...</string>
+    <string name="hint_search_bar">Buscar palabra clave...</string>
     <string name="hint_song_title">Titulo</string>
     <string name="hint_song_artist">Artista</string>
     <string name="hint_song_lyrics">Letras</string>
@@ -96,5 +108,4 @@
     <string name="chip_E">E</string>
     <string name="chip_F">F</string>
     <string name="chip_G">G</string>
-    <string name="translate_chord">Translate chord</string>
 </resources>

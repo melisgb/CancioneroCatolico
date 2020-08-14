@@ -157,9 +157,7 @@ class Lyrics {
             chordsMap["B"] = "C"
 
             val chordsPattern =
-                """(D[oO]|R[eE]|M[iI]|F[aA]|S(ol|OL)|L[aA]|S[iI]|A|B|C|D|E|F|G)(b|#)?""".toRegex(
-                    RegexOption.IGNORE_CASE
-                )
+                """(D[oO]|R[eE]|M[iI]|F[aA]|S(ol|OL)|L[aA]|S[iI]|A|B|C|D|E|F|G)(b|#)?""".toRegex()
             val ocurrences = chordsPattern.findAll(line)
             var chordLine = line
 
@@ -209,9 +207,7 @@ class Lyrics {
 
         fun changeLanguage(line: String): String {
             val chordsPattern =
-                """(D[oO]|R[eE]|M[iI]|F[aA]|S(ol|OL)|L[aA]|S[iI]|A|B|C|D|E|F|G)(b|#)?""".toRegex(
-                    RegexOption.IGNORE_CASE
-                )
+                """(D[oO]|R[eE]|M[iI]|F[aA]|S(ol|OL)|L[aA]|S[iI]|A|B|C|D|E|F|G)(b|#)?""".toRegex()
             val ocurrences = chordsPattern.findAll(line)
             var chordLine = line
 
@@ -220,7 +216,44 @@ class Lyrics {
                 val language = getLanguage(oldChord)
                 val newLanguage = if(language == Language.American) Language.Latin else Language.American
                 val newChord = translateChord(oldChord, newLanguage)
-                chordLine = chordLine.replaceRange( occur.range,newChord)
+
+                val oldChordLen = oldChord.length
+                val newChordLen = newChord.length
+
+                if (oldChordLen < newChordLen) {
+                    // Fa -> Sol#
+                    var lenDiff = newChordLen - oldChordLen
+                    var newEnd =
+                        occur.range.endInclusive // newEnd es la posicion donde termina el string
+                    var newStart = occur.range.start
+                    while (lenDiff > 0) {
+                        if (newEnd < chordLine.length - 1 && chordLine[newEnd + 1] == ' ' && (newEnd >= chordLine.length - 2 || chordLine[newEnd + 2] == ' ')) {
+                            //si existe una posicion porque newEnd no es la ultima Y la proxima posicion es espacio Y (es el ultimo acorde en la linea o hay dos espacios despues del acorde)
+                            newEnd++
+                            lenDiff--
+                        } else if (newStart > 0 && chordLine[newStart - 1] == ' ' && (newStart < 2 || chordLine[newStart - 2] == ' ')) {
+                            //si no es la primera posicion Y existe un espacio antes Y (es el primer acorde o hay dos espacios vacios antes del acorde)
+                            newStart--
+                            lenDiff--
+                        } else {
+                            break
+                        }
+                    }
+                    chordLine = chordLine.replaceRange(newStart,newEnd + 1, newChord )
+                }
+                else if (oldChordLen > newChordLen) {
+                    // Sol# -> La
+                    if (occur.range.endInclusive < chordLine.length - 1 && chordLine[occur.range.endInclusive + 1] == ' ') {
+                        chordLine = chordLine.replaceRange(
+                            occur.range,
+                            newChord + " ".repeat(oldChordLen - newChordLen)
+                        )
+                    } else {
+                        chordLine = chordLine.replaceRange(occur.range," ".repeat(oldChordLen - newChordLen) + newChord )
+                    }
+                } else {
+                    chordLine = chordLine.replaceRange( occur.range,newChord)
+                }
             }
             return chordLine
         }

@@ -97,7 +97,7 @@ class EditSongActivity : AppCompatActivity() {
         cancAPI.addSong(song,
             success = { newSongID ->
                 songID = newSongID
-                Toast.makeText(applicationContext, getString(R.string.toast_createSong), Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.toast_song_created), Toast.LENGTH_SHORT).show()
                 finish()
             })
         //TODO: Create a fail behaviour?
@@ -107,7 +107,7 @@ class EditSongActivity : AppCompatActivity() {
         //Updates the song in DB
         cancAPI.updateSong(song,
             success = {
-                Toast.makeText(applicationContext, getString(R.string.toast_updateSong), Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.toast_song_updated), Toast.LENGTH_SHORT).show()
                 finish()
             })
         //TODO: Create a fail behaviour?

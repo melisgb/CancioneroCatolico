@@ -76,12 +76,13 @@ class ViewSongsActivity : AppCompatActivity() {
                                     cancAPI.createList(selected_ListName,
                                         success = { newlistID ->
                                             listID = newlistID
+                                            val songsQty = copySelectedSongs.size
                                             var strSelectedSongs = copySelectedSongs.joinToString(",")
                                             cancAPI.insertToList(listID!!, strSelectedSongs,
                                                 success = {
                                                     Toast.makeText(
                                                         applicationContext,
-                                                        getString(R.string.toast_songs_added_toList)+ selected_ListName,
+                                                        resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),
                                                         Toast.LENGTH_SHORT
                                                     ).show()
                                                 })
@@ -89,10 +90,11 @@ class ViewSongsActivity : AppCompatActivity() {
                                         })
                                 } else {
                                     //   insert to already created list
+                                    val songsQty = copySelectedSongs.size
                                     var strSelectedSongs = copySelectedSongs.joinToString(",")
                                     cancAPI.insertToList(listID!!, strSelectedSongs,
                                         success = {
-                                            Toast.makeText(applicationContext,getString(R.string.toast_songs_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),Toast.LENGTH_SHORT).show()
                                         })
                                 }
                                 refreshAll()
@@ -113,26 +115,27 @@ class ViewSongsActivity : AppCompatActivity() {
                         //get all listSongs summarized from DB
                         success = { listOfLists ->
                             val copySelectedSongs = HashSet<Int>(selectedSongs)
-                            var selected_ListName = "Favoritos"
+                            val songsQty = copySelectedSongs.size
+                            val selected_ListName = "Favoritos"
                             val listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
                             if(listID == null){
-                                cancAPI.createList("Favoritos",
+                                cancAPI.createList(selected_ListName,
                                     success = {listID ->
-                                        var strSelectedSongs =
+                                        val strSelectedSongs =
                                             copySelectedSongs.joinToString(",")
                                         cancAPI.insertToList(listID, strSelectedSongs,
                                             success = {
-                                                Toast.makeText(applicationContext,getString(R.string.toast_songs_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),Toast.LENGTH_SHORT).show()
                                             })
 
                                 } )
                             }
                             else {
                                 //   When there is a ListID
-                                var strSelectedSongs = copySelectedSongs.joinToString(",")
+                                val strSelectedSongs = copySelectedSongs.joinToString(",")
                                 cancAPI.insertToList(listID!!, strSelectedSongs,
                                     success = {
-                                        Toast.makeText(applicationContext,getString(R.string.toast_songs_added_toList)+ selected_ListName,Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),Toast.LENGTH_SHORT).show()
                                     })
                             }
                             refreshAll()
@@ -245,7 +248,7 @@ class ViewSongsActivity : AppCompatActivity() {
         val searchItem = menu?.findItem(R.id.search_bar)
         val searchView = searchItem?.actionView as SearchView
         searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
-        searchView.queryHint = "Buscar palabra clave..."
+        searchView.queryHint = getString(R.string.hint_search_bar)
         searchView.maxWidth = Int.MAX_VALUE
 
         searchItem.setOnMenuItemClickListener {
@@ -254,7 +257,7 @@ class ViewSongsActivity : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Toast.makeText(this@ViewSongsActivity, "Buscando $query", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ViewSongsActivity, getString(R.string.toast_searching_by, query), Toast.LENGTH_SHORT).show()
                 return false
             }
 
