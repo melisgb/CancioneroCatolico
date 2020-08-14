@@ -32,6 +32,7 @@ class ReadSongActivity : AppCompatActivity() {
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     var lyricLines = listOf<LyricsLine>()
     var transposedLevel = 0
+    var isSameLanguage = true
     var transformedLyricLine = listOf<LyricsLine>()
     val soundPool = SoundPool.Builder().setMaxStreams(4).build()
     val notesMap = HashMap<Note, Int>()
@@ -79,7 +80,7 @@ class ReadSongActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {
         return when (item.itemId) {
             R.id.action_translate ->{
-                transformedLyricLine = changeChordsLanguage()
+                isSameLanguage = !isSameLanguage //change the boolean to the opposite
                 showLyricsInTextView()
                 true
             }
@@ -90,7 +91,6 @@ class ReadSongActivity : AppCompatActivity() {
                 else{
                     ++transposedLevel
                 }
-                transformedLyricLine = increaseSemiNote(transposedLevel)
                 showLyricsInTextView()
                 true
             }
@@ -101,7 +101,6 @@ class ReadSongActivity : AppCompatActivity() {
                 else{
                     --transposedLevel
                 }
-                transformedLyricLine = increaseSemiNote(transposedLevel)
                 showLyricsInTextView()
                 true
             }
@@ -127,7 +126,7 @@ class ReadSongActivity : AppCompatActivity() {
                             selected_ListName = listNames[i]
 
                             var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
-//
+
                             if(listID == null){
                                 //insert new list
                                 cancAPI.createList(selected_ListName,
@@ -282,7 +281,7 @@ class ReadSongActivity : AppCompatActivity() {
             .let { SpannedString(it) }
     }
 
-    private fun increaseSemiNote(level : Int) : ArrayList<LyricsLine> {
+    private fun increaseSemiNote(lyricLines : List<LyricsLine>, level : Int) : ArrayList<LyricsLine> {
         val lyricsArray = ArrayList<LyricsLine>()
 
         for (lyr in lyricLines) {
@@ -298,7 +297,8 @@ class ReadSongActivity : AppCompatActivity() {
         return lyricsArray
     }
 
-    private fun changeChordsLanguage() : ArrayList<LyricsLine> {
+    private fun changeChordsLanguage(lyricLines : List<LyricsLine>, isSameLanguage: Boolean) : ArrayList<LyricsLine> {
+        if(isSameLanguage) return ArrayList(lyricLines) //return without changes
         //language 1 = English, 2 = Spanish
         val lyricsArray = ArrayList<LyricsLine>()
 
@@ -314,7 +314,14 @@ class ReadSongActivity : AppCompatActivity() {
         return lyricsArray
     }
 
+    /*This function will handle two transformations of lyrics  :
+      - Increasing seminote
+      - Change Language
+     */
     private fun showLyricsInTextView(){
+        transformedLyricLine = increaseSemiNote(lyricLines, transposedLevel)
+        transformedLyricLine = changeChordsLanguage(transformedLyricLine, isSameLanguage)
+
         val spannArray = ArrayList<Spannable>()
         for(lyr in transformedLyricLine){
             spannArray.add(lyricsToSpannable(lyr))
