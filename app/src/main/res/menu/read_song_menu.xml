@@ -14,6 +14,11 @@
         android:title="@string/decrease_note"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_translate"
+        android:title="@string/translate_chord"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_translate3"/>
+    <item
         android:id="@+id/action_addSongToList"
         android:title="@string/add_toList"
         app:showAsAction="always"

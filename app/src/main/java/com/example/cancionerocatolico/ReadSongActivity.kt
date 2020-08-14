@@ -2,8 +2,6 @@ package com.example.cancionerocatolico
 
 import android.content.Intent
 import android.graphics.Color
-import android.media.AudioAttributes
-import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Bundle
 import android.text.*
@@ -20,7 +18,6 @@ import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.Chord
 import com.example.cancionerocatolico.objects.LyricsLine
 import com.example.cancionerocatolico.objects.Note
-import com.example.cancionerocatolico.objects.UserInfo
 import com.example.cancionerocatolico.utils.Lyrics
 import com.example.cancionerocatolico.utils.UserHelper
 import kotlinx.android.synthetic.main.activity_read_song.*
@@ -38,6 +35,7 @@ class ReadSongActivity : AppCompatActivity() {
     var transformedLyricLine = listOf<LyricsLine>()
     val soundPool = SoundPool.Builder().setMaxStreams(4).build()
     val notesMap = HashMap<Note, Int>()
+    var lang = 1 //TODO: Receive the language of song
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +78,11 @@ class ReadSongActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {
         return when (item.itemId) {
+            R.id.action_translate ->{
+                transformedLyricLine = changeChordsLanguage()
+                showLyricsInTextView()
+                true
+            }
             R.id.action_increase_note -> {
                 if(transposedLevel == 11){
                     transposedLevel = 0
@@ -273,7 +276,7 @@ class ReadSongActivity : AppCompatActivity() {
         }
         return lineToSpan
     }
-
+    //extension function
     private fun <T> Iterable<T>.joinToSpannedString(separator: CharSequence = ", ", prefix: CharSequence = "", postfix: CharSequence = "", limit: Int = -1, truncated: CharSequence = "...", transform: ((T) -> CharSequence)? = null): SpannedString {
         return joinTo(SpannableStringBuilder(), separator, prefix, postfix, limit, truncated, transform)
             .let { SpannedString(it) }
@@ -284,7 +287,7 @@ class ReadSongActivity : AppCompatActivity() {
 
         for (lyr in lyricLines) {
             if (lyr.type == LyricsLine.LyricsLineType.CHORDS) {
-                val newChords = Lyrics.increaseSemiNote(lyr.line, level)
+                val newChords = Lyrics.increaseSemiNoteMultipleTimes(lyr.line, level)
                 val newLyr = LyricsLine(newChords, lyr.type)
                 lyricsArray.add(newLyr)
             } else {
@@ -292,6 +295,22 @@ class ReadSongActivity : AppCompatActivity() {
             }
         }
 
+        return lyricsArray
+    }
+
+    private fun changeChordsLanguage() : ArrayList<LyricsLine> {
+        //language 1 = English, 2 = Spanish
+        val lyricsArray = ArrayList<LyricsLine>()
+
+        for (lyr in lyricLines) {
+            if (lyr.type == LyricsLine.LyricsLineType.CHORDS) {
+                val newChords = Lyrics.changeLanguage(lyr.line)
+                val newLyr = LyricsLine(newChords, lyr.type)
+                lyricsArray.add(newLyr)
+            } else {
+                lyricsArray.add(lyr)
+            }
+        }
         return lyricsArray
     }
 

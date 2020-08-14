@@ -96,4 +96,5 @@
     <string name="chip_E">E</string>
     <string name="chip_F">F</string>
     <string name="chip_G">G</string>
+    <string name="translate_chord">Translate chord</string>
 </resources>

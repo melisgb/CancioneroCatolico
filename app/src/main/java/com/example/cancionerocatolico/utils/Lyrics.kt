@@ -1,6 +1,7 @@
 package com.example.cancionerocatolico.utils
 
 import android.util.Log
+import com.example.cancionerocatolico.objects.Chord
 import com.example.cancionerocatolico.objects.LyricsLine
 
 class Lyrics {
@@ -43,14 +44,13 @@ class Lyrics {
             return word.matches(ameriChordsPatt) || word.matches(latinChordsPatt)
         }
 
-        fun increaseSemiNote(line: String, level: Int): String {
+        fun increaseSemiNoteMultipleTimes(line: String, level: Int): String {
             var newChords = line
             for (x in 1..level) {
                 newChords = increaseSemiNote(newChords)
             }
             return newChords
         }
-
 
         /***
          * Do  - Do#
@@ -206,5 +206,42 @@ class Lyrics {
             }
             return chordLine
         }
+
+        fun changeLanguage(line: String): String {
+            val chordsPattern =
+                """(D[oO]|R[eE]|M[iI]|F[aA]|S(ol|OL)|L[aA]|S[iI]|A|B|C|D|E|F|G)(b|#)?""".toRegex(
+                    RegexOption.IGNORE_CASE
+                )
+            val ocurrences = chordsPattern.findAll(line)
+            var chordLine = line
+
+            for (occur in ocurrences.toList().reversed()) {
+                val oldChord = occur.value
+                val language = getLanguage(oldChord)
+                val newLanguage = if(language == Language.American) Language.Latin else Language.American
+                val newChord = translateChord(oldChord, newLanguage)
+                chordLine = chordLine.replaceRange( occur.range,newChord)
+            }
+            return chordLine
+        }
+        fun getLanguage(chord: String) : Language {
+            val language : Language
+            if(Chord.values().find { thisChord -> thisChord.chordLat == chord } == null) language = Language.American
+            else language = Language.Latin
+            return language
+        }
+
+        fun translateChord(chord: String, toLanguage: Language) : String {
+            val replacingChord : String
+            if(toLanguage == Language.American){
+                replacingChord = Chord.values().find { thisChord -> thisChord.chordLat == chord }!!.chordAme
+            }
+            else {
+                replacingChord = Chord.values().find { thisChord -> thisChord.chordAme == chord }!!.chordLat
+            }
+            return replacingChord
+        }
+
+        enum class Language { American, Latin }
     }
 }
