@@ -52,7 +52,7 @@ class ViewSongsActivity : AppCompatActivity() {
                     cancAPI.loadSummaryLists(
                         //get all listSongs summarized from DB
                         success = { listOfLists  ->
-                            var listNamesA = ArrayList<String>()
+                            val listNamesA = ArrayList<String>()
                             for(list in listOfLists) {
                                 listNamesA.add(list.listSongsName)
                             }
@@ -77,7 +77,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                         success = { newlistID ->
                                             listID = newlistID
                                             val songsQty = copySelectedSongs.size
-                                            var strSelectedSongs = copySelectedSongs.joinToString(",")
+                                            val strSelectedSongs = copySelectedSongs.joinToString(",")
                                             cancAPI.insertToList(listID!!, strSelectedSongs,
                                                 success = {
                                                     Toast.makeText(
@@ -91,7 +91,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                 } else {
                                     //   insert to already created list
                                     val songsQty = copySelectedSongs.size
-                                    var strSelectedSongs = copySelectedSongs.joinToString(",")
+                                    val strSelectedSongs = copySelectedSongs.joinToString(",")
                                     cancAPI.insertToList(listID!!, strSelectedSongs,
                                         success = {
                                             Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),Toast.LENGTH_SHORT).show()
@@ -133,7 +133,7 @@ class ViewSongsActivity : AppCompatActivity() {
                             else {
                                 //   When there is a ListID
                                 val strSelectedSongs = copySelectedSongs.joinToString(",")
-                                cancAPI.insertToList(listID!!, strSelectedSongs,
+                                cancAPI.insertToList(listID, strSelectedSongs,
                                     success = {
                                         Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),Toast.LENGTH_SHORT).show()
                                     })

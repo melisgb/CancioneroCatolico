@@ -18,8 +18,8 @@ import kotlinx.android.synthetic.main.activity_edit_song.*
 /* Activity to CREATE or EDIT a SONG */
 class EditSongActivity : AppCompatActivity() {
     private var songID : Int = 0
-    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
-    var selectedTags = ArrayList<String>()
+    private var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
+    private var selectedTags = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

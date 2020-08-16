@@ -157,8 +157,6 @@ open class CancioneroAPI(val userID : () -> Int) {
                 success(songs[0])
             }
         ).execute(url)
-
-
         //TODO: Bring info about Favorites
     }
 
