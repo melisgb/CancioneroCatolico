@@ -79,4 +79,51 @@
 
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabTranslateNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:scaleType="fitXY"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="@dimen/standard_21"
+        app:srcCompat="@drawable/ic_translate3" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabIncreaseNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        app:fabSize="mini"
+        app:backgroundTint="@color/colorPrimary"
+        app:maxImageSize="@dimen/standard_21"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_increase_note" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabDecreaseNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        app:fabSize="mini"
+        android:tintMode="multiply"
+        app:backgroundTint="@color/colorPrimary"
+        app:maxImageSize="@dimen/standard_21"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_decrease_note" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabShowSongOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:fabSize="normal"
+        android:tintMode="multiply"
+        app:backgroundTint="@color/colorPrimary"
+        app:maxImageSize="@dimen/standard_45"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

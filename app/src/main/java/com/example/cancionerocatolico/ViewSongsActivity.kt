@@ -178,9 +178,9 @@ class ViewSongsActivity : AppCompatActivity() {
 //        cancioneroAPI.loadSongs()
         getSongs("%", 0)
 
-        val btnFloatingAction = findViewById<FloatingActionButton>(R.id.btnFloatingAction)
-        btnFloatingAction.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
-        btnFloatingAction.setOnClickListener {
+        val fabAddSong = findViewById<FloatingActionButton>(R.id.fabAddSong)
+        fabAddSong.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
+        fabAddSong.setOnClickListener {
             val intent = Intent(this, EditSongActivity::class.java)
             startActivity(intent)
         }

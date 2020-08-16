@@ -20,6 +20,7 @@ import com.example.cancionerocatolico.objects.LyricsLine
 import com.example.cancionerocatolico.objects.Note
 import com.example.cancionerocatolico.utils.Lyrics
 import com.example.cancionerocatolico.utils.UserHelper
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_read_song.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,6 +37,11 @@ class ReadSongActivity : AppCompatActivity() {
     private var transformedLyricLine = listOf<LyricsLine>()
     val soundPool: SoundPool = SoundPool.Builder().setMaxStreams(4).build()
     val notesMap = HashMap<Note, Int>()
+    var isFABOpen = false
+    lateinit var fabShowFabMenu : FloatingActionButton
+    lateinit var fabIncreaseNote : FloatingActionButton
+    lateinit var fabDecreaseNote : FloatingActionButton
+    lateinit var fabTranslate : FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +51,65 @@ class ReadSongActivity : AppCompatActivity() {
         songID = intent.extras!!.getInt("song_id")
         loadSong(songID)
 
+        fabShowFabMenu = findViewById<FloatingActionButton>(R.id.fabShowSongOptions)
+        fabIncreaseNote = findViewById<FloatingActionButton>(R.id.fabIncreaseNote)
+        fabDecreaseNote = findViewById<FloatingActionButton>(R.id.fabDecreaseNote)
+        fabTranslate = findViewById<FloatingActionButton>(R.id.fabTranslateNotes)
+        fabShowFabMenu.setOnClickListener(View.OnClickListener {
+            if (!isFABOpen) {
+                showFABMenu()
+            } else {
+                closeFABMenu()
+            }
+        })
+
+        fabIncreaseNote.setOnClickListener {
+            if(transposedLevel == 11){
+                transposedLevel = 0
+            }
+            else{
+                ++transposedLevel
+            }
+            showLyricsInTextView()
+            true
+        }
+        fabDecreaseNote.setOnClickListener {
+            if(transposedLevel == 0) {
+                transposedLevel = 11
+            }
+            else{
+                --transposedLevel
+            }
+            showLyricsInTextView()
+            true
+        }
+        fabTranslate.setOnClickListener {
+            isSameLanguage = !isSameLanguage //change the boolean to the opposite
+            showLyricsInTextView()
+            true
+        }
+    }
+    private fun showFABMenu() {
+        isFABOpen = true
+        fabShowFabMenu.animate().rotationBy(180f)
+        fabIncreaseNote.animate().translationY(-resources.getDimension(R.dimen.standard_65))
+        fabDecreaseNote.animate().translationY(-resources.getDimension(R.dimen.standard_105))
+        fabTranslate.animate().translationY(-resources.getDimension(R.dimen.standard_155))
+    }
+
+    private fun closeFABMenu() {
+        isFABOpen = false
+        fabShowFabMenu.animate().rotation(0f)
+        fabIncreaseNote.animate().translationY(0f)
+        fabDecreaseNote.animate().translationY(0f)
+        fabTranslate.animate().translationY(0f)
+    }
+    override fun onBackPressed() {
+        if (isFABOpen) {
+            closeFABMenu()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     override fun onRestart() {
@@ -79,31 +144,6 @@ class ReadSongActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) : Boolean {
         return when (item.itemId) {
-            R.id.action_translate ->{
-                isSameLanguage = !isSameLanguage //change the boolean to the opposite
-                showLyricsInTextView()
-                true
-            }
-            R.id.action_increase_note -> {
-                if(transposedLevel == 11){
-                    transposedLevel = 0
-                }
-                else{
-                    ++transposedLevel
-                }
-                showLyricsInTextView()
-                true
-            }
-            R.id.action_decrease_note -> {
-                if(transposedLevel == 0) {
-                    transposedLevel = 11
-                }
-                else{
-                    --transposedLevel
-                }
-                showLyricsInTextView()
-                true
-            }
             R.id.action_addSongToList -> {
                 cancAPI.loadSummaryLists(
                     //get all listSongs summarized from DB
