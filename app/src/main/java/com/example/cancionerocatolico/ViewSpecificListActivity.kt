@@ -17,7 +17,7 @@ import kotlin.collections.HashSet
 
 class ViewSpecificListActivity : AppCompatActivity() {
     var mySongsList = ArrayList<Song>()
-    var songsAdapter : SongAdapter? = null
+    private var songsAdapter : SongAdapter? = null
     var selectedSongs = HashSet<Int>()
     var actionMode : ActionMode? = null
     var listID : Int = 0
@@ -52,10 +52,10 @@ class ViewSpecificListActivity : AppCompatActivity() {
                 mySongsList.clear()
                 mySongsList.addAll(currentList as ArrayList<Song>)
                 songsAdapter = SongAdapter(this, mySongsList, HashSet<Int>())
-                var songsListView = findViewById<ListView>(R.id.lvSpecificList)
+                val songsListView = findViewById<ListView>(R.id.lvSpecificList)
                 songsListView.adapter = songsAdapter
 
-                songsListView.setOnItemClickListener { parent, view, position, longID ->
+                songsListView.setOnItemClickListener { _, view, _, longID ->
                     val songId = longID.toInt()
                     if(selectedSongs.isEmpty()){
                     val intent = Intent(this, ReadSongActivity::class.java)
@@ -112,7 +112,7 @@ class ViewSpecificListActivity : AppCompatActivity() {
                 mySongsList.clear()
                 mySongsList.addAll(currentList as ArrayList<Song>)
                 songsAdapter = SongAdapter(this, mySongsList, HashSet<Int>())
-                var songsListView = findViewById<ListView>(R.id.lvSpecificList)
+                val songsListView = findViewById<ListView>(R.id.lvSpecificList)
                 songsListView.adapter = songsAdapter
             })
         super.onRestart()
@@ -191,10 +191,10 @@ class ViewSpecificListActivity : AppCompatActivity() {
                 newListNameEditTxt.setSelection(newListNameEditTxt.text.length)
                 newListName = newListNameEditTxt.text.toString()
 
-                builder.setNegativeButton("Cancelar") { dialog, which ->
+                builder.setNegativeButton(getString(R.string.cancel_dialog)) { dialog, _ ->
                     dialog.cancel()
                 }
-                builder.setPositiveButton("Guardar") { dialog, which ->
+                builder.setPositiveButton(getString(R.string.submit_dialog_changeListName)) { _, _ ->
                     newListName = newListNameEditTxt.text.toString()
                     if (newListName.length <= 35) {
                         cancAPI.updateList(listID, newListName,

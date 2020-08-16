@@ -16,11 +16,11 @@ import com.example.cancionerocatolico.utils.UserHelper
 import com.google.android.material.chip.Chip
 
 class ViewSongsByKeyActivity : AppCompatActivity() {
-    val selectedFilters = HashSet<String>()
-    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
-    var songsTagsAdapter : SongAdapter? = null
-    lateinit var songsTagsListView : ListView
-    var songsList = ArrayList<Song>()
+    private val selectedFilters = HashSet<String>()
+    private var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
+    private var songsTagsAdapter : SongAdapter? = null
+    private lateinit var songsTagsListView : ListView
+    private var songsList = ArrayList<Song>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +28,12 @@ class ViewSongsByKeyActivity : AppCompatActivity() {
 
         title = getString(R.string.viewSongsByTags_title)
         songsTagsAdapter = SongAdapter(this, songsList, HashSet<Int>())
-        songsTagsListView = findViewById<ListView>(R.id.lvListSongsByTags)
+        songsTagsListView = findViewById(R.id.lvListSongsByTags)
         songsTagsListView.adapter = songsTagsAdapter
         songsList.clear()
         getSongByTags("%")
 
-        songsTagsListView.setOnItemClickListener { parent, view, position, longID ->
+        songsTagsListView.setOnItemClickListener { _, _, _, longID ->
             val songId = longID.toInt() //calling getItemId
             val intent = Intent(this, ReadSongActivity::class.java)
             intent.putExtra("song_id", songId)

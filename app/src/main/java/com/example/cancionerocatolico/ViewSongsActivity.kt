@@ -62,18 +62,18 @@ class ViewSongsActivity : AppCompatActivity() {
                             listNamesA.add("Lista"+ df.format(currDate))
 
                             val listNames = listNamesA.toArray(emptyArray<String>())
-                            var selected_ListName = ""
+                            var selectedListName = ""
                             val copySelectedSongs = HashSet<Int>(selectedSongs)
                             val builder = AlertDialog.Builder(this@ViewSongsActivity) /*ViewSongsActivity*/
                             builder.setTitle(R.string.choose_list)
                             builder.setIcon(R.drawable.ic_add_to_list)
                             builder.setSingleChoiceItems(listNames, -1)  { dialogInterface, i ->
-                                selected_ListName = listNames[i]
+                                selectedListName = listNames[i]
 
-                                var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
+                                var listID = listOfLists.find{ l -> l.listSongsName == selectedListName }?.listSongsID
                                 if(listID == null){
                                     //insert new list
-                                    cancAPI.createList(selected_ListName,
+                                    cancAPI.createList(selectedListName,
                                         success = { newlistID ->
                                             listID = newlistID
                                             val songsQty = copySelectedSongs.size
@@ -82,7 +82,7 @@ class ViewSongsActivity : AppCompatActivity() {
                                                 success = {
                                                     Toast.makeText(
                                                         applicationContext,
-                                                        resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),
+                                                        resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selectedListName),
                                                         Toast.LENGTH_SHORT
                                                     ).show()
                                                 })
@@ -94,13 +94,13 @@ class ViewSongsActivity : AppCompatActivity() {
                                     val strSelectedSongs = copySelectedSongs.joinToString(",")
                                     cancAPI.insertToList(listID!!, strSelectedSongs,
                                         success = {
-                                            Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selectedListName),Toast.LENGTH_SHORT).show()
                                         })
                                 }
                                 refreshAll()
                                 dialogInterface.dismiss()
                             }
-                            builder.setNeutralButton("Cancelar") { dialog, which ->
+                            builder.setNeutralButton(getString(R.string.cancel_dialog)) { dialog, _ ->
                                 dialog.cancel()
                             }
                             val mDialog = builder.create()
@@ -116,26 +116,26 @@ class ViewSongsActivity : AppCompatActivity() {
                         success = { listOfLists ->
                             val copySelectedSongs = HashSet<Int>(selectedSongs)
                             val songsQty = copySelectedSongs.size
-                            val selected_ListName = "Favoritos"
-                            val listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
+                            val selectedListName = "Favoritos"
+                            val listID = listOfLists.find{ l -> l.listSongsName == selectedListName }?.listSongsID
                             if(listID == null){
-                                cancAPI.createList(selected_ListName,
-                                    success = {listID ->
+                                cancAPI.createList(selectedListName,
+                                    success = {newListID ->
                                         val strSelectedSongs =
                                             copySelectedSongs.joinToString(",")
-                                        cancAPI.insertToList(listID, strSelectedSongs,
+                                        cancAPI.insertToList(newListID, strSelectedSongs,
                                             success = {
-                                                Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selectedListName),Toast.LENGTH_SHORT).show()
                                             })
 
-                                } )
+                                    } )
                             }
                             else {
                                 //   When there is a ListID
                                 val strSelectedSongs = copySelectedSongs.joinToString(",")
                                 cancAPI.insertToList(listID, strSelectedSongs,
                                     success = {
-                                        Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selected_ListName),Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(applicationContext,resources.getQuantityString(R.plurals.toast_songs_added_toList, songsQty, selectedListName),Toast.LENGTH_SHORT).show()
                                     })
                             }
                             refreshAll()
@@ -178,14 +178,14 @@ class ViewSongsActivity : AppCompatActivity() {
 //        cancioneroAPI.loadSongs()
         getSongs("%", 0)
 
-        val btn_FloatingAction = findViewById<FloatingActionButton>(R.id.btnFloatingAction)
-        btn_FloatingAction.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
-        btn_FloatingAction.setOnClickListener {
+        val btnFloatingAction = findViewById<FloatingActionButton>(R.id.btnFloatingAction)
+        btnFloatingAction.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
+        btnFloatingAction.setOnClickListener {
             val intent = Intent(this, EditSongActivity::class.java)
             startActivity(intent)
         }
 
-        songsListView.setOnItemClickListener {parent, view, position, longID ->
+        songsListView.setOnItemClickListener {_, view, _, longID ->
             val songId = longID.toInt() //calling getItemId
             if(selectedSongs.isEmpty()) {
                 val intent = Intent(this, ReadSongActivity::class.java)
@@ -210,7 +210,7 @@ class ViewSongsActivity : AppCompatActivity() {
             }
         }
 
-        songsListView.setOnItemLongClickListener {parent, view, position, longID ->
+        songsListView.setOnItemLongClickListener {_, view, _, longID ->
             val songId = longID.toInt()
             if(selectedSongs.contains(songId)) {
                 selectedSongs.remove(songId)
@@ -268,16 +268,14 @@ class ViewSongsActivity : AppCompatActivity() {
             }
         })
 
-        //val keyword_extra: String? = this.intent.getStringExtra(EXTRA_KEYWORD)
-        val keyword_extra: String? = ""
-        if (!keyword_extra.isNullOrEmpty()) {
-            getSongs(keyword_extra, 0)
+        val extraKeyword: String? = ""
+        if (!extraKeyword.isNullOrEmpty()) {
+            getSongs(extraKeyword, 0)
             songsListView.adapter = songsAdapter
 
         }
         return true
     }
-
 
     fun getSongs(keyword : String, startFrom : Int){
         //FROM API
@@ -292,12 +290,4 @@ class ViewSongsActivity : AppCompatActivity() {
                 songsAdapter!!.notifyDataSetChanged()
             })
     }
-
-
-
-
-
-
-
-
 }

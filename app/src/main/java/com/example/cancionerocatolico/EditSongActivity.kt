@@ -40,7 +40,6 @@ class EditSongActivity : AppCompatActivity() {
             etxtSongArtist.setText(bundle.getString("songArtist"))
             etxtSongLyrics.setText(bundle.getString("songLyrics"))
             formatTags(bundle.getString("songTags")!!)
-//            etxtSongTags.setText(bundle.getString("songTags"))
         }
         else{
             title = getString(R.string.addSong_title)
@@ -85,7 +84,7 @@ class EditSongActivity : AppCompatActivity() {
         etxtSongTags.setOnClickListener {
             etxtSongTags.showDropDown()
         }
-        etxtSongTags.setOnItemClickListener { parent, view, position, id ->
+        etxtSongTags.setOnItemClickListener { _, view, _, _ ->
             addNewChip((view as AppCompatTextView).text.toString(), tagsLayout)
             etxtSongTags.setText("")
         }
@@ -114,13 +113,10 @@ class EditSongActivity : AppCompatActivity() {
     }
 
     private fun addNewChip(tag: String, chipGroup: FlexboxLayout){
-//        val lp = FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
-//        lp.setMargins(-10,-20,-10,-20)
         val chip = layoutInflater.inflate(R.layout.chip_elem, chipGroup, false) as Chip
         chip.text = tag
         chip.isCloseIconVisible = true
         chip.isClickable = true
-//        chip.layoutParams = lp
 
         if(!selectedTags.contains(chip.text.toString())) {
             selectedTags.add(chip.text.toString())

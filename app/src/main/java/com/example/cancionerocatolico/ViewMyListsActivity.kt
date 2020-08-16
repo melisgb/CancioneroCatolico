@@ -17,10 +17,10 @@ import com.example.cancionerocatolico.objects.ListSongs
 import com.example.cancionerocatolico.utils.UserHelper
 
 class ViewMyListsActivity : AppCompatActivity() {
-    var listsAdapter : MyListAdapter? = null
-    var listOfListsSongs = ArrayList<ListSongs>()
-    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
-    var listsRecyclerView : RecyclerView? = null
+    private var listsAdapter : MyListAdapter? = null
+    private var listOfListsSongs = ArrayList<ListSongs>()
+    private var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
+    private var listsRecyclerView : RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +65,7 @@ class ViewMyListsActivity : AppCompatActivity() {
                 dialog.setView(view)
                 val newSongsList = ArrayList<Int>()
 
-                dialog.setPositiveButton("Crear lista") { dialog, which ->
+                dialog.setPositiveButton(getString(R.string.createList)) { _, _ ->
                     val importText = view.findViewById<EditText>(R.id.etxtImportListText)
                     val textArr = importText.text.split("\n")
                     val listName = textArr[0].substringAfter("*Lista Canciones").substringBeforeLast("*").trim()
@@ -75,7 +75,7 @@ class ViewMyListsActivity : AppCompatActivity() {
                     }
                     createImportedList(listName, newSongsList)
                 }
-                dialog.setNeutralButton("Reemplazar Lista") { dialog, which ->
+                dialog.setNeutralButton(getString(R.string.replaceList)) { _, _ ->
                     val importText = view.findViewById<EditText>(R.id.etxtImportListText)
                     val textArr = importText.text.split("\n")
                     val listName = textArr[0].substringAfter("*Lista Canciones").substringBeforeLast("*").trim()
@@ -120,7 +120,7 @@ class ViewMyListsActivity : AppCompatActivity() {
             success = { listOfLists ->
                 val listID = listOfLists.find { l -> l.listSongsName == listName }?.listSongsID
                 if (listID != null) {
-                    listName = listName + "(1)"
+                    listName = "$listName(1)"
                 }
                 //insert new list
                 cancAPI.createList(listName,
@@ -147,9 +147,9 @@ class ViewMyListsActivity : AppCompatActivity() {
                 if(listID == null) {
                     //insert new list
                     cancAPI.createList(listName,
-                        success = { newlistID ->
+                        success = { newListID ->
                             val strImportedSongs = newlistOfSongs.joinToString(",")
-                            cancAPI.insertToList(newlistID, strImportedSongs,
+                            cancAPI.insertToList(newListID, strImportedSongs,
                                 success = {
                                     Toast.makeText(applicationContext,
                                         getString(R.string.toast_list_replaced_successful), Toast.LENGTH_SHORT).show()

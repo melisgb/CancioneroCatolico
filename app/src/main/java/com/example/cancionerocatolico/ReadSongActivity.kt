@@ -28,13 +28,13 @@ import kotlin.collections.HashMap
 
 
 class ReadSongActivity : AppCompatActivity() {
-    var song_id : Int = 0
-    var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
-    var lyricLines = listOf<LyricsLine>()
-    var transposedLevel = 0
-    var isSameLanguage = true
-    var transformedLyricLine = listOf<LyricsLine>()
-    val soundPool = SoundPool.Builder().setMaxStreams(4).build()
+    private var songID : Int = 0
+    private var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
+    private var lyricLines = listOf<LyricsLine>()
+    private var transposedLevel = 0
+    private var isSameLanguage = true
+    private var transformedLyricLine = listOf<LyricsLine>()
+    val soundPool: SoundPool = SoundPool.Builder().setMaxStreams(4).build()
     val notesMap = HashMap<Note, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,12 +42,13 @@ class ReadSongActivity : AppCompatActivity() {
         setContentView(R.layout.activity_read_song)
         loadAllNotes()
         title = getString(R.string.readSong_title)
-        song_id = intent.extras!!.getInt("song_id")
-        loadSong(song_id)
+        songID = intent.extras!!.getInt("song_id")
+        loadSong(songID)
+
     }
 
     override fun onRestart() {
-        loadSong(song_id)
+        loadSong(songID)
         super.onRestart()
     }
 
@@ -116,37 +117,37 @@ class ReadSongActivity : AppCompatActivity() {
                         val currDate = Date()
                         listNamesA.add("Lista"+ df.format(currDate))
                         val listNames = listNamesA.toArray(emptyArray<String>())
-                        var selected_ListName = ""
+                        var selectedListName = ""
 
                         val builder = AlertDialog.Builder(this@ReadSongActivity)
                         builder.setTitle(R.string.choose_list)
                         builder.setIcon(R.drawable.ic_add_to_list)
                         builder.setSingleChoiceItems(listNames, -1)  { dialogInterface, i ->
-                            selected_ListName = listNames[i]
+                            selectedListName = listNames[i]
 
-                            var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
+                            var listID = listOfLists.find{ l -> l.listSongsName == selectedListName }?.listSongsID
 
                             if(listID == null){
                                 //insert new list
-                                cancAPI.createList(selected_ListName,
+                                cancAPI.createList(selectedListName,
                                     success = { newlistID ->
                                         listID = newlistID
-                                        cancAPI.insertToList(listID!!, song_id.toString(),
+                                        cancAPI.insertToList(listID!!, songID.toString(),
                                             success = {
-                                                Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selected_ListName),Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selectedListName),Toast.LENGTH_SHORT).show()
                                             })
                                     })
                             }
                             else {
                                 //   When there is a LISTID / the list is already created
-                                cancAPI.insertToList(listID!!, song_id.toString(),
+                                cancAPI.insertToList(listID!!, songID.toString(),
                                     success = {
-                                        Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selected_ListName),Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selectedListName),Toast.LENGTH_SHORT).show()
                                     })
                             }
                             dialogInterface.dismiss()
                         }
-                        builder.setNeutralButton("Cancelar") { dialog, _ ->
+                        builder.setNeutralButton(getString(R.string.cancel_dialog)) { dialog, _ ->
                             dialog.cancel()
                         }
                         val mDialog = builder.create()
@@ -159,23 +160,23 @@ class ReadSongActivity : AppCompatActivity() {
                 cancAPI.loadSummaryLists(
                     //get all listSongs summarized from DB
                     success = { listOfLists ->
-                        val selected_ListName = "Favoritos"
-                        var listID = listOfLists.find{ l -> l.listSongsName == selected_ListName }?.listSongsID
+                        val selectedListName = "Favoritos"
+                        var listID = listOfLists.find{ l -> l.listSongsName == selectedListName }?.listSongsID
 
                         if(listID == null){
-                            cancAPI.createList(selected_ListName,
+                            cancAPI.createList(selectedListName,
                                 success = {newlistID ->
                                     listID = newlistID
-                                    cancAPI.insertToList(listID!!, song_id.toString(),
+                                    cancAPI.insertToList(listID!!, songID.toString(),
                                         success = {
-                                            Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selected_ListName),Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selectedListName),Toast.LENGTH_SHORT).show()
                                         })
                                 })
                         }
                         else {
-                           cancAPI.insertToList(listID!!, song_id.toString(),
+                           cancAPI.insertToList(listID!!, songID.toString(),
                                 success = {
-                                    Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selected_ListName),Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(applicationContext,getString(R.string.toast_song_added_toList, selectedListName),Toast.LENGTH_SHORT).show()
                                 })
                         }
                     })
@@ -183,7 +184,7 @@ class ReadSongActivity : AppCompatActivity() {
             }
             R.id.action_editSong-> {
                 val intent = Intent(applicationContext, EditSongActivity::class.java )
-                intent.putExtra("songId", song_id)
+                intent.putExtra("songId", songID)
                 intent.putExtra("songTitle", txtvReadSongTitle.text.toString())
                 intent.putExtra("songArtist", txtvReadSongArtist.text.toString())
                 intent.putExtra("songLyrics", txtvReadSongLyrics.text.toString())
@@ -194,7 +195,7 @@ class ReadSongActivity : AppCompatActivity() {
             R.id.action_deleteSong-> {
                 //Important notice: When an ADMIN user deletes a song it will get deleted from every list.
                 cancAPI.deleteSong(
-                    song_id,
+                    songID,
                     success = {
                         Toast.makeText( applicationContext, getString(R.string.toast_song_deleted), Toast.LENGTH_SHORT).show()
                         finish()
@@ -260,7 +261,7 @@ class ReadSongActivity : AppCompatActivity() {
                     }
                     override fun onClick(widget: View) {
                         for(note in chord.notes){
-                            val noteID = notesMap.get(note)
+                            val noteID = notesMap[note]
 
                             if(noteID!=null) soundPool.play(noteID, 1.0f/chord.notes.size, 1.0f/chord.notes.size, 1, 0, 1f)
                         }
@@ -328,9 +329,9 @@ class ReadSongActivity : AppCompatActivity() {
         txtvReadSongLyrics.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    fun loadAllNotes(){
+    private fun loadAllNotes(){
         for(note in Note.values()){
-            notesMap.put(note, soundPool.load(applicationContext, note.noteResourceId, 1))
+            notesMap[note] = soundPool.load(applicationContext, note.noteResourceId, 1)
         }
     }
 }

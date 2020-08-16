@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cancionerocatolico.api.CancioneroAPI
@@ -13,17 +12,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 
 
 class LoginActivity : AppCompatActivity() {
-    var cancAPI = CancioneroAPI({ -1 })
-    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    private var cancAPI = CancioneroAPI({ -1 })
+    private val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
-    var mGoogleSignInClient : GoogleSignInClient? = null
+    private var mGoogleSignInClient : GoogleSignInClient? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -103,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
                 success(true)
             },
             fail = { errorMessage->
-                if(errorMessage.equals("No user matches")){
+                if(errorMessage == "No user matches"){
                     success(false)
                 }
                 else{
@@ -121,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
             fail ={
             })
     }
-    fun proceedToMain(){
+    private fun proceedToMain(){
         Toast.makeText(applicationContext, getString(R.string.toast_login_successful), Toast.LENGTH_SHORT).show()
         val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)

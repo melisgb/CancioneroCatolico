@@ -1,6 +1,5 @@
 package com.example.cancionerocatolico.utils
 
-import android.util.Log
 import com.example.cancionerocatolico.objects.Chord
 import com.example.cancionerocatolico.objects.LyricsLine
 
@@ -35,11 +34,11 @@ class Lyrics {
         }
 
         private fun isChord(word: String): Boolean {
-            var latinChordsPatt =
+            val latinChordsPatt =
                 "(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m)?(sus|maj)?([2-9])?(/(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m)?(sus|maj)?([2-9])?)?".toRegex(
                     RegexOption.IGNORE_CASE
                 )
-            var ameriChordsPatt =
+            val ameriChordsPatt =
                 """([A-G])(#|b)?(m)?(sus|maj)?([2-9])?(/([A-G])(#|b)?(m)?(sus|maj)?([2-9])?)?""".toRegex()
             return word.matches(ameriChordsPatt) || word.matches(latinChordsPatt)
         }
@@ -257,14 +256,14 @@ class Lyrics {
             }
             return chordLine
         }
-        fun getLanguage(chord: String) : Language {
+        private fun getLanguage(chord: String) : Language {
             val language : Language
             if(Chord.values().find { thisChord -> thisChord.chordLat == chord } == null) language = Language.American
             else language = Language.Latin
             return language
         }
 
-        fun translateChord(chord: String, toLanguage: Language) : String {
+        private fun translateChord(chord: String, toLanguage: Language) : String {
             val replacingChord : String
             if(toLanguage == Language.American){
                 replacingChord = Chord.values().find { thisChord -> thisChord.chordLat == chord }!!.chordAme

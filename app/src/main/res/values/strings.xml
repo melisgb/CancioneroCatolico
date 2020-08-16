@@ -58,6 +58,10 @@
     <string name="msg_edit_list_name">Asigna un nuevo nombre</string>
     <string name="import_list">Importar lista</string>
     <string name="msg_import_list">Pega la lista a importar</string>
+    <string name="createList">Crear Lista</string>
+    <string name="replaceList">Reemplazar Lista</string>
+    <string name="cancel_dialog">Cancelar</string>
+    <string name="submit_dialog_changeListName">Guardar</string>
     <string name="log_out">Cerrar Sesion</string>
 
     <!-- Titulos -->

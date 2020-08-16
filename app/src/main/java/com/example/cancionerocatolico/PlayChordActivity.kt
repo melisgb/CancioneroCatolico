@@ -13,8 +13,8 @@ import com.example.cancionerocatolico.objects.Chord
 import com.google.android.material.chip.Chip
 
 class PlayChordActivity : AppCompatActivity() {
-    val selectedFilters = HashSet<String>()
-    var chordsAdapter : ChordAdapter? = null
+    private val selectedFilters = HashSet<String>()
+    private var chordsAdapter : ChordAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_chords)
@@ -43,9 +43,9 @@ class PlayChordActivity : AppCompatActivity() {
         filterByChord()
     }
 
-    fun filterByChord(){
+    private fun filterByChord(){
         val newListChords = ArrayList<Chord>()
-        if(!selectedFilters.isEmpty()){
+        if(selectedFilters.isNotEmpty()){
             for(key in selectedFilters){
                 newListChords.addAll(Chord.values().filter { chord -> chord.chordAme.contains(key) }.sortedBy {  it.name })
             }
