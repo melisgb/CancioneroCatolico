@@ -31,7 +31,6 @@ app.use('/users', users);
 app.use('/songs', songs);
 app.use('/listsongs', listsongs);
 
-const hostname = '127.0.0.1';
 const port = 3000;
 
 // catch 404 and forward to error handler
@@ -50,6 +49,6 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+  console.log(`Server running at ${port}`);
 });
