@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.UserInfo
+import com.example.cancionerocatolico.utils.UserHelper
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -22,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         .requestEmail()
         .build()
     private var mGoogleSignInClient : GoogleSignInClient? = null
+    var isExistingUser : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -82,9 +84,11 @@ class LoginActivity : AppCompatActivity() {
         if(signedIn != null){
             loginUser(signedIn.email!!, success = { result ->
                 if(result) {
+                    isExistingUser = true
                     proceedToMain()
                 }
                 else {
+                    isExistingUser = false
                     registerUser(signedIn.displayName!!, signedIn.email!!)
                 }
             })
@@ -120,7 +124,8 @@ class LoginActivity : AppCompatActivity() {
             })
     }
     private fun proceedToMain(){
-        Toast.makeText(applicationContext, getString(R.string.toast_login_successful), Toast.LENGTH_SHORT).show()
+        if(isExistingUser) Toast.makeText(applicationContext, getString(R.string.toast_login_welcome_back, UserHelper.getUserName(this)), Toast.LENGTH_SHORT).show()
+        else Toast.makeText(applicationContext, getString(R.string.toast_login_welcome, UserHelper.getUserName(this)), Toast.LENGTH_SHORT).show()
         val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
         finish()

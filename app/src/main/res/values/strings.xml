@@ -14,7 +14,8 @@
 
     <!-- Strings de Toast -->
     <string name="toast_login_failed">Inicio sesion con Google fallido</string>
-    <string name="toast_login_successful">Inicio sesion exitosa</string>
+    <string name="toast_login_welcome">Bienvenido/a %s</string>
+    <string name="toast_login_welcome_back">Bienvenido/a de nuevo %s</string>
     <string name="toast_logout_successful">Sesion finalizada exitosamente</string>
     <string name="toast_searching_by">Buscando %s</string>
 
