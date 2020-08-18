@@ -3,11 +3,12 @@
     <item
         android:id="@+id/act_shareList"
         android:title="@string/share"
+        android:iconTint="@color/primaryDarkColor"
         android:icon="@drawable/ic_share" />
 
     <item
         android:id="@+id/act_deleteList"
         android:title="@string/delete"
-        android:iconTint="@color/blackColor"
+        android:iconTint="@color/primaryDarkColor"
         android:icon="@drawable/ic_delete_elem"/>
 </menu>

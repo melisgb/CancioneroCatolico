@@ -2,27 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_increase_note"
-        android:icon="@drawable/ic_increase_note"
-        android:iconTintMode="src_in"
-        android:title="@string/increase_note"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/action_decrease_note"
-        android:icon="@drawable/ic_decrease_note"
-        android:iconTintMode="src_in"
-        android:title="@string/decrease_note"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/action_translate"
-        android:title="@string/translate_chord"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_translate3"/>
-    <item
         android:id="@+id/action_addSongToList"
         android:title="@string/add_toList"
         app:showAsAction="always"
-        android:icon="@drawable/ic_add_list" />
+        android:icon="@drawable/ic_add_to_list" />
     <item
         android:id="@+id/action_addSongToFavs"
         android:title="@string/add_toFavs"
@@ -31,7 +14,7 @@
     <item
         android:id="@+id/action_editSong"
         android:icon="@drawable/ic_edit_song"
-        android:iconTint="@color/whiteColor"
+        android:iconTint="@color/menuIconTextColor"
         android:iconTintMode="src_in"
         android:title="@string/edit_song"
         app:showAsAction="ifRoom" />
@@ -43,6 +26,6 @@
     <item
         android:id="@+id/action_shareSong"
         android:title="@string/share"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:icon="@drawable/ic_share"/>
 </menu>

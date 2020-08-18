@@ -66,7 +66,7 @@ class ViewSongsActivity : AppCompatActivity() {
                             val copySelectedSongs = HashSet<Int>(selectedSongs)
                             val builder = AlertDialog.Builder(this@ViewSongsActivity) /*ViewSongsActivity*/
                             builder.setTitle(R.string.choose_list)
-                            builder.setIcon(R.drawable.ic_add_to_list)
+                            builder.setIcon(R.drawable.ic_add_to_list_black)
                             builder.setSingleChoiceItems(listNames, -1)  { dialogInterface, i ->
                                 selectedListName = listNames[i]
 

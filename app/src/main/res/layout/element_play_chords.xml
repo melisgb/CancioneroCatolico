@@ -14,7 +14,7 @@
         android:background="@drawable/my_button"
         android:fontFamily="@font/lato_bold"
         android:textAllCaps="false"
-        android:textColor="@color/whiteColor"
+        android:textColor="@color/menuIconTextColor"
         android:textSize="18sp"
         android:textStyle="bold"
         android:clickable="true"

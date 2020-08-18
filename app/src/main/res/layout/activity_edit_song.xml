@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -57,15 +58,14 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
         app:flexWrap="wrap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtSongArtist"
-        app:showDivider="beginning|middle|end">
+        app:layout_constraintTop_toBottomOf="@+id/etxtSongArtist">
 
         <AutoCompleteTextView
             android:id="@+id/etxtSongTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3sp"
-            android:background="#00000000"
+            android:background="@color/transparentColor"
             android:completionThreshold="1"
             android:dropDownAnchor="@id/dividerSongTags"
             android:dropDownVerticalOffset="5dp"
@@ -81,14 +81,14 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
             app:layout_flexGrow="1" />
     </com.google.android.flexbox.FlexboxLayout>
 
-    <View
+    <ImageView
         android:id="@+id/dividerSongTags"
         android:layout_width="match_parent"
-        android:layout_height="1.5dp"
+        android:layout_height="2.2dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/colorAccent"
+        android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tagsLayout" />
@@ -119,8 +119,9 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/my_button"
+        android:backgroundTint="@color/accentColor"
         android:text="@string/button_addSong"
-        android:textColor="@color/whiteColor"
+        android:textColor="@color/menuIconTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -131,8 +132,9 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/my_button"
+        android:backgroundTint="@color/accentColor"
         android:text="@string/button_updateSong"
-        android:textColor="@color/whiteColor"
+        android:textColor="@color/menuIconTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

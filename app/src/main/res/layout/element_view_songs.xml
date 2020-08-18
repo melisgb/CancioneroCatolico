@@ -22,12 +22,14 @@
 
         <ImageView
             android:id="@+id/ivSongIconElem"
-            android:layout_width="25dp"
-            android:layout_height="35dp"
+            android:layout_width="28dp"
+            android:layout_height="40dp"
             android:layout_weight="0"
             android:paddingTop="5dp"
             android:paddingRight="5dp"
-            app:srcCompat="@drawable/song_icon" />
+            app:srcCompat="@drawable/ic_song"
+            android:tint="@color/accentColor"
+            android:contentDescription="@string/song_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,7 +48,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:maxLines="1"
-                    android:textColor="@color/blackColor"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20sp" />
 
                 <CheckBox

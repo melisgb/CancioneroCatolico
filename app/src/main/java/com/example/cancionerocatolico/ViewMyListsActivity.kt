@@ -59,7 +59,7 @@ class ViewMyListsActivity : AppCompatActivity() {
             R.id.action_import_list -> {
                 val dialog = AlertDialog.Builder(this@ViewMyListsActivity)
                 dialog.setTitle(R.string.msg_import_list)
-                dialog.setIcon(R.drawable.ic_import_list_normal)
+                dialog.setIcon(R.drawable.ic_import_list_black)
 
                 val view = layoutInflater.inflate(R.layout.dialog_import_list, null)
                 dialog.setView(view)

@@ -23,7 +23,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="end"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/primaryTextColor"
             android:textSize="12sp"
             android:textStyle="italic" />
 
@@ -36,7 +36,7 @@
             android:layout_marginEnd="16dp"
             android:gravity="center"
             android:textIsSelectable="true"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/primaryDarkColor"
             android:textSize="20sp"
             android:textStyle="bold|italic" />
 
@@ -50,18 +50,20 @@
             android:textIsSelectable="true"
             android:hint="@string/hint_song_artist"
             android:soundEffectsEnabled="false"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingTop="8dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:scrollbars="none">
                     <TextView
                         android:id="@+id/txtvReadSongLyrics"
                         android:layout_width="match_parent"
@@ -71,8 +73,7 @@
                         android:fontFamily="@font/roboto_mono_medium"
                         android:gravity="top|start"
                         android:hint="@string/hint_song_lyrics"
-                        android:scrollHorizontally="true"
-                        android:textColor="@color/blackColor"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="15sp" />
             </ScrollView>
         </HorizontalScrollView>
@@ -85,19 +86,19 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:scaleType="fitXY"
-        app:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/accentColor"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="@dimen/standard_21"
-        app:srcCompat="@drawable/ic_translate3" />
+        app:srcCompat="@drawable/ic_translate" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabIncreaseNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         app:fabSize="mini"
-        app:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/accentColor"
         app:maxImageSize="@dimen/standard_21"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +110,7 @@
         android:layout_margin="25dp"
         app:fabSize="mini"
         android:tintMode="multiply"
-        app:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/accentColor"
         app:maxImageSize="@dimen/standard_21"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,10 +121,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:fabSize="normal"
-        android:tintMode="multiply"
-        app:backgroundTint="@color/colorPrimary"
-        app:maxImageSize="@dimen/standard_45"
+        android:backgroundTint="@color/accentColor"
+        app:maxImageSize="@dimen/standard_35"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_view" />
+        app:srcCompat="@drawable/ic_open_fab" />
 </androidx.constraintlayout.widget.ConstraintLayout>

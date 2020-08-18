@@ -1,7 +1,6 @@
 package com.example.cancionerocatolico
 
 import android.content.Intent
-import android.graphics.Color
 import android.media.SoundPool
 import android.os.Bundle
 import android.text.*
@@ -91,6 +90,7 @@ class ReadSongActivity : AppCompatActivity() {
     }
     private fun showFABMenu() {
         isFABOpen = true
+        fabShowFabMenu.setImageResource(R.drawable.ic_close_fab)
         fabShowFabMenu.animate().rotationBy(180f)
         fabIncreaseNote.animate().translationY(-resources.getDimension(R.dimen.standard_65))
         fabDecreaseNote.animate().translationY(-resources.getDimension(R.dimen.standard_105))
@@ -99,6 +99,7 @@ class ReadSongActivity : AppCompatActivity() {
 
     private fun closeFABMenu() {
         isFABOpen = false
+        fabShowFabMenu.setImageResource(R.drawable.ic_open_fab)
         fabShowFabMenu.animate().rotation(0f)
         fabIncreaseNote.animate().translationY(0f)
         fabDecreaseNote.animate().translationY(0f)
@@ -161,7 +162,7 @@ class ReadSongActivity : AppCompatActivity() {
 
                         val builder = AlertDialog.Builder(this@ReadSongActivity)
                         builder.setTitle(R.string.choose_list)
-                        builder.setIcon(R.drawable.ic_add_to_list)
+                        builder.setIcon(R.drawable.ic_add_to_list_black)
                         builder.setSingleChoiceItems(listNames, -1)  { dialogInterface, i ->
                             selectedListName = listNames[i]
 
@@ -280,7 +281,7 @@ class ReadSongActivity : AppCompatActivity() {
         val lineToSpan: Spannable = SpannableString(lyricLine.line)
         if(lyricLine.type == LyricsLine.LyricsLineType.VERSE){
             lineToSpan.setSpan(
-                ForegroundColorSpan(Color.BLACK), 0, lyricLine.line.length,
+                ForegroundColorSpan(getColor(R.color.primaryTextColor)), 0, lyricLine.line.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
         }
@@ -297,7 +298,7 @@ class ReadSongActivity : AppCompatActivity() {
 
                 val clickableSpan = object : ClickableSpan(){
                     override fun updateDrawState(ds: TextPaint) {
-                        ds.color = Color.BLUE
+                        ds.color = getColor(R.color.accentColor)
                     }
                     override fun onClick(widget: View) {
                         for(note in chord.notes){

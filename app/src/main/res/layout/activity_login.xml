@@ -16,7 +16,7 @@
         android:drawableLeft="@drawable/common_google_signin_btn_icon_light_normal"
         android:drawablePadding="-5dp"
         android:text="@string/button_login"
-        android:textColor="@color/whiteColor"
+        android:textColor="@color/menuIconTextColor"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="colorPrimaryDarkLighter">#914CF3</color>
-    <color name="whiteColor">#FFFFFF</color>
-    <color name="blackColor">#030303</color>
+    <color name="primaryColor">#4F5D75</color>
+    <color name="primaryDarkColor">#2D3142</color>
+    <color name="primaryLightColor">#BFC0C0</color>
+    <color name="accentColor">#FF9800</color> <!--EF8354    03A9F4-->
+    <color name="menuIconTextColor">#FFFFFF</color>
+    <color name="primaryTextColor">#212121</color>
+    <color name="secondaryTextColor">#757575</color>
+    <color name="transparentColor">#00000000</color>
 </resources>

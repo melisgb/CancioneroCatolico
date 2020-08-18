@@ -76,6 +76,7 @@
 
     <!-- Elements descriptions (accesibility)  -->
     <string name="list_icon_desc">iconoLista</string>
+    <string name="song_icon">Song Icon</string>
     <!-- Hints  -->
     <string name="hint_search_bar">Buscar palabra clave...</string>
     <string name="hint_song_title">Titulo</string>

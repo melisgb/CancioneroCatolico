@@ -2,10 +2,9 @@ package com.example.cancionerocatolico
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
+import androidx.annotation.Dimension
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.cancionerocatolico.api.CancioneroAPI
@@ -31,8 +30,8 @@ class EditSongActivity : AppCompatActivity() {
 
         if(intent.extras != null){
             title = getString(R.string.updateSong_title)
-            btnUpdateSong.isEnabled = true
-            btnCreateSong.isEnabled = false
+            btnUpdateSong.visibility = View.VISIBLE
+            btnCreateSong.visibility = View.INVISIBLE
             //Para Editar Cancion
             val bundle = intent.extras!!
             songID = bundle.getInt("songId")
@@ -43,8 +42,8 @@ class EditSongActivity : AppCompatActivity() {
         }
         else{
             title = getString(R.string.addSong_title)
-            btnUpdateSong.isEnabled = false
-            btnCreateSong.isEnabled = true
+            btnUpdateSong.visibility = View.INVISIBLE
+            btnCreateSong.visibility = View.VISIBLE
         }
 
         btnCreateSong.setOnClickListener {
@@ -83,6 +82,15 @@ class EditSongActivity : AppCompatActivity() {
 
         etxtSongTags.setOnClickListener {
             etxtSongTags.showDropDown()
+        }
+        etxtSongTags.setOnFocusChangeListener { v, hasFocus ->
+            var dividerSongTags = findViewById<ImageView>(R.id.dividerSongTags)!!
+            if(hasFocus){
+                dividerSongTags.setBackgroundColor(resources.getColor(R.color.accentColor))
+            }
+            else  {
+                dividerSongTags.setBackgroundColor(resources.getColor(R.color.primaryColor))
+            }
         }
         etxtSongTags.setOnItemClickListener { _, view, _, _ ->
             addNewChip((view as AppCompatTextView).text.toString(), tagsLayout)

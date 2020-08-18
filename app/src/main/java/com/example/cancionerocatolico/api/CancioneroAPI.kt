@@ -10,9 +10,8 @@ import com.example.cancionerocatolico.objects.User
 import java.util.function.Supplier
 
 open class CancioneroAPI(val userID : () -> Int) {
-    val SERVER_URL = "https://abdf292d39d4.ngrok.io"
+    val SERVER_URL = "https://2a5b0373076e.ngrok.io"
 //    val SERVER_URL = "http://10.0.2.2:3000" //local
-
 
     /***************************************************                USERS                     ******************************************************************/
     fun loadUser(userEmail : String, success : (User) -> Unit, fail : (String) -> Unit){
