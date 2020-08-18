@@ -29,6 +29,7 @@ class ViewSongsActivity : AppCompatActivity() {
     var cancAPI = CancioneroAPI({ UserHelper.getUserID(this) })
     var selectedSongs = HashSet<Int>()
     var actionMode : ActionMode? = null
+    var query : String = "%"
 
     //    implementation of Songs Action mode - later implement it as class and interface.
     private val actionModeCallback = object : ActionMode.Callback {
@@ -175,8 +176,7 @@ class ViewSongsActivity : AppCompatActivity() {
         songsListView.adapter = songsAdapter
 
         songsList.clear()
-//        cancioneroAPI.loadSongs()
-        getSongs("%", 0)
+        getSongs(query, 0)
 
         val fabAddSong = findViewById<FloatingActionButton>(R.id.fabAddSong)
         fabAddSong.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
@@ -235,7 +235,7 @@ class ViewSongsActivity : AppCompatActivity() {
     }
 
     override fun onRestart() {
-        getSongs("%",0)
+        getSongs(query,0)
         super.onRestart()
     }
 
@@ -256,24 +256,18 @@ class ViewSongsActivity : AppCompatActivity() {
         }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                Toast.makeText(this@ViewSongsActivity, getString(R.string.toast_searching_by, query), Toast.LENGTH_SHORT).show()
+            override fun onQueryTextSubmit(querytxt: String?): Boolean {
+                Toast.makeText(this@ViewSongsActivity, getString(R.string.toast_searching_by, querytxt), Toast.LENGTH_SHORT).show()
                 return false
             }
 
-            override fun onQueryTextChange(query: String?): Boolean {
-                getSongs(query!!, 0)
+            override fun onQueryTextChange(querytxt: String?): Boolean {
+                query = if(querytxt == null) "%" else querytxt
+                getSongs(query, 0)
                 songsListView.adapter = songsAdapter
                 return false
             }
         })
-
-        val extraKeyword: String? = ""
-        if (!extraKeyword.isNullOrEmpty()) {
-            getSongs(extraKeyword, 0)
-            songsListView.adapter = songsAdapter
-
-        }
         return true
     }
 

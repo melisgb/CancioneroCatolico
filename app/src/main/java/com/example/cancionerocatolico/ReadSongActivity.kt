@@ -88,6 +88,8 @@ class ReadSongActivity : AppCompatActivity() {
             true
         }
     }
+    //Help on:
+    // https://stackoverflow.com/questions/30699302/android-design-support-library-expandable-floating-action-buttonfab-menu#:~:text=First%20create%20the%20menu%20layouts,per%20your%20need%20and%20number.
     private fun showFABMenu() {
         isFABOpen = true
         fabShowFabMenu.setImageResource(R.drawable.ic_close_fab)
