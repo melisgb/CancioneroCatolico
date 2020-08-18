@@ -3,8 +3,8 @@ var router = express.Router();
 var mysql = require('mysql');
 var config = {
         host : '127.0.0.1',
-        user : 'dbuser',
-        password : 'catolico', 
+        user : process.env.CCDB_USER || 'dbuser',
+        password : process.env.CCDB_PASSWORD || 'catolico', 
         database : 'cancionerocatolico'
     };
 

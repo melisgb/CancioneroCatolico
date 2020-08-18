@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var config = {
-        host : '127.0.0.1',
-        user : 'dbuser',
-        password : 'catolico', 
-        database : 'cancionerocatolico'
+    host : '127.0.0.1',
+    user : process.env.CCDB_USER || 'dbuser',
+    password : process.env.CCDB_PASSWORD || 'catolico', 
+    database : 'cancionerocatolico'
     };
 
 //SELECT ALL SONGS WITH KEYWORD (case 1 get_songs)

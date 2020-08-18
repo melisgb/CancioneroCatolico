@@ -10,8 +10,8 @@ router.get('/', function(req, res, next){
     var querydata = req.query;
     var config = {
         host : '127.0.0.1',
-        user : 'dbuser',
-        password : 'catolico', 
+        user : process.env.CCDB_USER || 'dbuser',
+        password : process.env.CCDB_PASSWORD || 'catolico', 
         database : 'cancionerocatolico'
     }
     
