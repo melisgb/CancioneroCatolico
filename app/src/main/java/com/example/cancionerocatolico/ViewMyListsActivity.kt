@@ -83,7 +83,7 @@ class ViewMyListsActivity : AppCompatActivity() {
                         if(textArr[line] == "") continue
                         newSongsList.add(textArr[line].substringBefore(":").removePrefix("*").toInt())
                     }
-                    addSongsToList(listName, newSongsList)
+                    replaceWithImportedList(listName, newSongsList)
                 }
 
                 dialog.show()
@@ -113,8 +113,8 @@ class ViewMyListsActivity : AppCompatActivity() {
     }
 
     private fun createImportedList(impListName : String, newlistOfSongs : ArrayList<Int>){
-        //Crea una nueva lista
-        //Cuando el nombre de la lista a importar existe, cambia el nombre agregando un (1)
+        //Cuando el nombre de la lista a importar NO existe, creara una nueva lista
+        //Cuando el nombre de la lista a importar existe, crea una nueva lista con el mismo nombre y agrega un (1)
         var listName = impListName
         cancAPI.loadSummaryLists(
             success = { listOfLists ->
@@ -138,8 +138,8 @@ class ViewMyListsActivity : AppCompatActivity() {
 
     }
 
-    private fun addSongsToList(listName : String, newlistOfSongs : ArrayList<Int>){
-        //Crea una nueva lista
+    private fun replaceWithImportedList(listName : String, newlistOfSongs : ArrayList<Int>){
+        //Cuando el nombre de la lista a importar NO existe, creara una nueva lista
         //Cuando el nombre de la lista a importar existe, elimina esa lista y crea una nueva con el mismo nombre
         cancAPI.loadSummaryLists(
             success = { listOfLists  ->
@@ -159,7 +159,6 @@ class ViewMyListsActivity : AppCompatActivity() {
                 }
                 else {
                     //List already exists, new list will replace old one
-                    //TODO: is better to delete the content and maintain the existing listID
                     cancAPI.removeWholeList(listID,
                         success = {
                             cancAPI.createList(listName,
