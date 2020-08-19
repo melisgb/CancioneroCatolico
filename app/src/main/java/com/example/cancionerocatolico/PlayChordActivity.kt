@@ -61,7 +61,7 @@ class PlayChordActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu( menu: Menu?): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.songs_by_key_menu, menu) //reuse of layout
+        inflater.inflate(R.menu.view_songs_by_key_menu, menu) //reuse of layout
         return true
     }
 

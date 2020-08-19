@@ -7,5 +7,10 @@
         android:title="@string/search_by_songs"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />
+    <item
+        android:id="@+id/show_filters"
+        android:icon="@drawable/ic_show_filters"
+        android:title="@string/show_filters"
+        app:showAsAction="collapseActionView|ifRoom" />
 
 </menu>

@@ -31,7 +31,7 @@ app.use('/users', users);
 app.use('/songs', songs);
 app.use('/listsongs', listsongs);
 
-const port = process.env.CC_PORT || 3000,;
+const port = process.env.CC_PORT || 3000;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

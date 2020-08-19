@@ -45,6 +45,7 @@
     <!-- Strings de menu y dialogs -->
     <string name="search_by_songs">Buscar…</string>
     <string name="add_new_song">Nueva Cancion</string>
+    <string name="show_filters">Ver filtros</string>
     <string name="refresh_filters">Borrar filtros</string>
     <string name="increase_note">Subir semitono</string>
     <string name="decrease_note">Bajar semitono</string>

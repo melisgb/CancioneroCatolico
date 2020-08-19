@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import android.widget.CheckBox
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -16,6 +17,7 @@ import com.example.cancionerocatolico.adapter.SongAdapter
 import com.example.cancionerocatolico.api.CancioneroAPI
 import com.example.cancionerocatolico.objects.Song
 import com.example.cancionerocatolico.utils.UserHelper
+import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.element_view_songs.*
 import java.text.SimpleDateFormat
@@ -30,6 +32,8 @@ class ViewSongsActivity : AppCompatActivity() {
     var selectedSongs = HashSet<Int>()
     var actionMode : ActionMode? = null
     var query : String = "%"
+    var showingFilters = false
+    private val selectedFilters = HashSet<String>()
 
     //    implementation of Songs Action mode - later implement it as class and interface.
     private val actionModeCallback = object : ActionMode.Callback {
@@ -37,7 +41,7 @@ class ViewSongsActivity : AppCompatActivity() {
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             // Inflate a menu resource providing context menu items
             val inflater: MenuInflater = mode.menuInflater
-            inflater.inflate(R.menu.view_song_actions_menu, menu)
+            inflater.inflate(R.menu.songs_actions_menu, menu)
             mode.title = getString(R.string.choose_option)
             return true
         }
@@ -242,7 +246,7 @@ class ViewSongsActivity : AppCompatActivity() {
     // SEARCH_BAR IMPLEMENTATION
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.search_menu, menu)
+        inflater.inflate(R.menu.view_songs_menu, menu)
 
         val manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchItem = menu?.findItem(R.id.search_bar)
@@ -268,6 +272,22 @@ class ViewSongsActivity : AppCompatActivity() {
                 return false
             }
         })
+
+
+        val showFiltersItem = menu?.findItem(R.id.show_filters)
+        showFiltersItem.setOnMenuItemClickListener{
+            val layout_chips = findViewById<LinearLayout>(R.id.layout_chips)
+
+            if(showingFilters){
+                layout_chips.visibility = ViewGroup.INVISIBLE
+                showingFilters = false
+            }
+            else{
+                layout_chips.visibility = ViewGroup.VISIBLE
+                showingFilters = true
+            }
+            true
+        }
         return true
     }
 
@@ -277,6 +297,36 @@ class ViewSongsActivity : AppCompatActivity() {
             success = { listOfSongs  ->
                 songsList.clear()
                 songsList.addAll(listOfSongs as ArrayList<Song>)
+                songsAdapter!!.notifyDataSetChanged()
+            },
+            fail = {
+                songsList.clear()
+                songsAdapter!!.notifyDataSetChanged()
+            })
+    }
+    fun chipClicked(view: View) {
+        val chipFilter = findViewById<Chip>(view.id)
+        val chipText = chipFilter.text.toString()
+
+        if(selectedFilters.contains(chipText)){
+            selectedFilters.remove(chipText)
+            chipFilter.isSelected = false
+            chipFilter.isCloseIconVisible = false
+        }
+        else{
+            chipFilter.isSelected = true
+            chipFilter.isCloseIconVisible = true
+            chipFilter.setOnCloseIconClickListener { chipClicked(view) }
+            selectedFilters.add(chipText)
+        }
+        getSongByTags(selectedFilters.joinToString( "," ))
+    }
+    private fun getSongByTags(tags : String){
+        //FROM API
+        cancAPI.loadSongsByTags(tags,
+            success = { listOfSongs  ->
+                songsList.clear()
+                songsList.addAll(listOfSongs)
                 songsAdapter!!.notifyDataSetChanged()
             },
             fail = {

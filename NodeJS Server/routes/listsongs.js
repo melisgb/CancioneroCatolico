@@ -46,7 +46,6 @@ router.get('/', function(req, res, next){
 //INSERT SONGS into songlist  (case 4 listsongs)
 //Call-> http://127.0.0.1:3000/listsongs/insert?list_id=49&songs_ids=26,27,28
 router.get('/insert', function(req, res, next){
-    console.log("h")
     res.header('Access-Control-Allow-Origin', '*'); //security
     var querydata = req.query;
 
