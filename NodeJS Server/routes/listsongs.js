@@ -8,7 +8,7 @@ var config = {
         database : 'cancionerocatolico'
     };
 
-//GET ALL LISTSONGS (get_listsongs)
+//GET ALL LISTSONGS
 //Call-> http://127.0.0.1:3000/listsongs/?user_id=2
 router.get('/', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -43,7 +43,7 @@ router.get('/', function(req, res, next){
 });
 
 
-//INSERT SONGS into songlist  (case 4 listsongs)
+//INSERT SONGS into songlist
 //Call-> http://127.0.0.1:3000/listsongs/insert?list_id=49&songs_ids=26,27,28
 router.get('/insert', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -80,7 +80,7 @@ router.get('/insert', function(req, res, next){
         connection.end();
 });
 
-//DELETE SONG from listsong (case 5 listsongs)
+//DELETE SONG from listsong
 //Call -> http://127.0.0.1:3000/listsongs/remove?list_id=50&songs_ids=26,27,28
 router.get('/remove', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -111,7 +111,7 @@ router.get('/remove', function(req, res, next){
 });
 
 
-//CREATE LISTSONG (case 1 listsongs)
+//CREATE LISTSONG
 //Call -> http://127.0.0.1:3000/listsongs/create?list_name=ListaPrueba&user_id=1
 router.get('/create', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -143,7 +143,7 @@ router.get('/create', function(req, res, next){
 });
 
 
-//EDIT LISTSONG (case 2 listsongs)
+//EDIT LISTSONG
 //Call -> http://127.0.0.1:3000/listsongs/edit?list_id=29&list_name=Nueva Luz
 router.get('/edit', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -174,7 +174,7 @@ router.get('/edit', function(req, res, next){
 });
 
 
-//DELETE LISTSONG (case 3 listsongs)
+//DELETE LISTSONG
 //Call -> http://127.0.0.1:3000/listsongs/delete?list_id=50
 router.get('/delete', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security

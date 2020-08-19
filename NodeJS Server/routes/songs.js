@@ -8,25 +8,32 @@ var config = {
     database : 'cancionerocatolico'
     };
 
-//SELECT ALL SONGS WITH KEYWORD (case 1 get_songs)
-//Call-> http://127.0.0.1:3000/songs/?keyword=&startFrom=0
+//SELECT ALL SONGS WITH KEYWORD
+//Call-> http://127.0.0.1:3000/songs/?keyword=&startFrom=0&tags=Salmo
 router.get('/', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
     var querydata = req.query;
-
+    
     var connection = mysql.createConnection(config);
     connection.connect();
+
+    if(querydata.tags ==null) querydata.tags = "";
     
-    // if(querydata.keyword == null){
-    //     querydata.keyword = ""
-    // }
+    function formatTags(tag){
+        return ` song_tags like '%${tag}%'`;
+    }
+    var tagsArr = querydata.tags.split(',');
+    var tagsFormatted = tagsArr.map(formatTags);
+    var tagsConcat = tagsFormatted.join(" or ");
+    if(tagsConcat != "") tagsConcat = " and (" + tagsConcat + ")";
 
     var myQuery =  `
                     select song_id, song_title, song_artist, "" as song_lyrics, song_tags from cancionerocatolico.song 
-                     where song_title like '%${querydata.keyword}%' 
-                        or song_artist like '%${querydata.keyword}%' 
-                        or song_lyrics like '%${querydata.keyword}%'
-                     order by song_id asc limit 400 offset ${querydata.startFrom};
+                     where (song_title like '%${querydata.keyword||""}%' 
+                        or song_artist like '%${querydata.keyword||""}%' 
+                        or song_lyrics like '%${querydata.keyword||""}%')
+                        ${tagsConcat} 
+                     order by song_id asc limit 400 offset ${querydata.startFrom||0};
                     `;
     
     connection.query(myQuery,
@@ -47,7 +54,7 @@ router.get('/', function(req, res, next){
 });
 
 
-//SELECT SONGS FROM LISTSONG (case 2 get_songs)
+//SELECT SONGS FROM LISTSONG
 //Call -> http://127.0.0.1:3000/songs/list?listsong_id=2
 router.get('/list', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -82,7 +89,7 @@ router.get('/list', function(req, res, next){
         connection.end();
 });
 
-//SELECT SPECIFIC SONG (case 3 get_songs)
+//SELECT SPECIFIC SONG
 //Call -> http://127.0.0.1:3000/songs/song?song_id=15
 router.get('/song', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -114,8 +121,8 @@ router.get('/song', function(req, res, next){
 });
 
 
-//SELECT SONGS FILTERED BY TAG (case 4 get_songs)
-//Call -> http://127.0.0.1:3000/songs/tags?song_tags=Ordinario,Salmos
+//SELECT SONGS FILTERED BY TAG (deprecated)
+//Call -> http://127.0.0.1:3000/songs/tags?song_tags=Ordinario,Salmo
 router.get('/tags', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
     var querydata = req.query;
@@ -154,8 +161,7 @@ router.get('/tags', function(req, res, next){
 });
 
 
-
-//CREATE SONG (case 1 edit_song)
+//CREATE SONG
 //Call -> http://127.0.0.1:3000/songs/create?song_title=La paz te doy a ti mi hermano&song_artist=Aleluya&song_lyrics=para ser santo hay que ser sencillo&song_tags=Ordinario
 router.get('/create', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -188,7 +194,7 @@ router.get('/create', function(req, res, next){
 });
 
 
-//EDIT SONG (case 2 edit_song)
+//EDIT SONG
 //Call -> http://127.0.0.1:3000/songs/edit?song_id=6&song_title=La paz te doy a ti mi hermano&song_artist=Aleluya&song_lyrics=para ser santo hay que ser sencillo&song_tags=Ordinario
 router.get('/edit', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security
@@ -222,7 +228,7 @@ router.get('/edit', function(req, res, next){
 });
 
 
-//DELETE SONG (case 3 edit_song)
+//DELETE SONG
 //Call -> http://127.0.0.1:3000/songs/delete?song_id=30
 router.get('/delete', function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*'); //security

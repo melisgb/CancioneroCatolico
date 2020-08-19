@@ -82,11 +82,12 @@ open class CancioneroAPI(val userID : () -> Int) {
         )
     }
 
-    fun loadSongs(keyword : String, startFrom : Int, success : (ArrayList<Song>) -> Unit, fail : (Any?) -> Unit){
+    fun loadSongs(keyword : String="", tags : String ="", startFrom : Int = 0, success : (ArrayList<Song>) -> Unit, fail : (Any?) -> Unit){
         //Search into DB based on keyword and updates the List
         val url = Uri.parse("$SERVER_URL/songs/?")
             .buildUpon()
             .appendQueryParameter("keyword", keyword)
+            .appendQueryParameter("tags", tags)
             .appendQueryParameter("startFrom", startFrom.toString())
             .build()
             .toString()

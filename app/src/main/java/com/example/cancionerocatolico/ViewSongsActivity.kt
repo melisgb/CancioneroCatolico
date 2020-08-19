@@ -6,12 +6,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.children
 import androidx.core.view.isVisible
 import com.example.cancionerocatolico.adapter.SongAdapter
 import com.example.cancionerocatolico.api.CancioneroAPI
@@ -32,6 +30,7 @@ class ViewSongsActivity : AppCompatActivity() {
     var selectedSongs = HashSet<Int>()
     var actionMode : ActionMode? = null
     var query : String = "%"
+    var tags : String = ""
     var showingFilters = false
     private val selectedFilters = HashSet<String>()
 
@@ -180,7 +179,7 @@ class ViewSongsActivity : AppCompatActivity() {
         songsListView.adapter = songsAdapter
 
         songsList.clear()
-        getSongs(query, 0)
+        getSongs(query, tags)
 
         val fabAddSong = findViewById<FloatingActionButton>(R.id.fabAddSong)
         fabAddSong.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
@@ -236,10 +235,32 @@ class ViewSongsActivity : AppCompatActivity() {
             }
             true
         }
+
+        val refreshFilters = findViewById<ImageView>(R.id.ivRefreshFilters)
+        refreshFilters.setOnClickListener {
+            val partsChips = findViewById<ViewGroup>(R.id.partsChipGroup)
+            val partsChipsList = partsChips.children.toList()
+            for(v in partsChipsList){
+                val chip = v as Chip
+                chip.isSelected = false
+                chip.isCloseIconVisible = false
+            }
+            val seasonsChips = findViewById<ViewGroup>(R.id.seasonsChipGroup)
+            val seasonsChipsList = seasonsChips.children.toList()
+            for(v in seasonsChipsList){
+                val chip = v as Chip
+                chip.isSelected = false
+                chip.isCloseIconVisible = false
+            }
+            selectedFilters.clear()
+            tags = ""
+            getSongs(query, tags)
+            true
+        }
     }
 
     override fun onRestart() {
-        getSongs(query,0)
+        getSongs(query, tags)
         super.onRestart()
     }
 
@@ -267,7 +288,7 @@ class ViewSongsActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(querytxt: String?): Boolean {
                 query = if(querytxt == null) "%" else querytxt
-                getSongs(query, 0)
+                getSongs(query, tags)
                 songsListView.adapter = songsAdapter
                 return false
             }
@@ -276,24 +297,25 @@ class ViewSongsActivity : AppCompatActivity() {
 
         val showFiltersItem = menu?.findItem(R.id.show_filters)
         showFiltersItem.setOnMenuItemClickListener{
-            val layout_chips = findViewById<LinearLayout>(R.id.layout_chips)
+            val layoutChips = findViewById<LinearLayout>(R.id.layout_chips)
 
             if(showingFilters){
-                layout_chips.visibility = ViewGroup.INVISIBLE
+                layoutChips.visibility = ViewGroup.GONE
                 showingFilters = false
             }
             else{
-                layout_chips.visibility = ViewGroup.VISIBLE
+                layoutChips.visibility = ViewGroup.VISIBLE
                 showingFilters = true
             }
             true
         }
+
         return true
     }
 
-    fun getSongs(keyword : String, startFrom : Int){
+    fun getSongs(keyword : String, tags: String, startFrom : Int=0){
         //FROM API
-        cancAPI.loadSongs(keyword, startFrom,
+        cancAPI.loadSongs(keyword, tags, startFrom,
             success = { listOfSongs  ->
                 songsList.clear()
                 songsList.addAll(listOfSongs as ArrayList<Song>)
@@ -319,19 +341,7 @@ class ViewSongsActivity : AppCompatActivity() {
             chipFilter.setOnCloseIconClickListener { chipClicked(view) }
             selectedFilters.add(chipText)
         }
-        getSongByTags(selectedFilters.joinToString( "," ))
-    }
-    private fun getSongByTags(tags : String){
-        //FROM API
-        cancAPI.loadSongsByTags(tags,
-            success = { listOfSongs  ->
-                songsList.clear()
-                songsList.addAll(listOfSongs)
-                songsAdapter!!.notifyDataSetChanged()
-            },
-            fail = {
-                songsList.clear()
-                songsAdapter!!.notifyDataSetChanged()
-            })
+        tags = selectedFilters.joinToString( "," )
+        getSongs(query, tags)
     }
 }
