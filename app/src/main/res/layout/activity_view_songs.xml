@@ -25,7 +25,15 @@
             android:tint="@android:color/black"
             android:contentDescription="@string/refresh_filters"
             app:srcCompat="@drawable/ic_refresh" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="-15dp"
+            android:textStyle="italic"
+            android:textColor="@color/primaryTextColor"
+            android:text="@string/moments_of_mass"/>
         <HorizontalScrollView
             android:id="@+id/chipsForParts"
             android:layout_width="match_parent"
@@ -137,6 +145,16 @@
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="-5dp"
+            android:textStyle="italic"
+            android:textColor="@color/primaryTextColor"
+            android:text="@string/seasons_of_mass"/>
         <HorizontalScrollView
             android:id="@+id/chipsForSeasons"
             android:layout_width="match_parent"

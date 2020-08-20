@@ -46,6 +46,8 @@
     <string name="add_new_song">Nueva Cancion</string>
     <string name="show_filters">Ver filtros</string>
     <string name="refresh_filters">Borrar filtros</string>
+    <string name="seasons_of_mass">Tiempos de misa</string>
+    <string name="moments_of_mass">Momentos de misa</string>
     <string name="increase_note">Subir semitono</string>
     <string name="decrease_note">Bajar semitono</string>
     <string name="translate_chord">Traducir acorde</string>
