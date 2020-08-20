@@ -3,12 +3,14 @@ package com.example.cancionerocatolico
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import com.example.cancionerocatolico.adapter.SongAdapter
@@ -23,6 +25,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet
 
+
 class ViewSongsActivity : AppCompatActivity() {
     var songsAdapter : SongAdapter? = null
     lateinit var songsListView : ListView
@@ -31,8 +34,9 @@ class ViewSongsActivity : AppCompatActivity() {
     var actionMode : ActionMode? = null
     var query : String = "%"
     var tags : String = ""
-    var showingFilters = false
+    private var showingFilters = false
     private val selectedFilters = HashSet<String>()
+    private var showFiltersItem : MenuItem? = null
 
     //    implementation of Songs Action mode - later implement it as class and interface.
     private val actionModeCallback = object : ActionMode.Callback {
@@ -180,6 +184,8 @@ class ViewSongsActivity : AppCompatActivity() {
 
         songsList.clear()
         getSongs(query, tags)
+        selectedFilters.clear()
+        setColorOnFiltersIcon()
 
         val fabAddSong = findViewById<FloatingActionButton>(R.id.fabAddSong)
         fabAddSong.isVisible = UserHelper.getUserID(this)==1 || UserHelper.getUserID(this)==2
@@ -254,8 +260,8 @@ class ViewSongsActivity : AppCompatActivity() {
             }
             selectedFilters.clear()
             tags = ""
+            setColorOnFiltersIcon()
             getSongs(query, tags)
-            true
         }
     }
 
@@ -295,8 +301,8 @@ class ViewSongsActivity : AppCompatActivity() {
         })
 
 
-        val showFiltersItem = menu?.findItem(R.id.show_filters)
-        showFiltersItem.setOnMenuItemClickListener{
+        showFiltersItem = menu.findItem(R.id.show_filters)
+        showFiltersItem?.setOnMenuItemClickListener{
             val layoutChips = findViewById<LinearLayout>(R.id.layout_chips)
 
             if(showingFilters){
@@ -318,7 +324,7 @@ class ViewSongsActivity : AppCompatActivity() {
         cancAPI.loadSongs(keyword, tags, startFrom,
             success = { listOfSongs  ->
                 songsList.clear()
-                songsList.addAll(listOfSongs as ArrayList<Song>)
+                songsList.addAll(listOfSongs)
                 songsAdapter!!.notifyDataSetChanged()
             },
             fail = {
@@ -342,6 +348,24 @@ class ViewSongsActivity : AppCompatActivity() {
             selectedFilters.add(chipText)
         }
         tags = selectedFilters.joinToString( "," )
+        setColorOnFiltersIcon()
         getSongs(query, tags)
+    }
+
+    private fun setColorOnFiltersIcon(){
+        if(selectedFilters.isNotEmpty()) {
+            var drawable =
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_show_filters, null)
+            drawable = DrawableCompat.wrap(drawable!!)
+            DrawableCompat.setTint(drawable, getColor(R.color.accentColor))
+            showFiltersItem?.icon = drawable
+        }
+        else{
+            var drawable =
+                ResourcesCompat.getDrawable(resources, R.drawable.ic_show_filters, null)
+            drawable = DrawableCompat.wrap(drawable!!)
+            DrawableCompat.setTint(drawable, getColor(R.color.menuIconTextColor))
+            showFiltersItem?.icon = drawable
+        }
     }
 }

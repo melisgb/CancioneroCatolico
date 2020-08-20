@@ -3,7 +3,6 @@
 
     <!-- Buttons Main Activity  -->
     <string name="button_viewSongs">Ver canciones</string>
-    <string name="button_viewSongsByTags">Canciones por Tags</string>
     <string name="button_viewMyLists">Mis listas</string>
     <string name="button_playChords">Acordes</string>
     <!-- Buttons Other Activities  -->
@@ -68,7 +67,6 @@
 
     <!-- Titulos -->
     <string name="viewSongs_title">Listado canciones</string>
-    <string name="viewSongsByTags_title">Listado Canciones por Clave</string>
     <string name="viewMyLists_title">Mis listas</string>
     <string name="viewSpecificList_title">Detalle lista</string>
     <string name="addSong_title">Crear cancion</string>

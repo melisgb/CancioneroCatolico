@@ -20,7 +20,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ViewSpecificListActivity" />
         <activity android:name=".ViewMyListsActivity" />
-        <activity android:name=".ViewSongsByKeyActivity" />
         <activity android:name=".ViewSongsActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

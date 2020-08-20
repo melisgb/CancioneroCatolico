@@ -24,12 +24,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val viewSongsByPartsBtn = findViewById<Button>(R.id.btnViewSongsByTags)
-        viewSongsByPartsBtn.setOnClickListener {
-            val intent = Intent(this, ViewSongsByKeyActivity::class.java)
-            startActivity(intent)
-        }
-
         val viewMyListsBtn = findViewById<Button>(R.id.btnViewMyLists)
         viewMyListsBtn.setOnClickListener {
             val intent = Intent(this, ViewMyListsActivity::class.java)
