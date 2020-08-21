@@ -1,15 +1,11 @@
 package com.example.cancionerocatolico.adapter
 
 import android.app.Activity
-import android.graphics.Color
-import android.media.MediaPlayer
+import android.app.Dialog
 import android.media.SoundPool
-import android.text.TextPaint
-import android.text.style.ClickableSpan
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import com.example.cancionerocatolico.R
 import com.example.cancionerocatolico.objects.Chord
 import com.example.cancionerocatolico.objects.Note
@@ -33,6 +29,12 @@ class ChordAdapter(val context: Activity, var chordsList: List<Chord>) : BaseAda
                 if(noteID!=null) soundPool.play(noteID, 1.0f/chord.notes.size, 1.0f/chord.notes.size, 1, 0, 1f)
             }
         }
+
+        myElementView.btnChord.setOnLongClickListener {
+            val chord = chordsList[position] //calling getItemId
+            showChordPopupMenu(chord.imgPath)
+            true
+        }
         return myElementView
     }
 
@@ -52,5 +54,16 @@ class ChordAdapter(val context: Activity, var chordsList: List<Chord>) : BaseAda
         for(note in Note.values()){
             notesMap.put(note, soundPool.load(context, note.noteResourceId, 1))
         }
+    }
+
+    private fun showChordPopupMenu(imagePath: Int){
+        val chordView = layoutInflater.inflate(R.layout.dialog_view_chord, null)
+        val chordImage = chordView.findViewById<ImageView>(R.id.ivChord)
+        chordImage.setImageResource(imagePath)
+        val viewChordDialog = Dialog(context)
+        viewChordDialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+        viewChordDialog.setContentView(chordView)
+        viewChordDialog.show()
+
     }
 }
