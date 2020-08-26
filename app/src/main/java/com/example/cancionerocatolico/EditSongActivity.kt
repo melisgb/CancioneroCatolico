@@ -46,13 +46,14 @@ class EditSongActivity : AppCompatActivity() {
             formatTags(bundle.getString("songTags")!!)
             val onEditMode = bundle.getBoolean("inEditMode")
             if(!onEditMode) {
+                //Suggest view
                 title = getString(R.string.suggestSong_title)
                 btnUpdateSong.setText(R.string.button_suggestChange)
                 btnUpdateSong.visibility = View.INVISIBLE
                 btnSendSuggestion.visibility = View.VISIBLE
                 etxtSongTitle.isEnabled = false
                 etxtSongArtist.isEnabled = false
-                etxtSongTags.isEnabled = false
+                tagsLayout.visibility = View.GONE
 
                 //Guide link to block the edition in the view -> http://jtdz-solenoids.com/stackoverflow_/questions/6275299/how-to-disable-copy-paste-from-to-edittext
                 etxtSongLyrics.customSelectionActionModeCallback = object : ActionMode.Callback {

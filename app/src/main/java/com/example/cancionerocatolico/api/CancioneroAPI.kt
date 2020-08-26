@@ -201,6 +201,7 @@ open class CancioneroAPI(val userID : () -> Int) {
         //Update a song
         val url = Uri.parse("$SERVER_URL/songs/suggest?")
             .buildUpon()
+            .appendQueryParameter("song_id", songID.toString())
             .appendQueryParameter("lyrics_suggestion", lyricsSuggestion)
             .build()
             .toString()
