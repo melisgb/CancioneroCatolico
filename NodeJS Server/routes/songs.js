@@ -258,4 +258,35 @@ router.get('/delete', function(req, res, next){
 });
 
 
+//ADD LYRICS SUGGESTIONS INTO SONG
+//Call -> http://127.0.0.1:3000/songs/suggest?song_id=6&lyrics_suggestion=para ser santo hay que ser sencillo
+router.get('/suggest', function(req, res, next){
+    res.header('Access-Control-Allow-Origin', '*'); //security
+    var querydata = req.query;
+
+    var connection = mysql.createConnection(config);
+    connection.connect();
+    
+    var myQuery =  `
+                    update cancionerocatolico.song set
+                     song_sugg_lyrics = '${querydata.lyrics_suggestion}' 
+    	            where song_id = ${querydata.song_id};                  
+                    `;
+
+    connection.query(myQuery,
+        function(err, rows, fields){
+            if(err){
+                console.log(err);
+                res.status(400).send({'msg' : 'Song failed to edit'});
+            }
+            else{
+                res.send({
+                    'msg' : 'Song updated'
+                });
+            }
+        });
+        connection.end();
+});
+
+
 module.exports = router; //available to use from user.

@@ -9,6 +9,7 @@
     <string name="button_login">Acceder con Google</string>
     <string name="button_addSong">Agregar</string>
     <string name="button_updateSong">Actualizar</string>
+    <string name="button_suggestChange">Enviar</string>
     <string name="button_register">Registrar</string>
 
     <!-- Strings de Toast -->
@@ -21,6 +22,7 @@
     <string name="toast_song_created">Cancion creada</string>
     <string name="toast_song_updated">Cancion actualizada</string>
     <string name="toast_song_deleted">Cancion eliminada</string>
+    <string name="toast_suggestion_sent">Sugerencia enviada</string>
     <string name="toast_song_unable_to_delete">No se pudo eliminar, pertenece a una lista</string>
     <string name="toast_shareSong">Compartiendo cancion</string>
     <string name="toast_song_added_toList">Cancion agregada a %s</string>
@@ -74,6 +76,7 @@
     <string name="addSong_title">Crear cancion</string>
     <string name="readSong_title">Cancion</string>
     <string name="updateSong_title">Actualizar cancion</string>
+    <string name="suggestSong_title">Sugerir cambio</string>
     <string name="login_title">Iniciar Sesion</string>
 
     <!-- Elements descriptions (accesibility)  -->
@@ -115,4 +118,5 @@
     <string name="chip_E">E</string>
     <string name="chip_F">F</string>
     <string name="chip_G">G</string>
+    <string name="suggest_edit">Sugerir edición</string>
 </resources>

@@ -138,5 +138,17 @@ https://stackoverflow.com/questions/50574943/how-to-add-chips-from-material-comp
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/btnSendSuggestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/my_button"
+        android:backgroundTint="@color/accentColor"
+        android:text="@string/button_suggestChange"
+        android:textColor="@color/menuIconTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

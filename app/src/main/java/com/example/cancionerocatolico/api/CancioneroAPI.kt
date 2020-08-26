@@ -197,6 +197,21 @@ open class CancioneroAPI(val userID : () -> Int) {
             }
         ).execute(url)
     }
+    fun addSongSuggestion(songID: Int, lyricsSuggestion: String, success: (Any?) -> Unit) {
+        //Update a song
+        val url = Uri.parse("$SERVER_URL/songs/suggest?")
+            .buildUpon()
+            .appendQueryParameter("lyrics_suggestion", lyricsSuggestion)
+            .build()
+            .toString()
+
+        MyAsyncTask(
+            onFail = { },
+            onSuccess = {
+                success(null)
+            }
+        ).execute(url)
+    }
 
     /***************************************************                LISTS                     ******************************************************************/
 

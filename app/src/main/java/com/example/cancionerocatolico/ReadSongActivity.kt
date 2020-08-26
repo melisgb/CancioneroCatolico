@@ -20,6 +20,7 @@ import com.example.cancionerocatolico.objects.Note
 import com.example.cancionerocatolico.utils.Lyrics
 import com.example.cancionerocatolico.utils.UserHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_edit_song.*
 import kotlinx.android.synthetic.main.activity_read_song.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -232,6 +233,7 @@ class ReadSongActivity : AppCompatActivity() {
                 intent.putExtra("songArtist", txtvReadSongArtist.text.toString())
                 intent.putExtra("songLyrics", txtvReadSongLyrics.text.toString())
                 intent.putExtra("songTags", txtvReadSongTags.text.toString())
+                intent.putExtra("inEditMode", true)
                 startActivity(intent)
                 true
             }
@@ -268,6 +270,17 @@ class ReadSongActivity : AppCompatActivity() {
                 applicationContext.startActivity(Intent.createChooser(sharingIntent, "Share via")
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 Toast.makeText(this, getString(R.string.toast_shareSong), Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_suggestEdit -> {
+                val intent = Intent(this, EditSongActivity::class.java)
+                intent.putExtra("songId", songID)
+                intent.putExtra("songTitle", txtvReadSongTitle.text.toString())
+                intent.putExtra("songArtist", txtvReadSongArtist.text.toString())
+                intent.putExtra("songLyrics", txtvReadSongLyrics.text.toString())
+                intent.putExtra("songTags", txtvReadSongTags.text.toString())
+                intent.putExtra("inEditMode", false)
+                startActivity(intent)
                 true
             }
             else -> false

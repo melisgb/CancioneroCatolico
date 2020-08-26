@@ -1,10 +1,11 @@
 package com.example.cancionerocatolico
 
 import android.os.Bundle
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.Dimension
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.cancionerocatolico.api.CancioneroAPI
@@ -13,6 +14,7 @@ import com.example.cancionerocatolico.utils.UserHelper
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_edit_song.*
+
 
 /* Activity to CREATE or EDIT a SONG */
 class EditSongActivity : AppCompatActivity() {
@@ -25,12 +27,15 @@ class EditSongActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_song)
         val btnCreateSong = findViewById<Button>(R.id.btnCreateSong)
         val btnUpdateSong = findViewById<Button>(R.id.btnUpdateSong)
+        val btnSendSuggestion = findViewById<Button>(R.id.btnSendSuggestion)
         val tagsLayout = findViewById<FlexboxLayout>(R.id.tagsLayout)
         val etxtSongTags = findViewById<AutoCompleteTextView>(R.id.etxtSongTags)
 
         if(intent.extras != null){
+            //A song to edit or suggest change
             title = getString(R.string.updateSong_title)
             btnUpdateSong.visibility = View.VISIBLE
+            btnSendSuggestion.visibility = View.INVISIBLE
             btnCreateSong.visibility = View.INVISIBLE
             //Para Editar Cancion
             val bundle = intent.extras!!
@@ -39,10 +44,37 @@ class EditSongActivity : AppCompatActivity() {
             etxtSongArtist.setText(bundle.getString("songArtist"))
             etxtSongLyrics.setText(bundle.getString("songLyrics"))
             formatTags(bundle.getString("songTags")!!)
+            val onEditMode = bundle.getBoolean("inEditMode")
+            if(!onEditMode) {
+                title = getString(R.string.suggestSong_title)
+                btnUpdateSong.setText(R.string.button_suggestChange)
+                btnUpdateSong.visibility = View.INVISIBLE
+                btnSendSuggestion.visibility = View.VISIBLE
+                etxtSongTitle.isEnabled = false
+                etxtSongArtist.isEnabled = false
+                etxtSongTags.isEnabled = false
+
+                //Guide link to block the edition in the view -> http://jtdz-solenoids.com/stackoverflow_/questions/6275299/how-to-disable-copy-paste-from-to-edittext
+                etxtSongLyrics.customSelectionActionModeCallback = object : ActionMode.Callback {
+                    override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                        return false
+                    }
+                    override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                        return false
+                    }
+                    override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                        return false
+                    }
+                    override fun onDestroyActionMode(mode: ActionMode?) {
+                    }
+                }
+
+            }
         }
         else{
             title = getString(R.string.addSong_title)
             btnUpdateSong.visibility = View.INVISIBLE
+            btnSendSuggestion.visibility = View.INVISIBLE
             btnCreateSong.visibility = View.VISIBLE
         }
 
@@ -76,6 +108,11 @@ class EditSongActivity : AppCompatActivity() {
             )
             updateSongDB(currSong)
         }
+
+        btnSendSuggestion.setOnClickListener {
+            val lyricsSuggestions = etxtSongLyrics.text.toString()
+            sendSongSuggestion(songID, lyricsSuggestions)
+        }
         val tagsList = listOf("Entrada", "Piedad", "Gloria", "Salmo", "Proclamacion", "Ofertorio", "Paz", "Cordero", "Comunion", "Reflexion", "Maria", "Salida", "Ordinario", "Cuaresma", "Pascua", "Pentecostes", "Adviento", "Navidad")
         etxtSongTags.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
             tagsList))
@@ -84,7 +121,7 @@ class EditSongActivity : AppCompatActivity() {
             etxtSongTags.showDropDown()
         }
         etxtSongTags.setOnFocusChangeListener { v, hasFocus ->
-            var dividerSongTags = findViewById<ImageView>(R.id.dividerSongTags)!!
+            val dividerSongTags = findViewById<ImageView>(R.id.dividerSongTags)!!
             if(hasFocus){
                 dividerSongTags.setBackgroundColor(resources.getColor(R.color.accentColor))
             }
@@ -118,6 +155,15 @@ class EditSongActivity : AppCompatActivity() {
                 finish()
             })
         //TODO: Create a fail behaviour?
+    }
+
+    private fun sendSongSuggestion(songID : Int, lyricsSuggestions : String){
+        //Updates the song in DB
+        cancAPI.addSongSuggestion(songID, lyricsSuggestions,
+            success = {
+                Toast.makeText(applicationContext, getString(R.string.toast_suggestion_sent), Toast.LENGTH_SHORT).show()
+                finish()
+            })
     }
 
     private fun addNewChip(tag: String, chipGroup: FlexboxLayout){
