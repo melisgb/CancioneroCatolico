@@ -93,14 +93,15 @@ class ReadSongActivity : AppCompatActivity() {
             showLyricsInTextView()
         }
         fabAutoScroll.setOnClickListener {
-            //Used link -> https://stackoverflow.com/questions/27541386/programmatically-control-the-scrolling-speed-of-scrollview-android
-            val objectAnimator = ObjectAnimator.ofInt(
-                verticalLyrScroll,
-                "scrollY",
-                verticalLyrScroll.getChildAt(0).height - verticalLyrScroll.height + 300
-            ).setDuration(30000).start()
-
+            scrollSmoothly(1) //move 1 pixel down
         }
+    }
+    private fun scrollSmoothly(y : Int){
+        //Base link -> https://stackoverflow.com/questions/27541386/programmatically-control-the-scrolling-speed-of-scrollview-android
+        verticalLyrScroll.smoothScrollBy(0, y)
+        val yPosition = verticalLyrScroll.height + verticalLyrScroll.scrollY
+        val fullHeight = verticalLyrScroll.getChildAt(0).height + 50 //fixed 50 due to padding
+        if(yPosition < fullHeight)  verticalLyrScroll.postDelayed({scrollSmoothly(y)}, 110)
     }
 
     //Help on:
