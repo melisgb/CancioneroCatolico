@@ -1,5 +1,6 @@
 package com.example.cancionerocatolico
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.media.SoundPool
 import android.os.Bundle
@@ -10,6 +11,11 @@ import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.animation.LinearInterpolator
+import android.widget.HorizontalScrollView
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +26,6 @@ import com.example.cancionerocatolico.objects.Note
 import com.example.cancionerocatolico.utils.Lyrics
 import com.example.cancionerocatolico.utils.UserHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.activity_edit_song.*
 import kotlinx.android.synthetic.main.activity_read_song.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,6 +47,7 @@ class ReadSongActivity : AppCompatActivity() {
     lateinit var fabIncreaseNote : FloatingActionButton
     lateinit var fabDecreaseNote : FloatingActionButton
     lateinit var fabTranslate : FloatingActionButton
+    lateinit var fabAutoScroll : FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +61,7 @@ class ReadSongActivity : AppCompatActivity() {
         fabIncreaseNote = findViewById<FloatingActionButton>(R.id.fabIncreaseNote)
         fabDecreaseNote = findViewById<FloatingActionButton>(R.id.fabDecreaseNote)
         fabTranslate = findViewById<FloatingActionButton>(R.id.fabTranslateNotes)
+        fabAutoScroll = findViewById<FloatingActionButton>(R.id.fabAutoScrollLyrics)
         fabShowFabMenu.setOnClickListener(View.OnClickListener {
             if (!isFABOpen) {
                 showFABMenu()
@@ -71,7 +78,6 @@ class ReadSongActivity : AppCompatActivity() {
                 ++transposedLevel
             }
             showLyricsInTextView()
-            true
         }
         fabDecreaseNote.setOnClickListener {
             if(transposedLevel == 0) {
@@ -81,14 +87,22 @@ class ReadSongActivity : AppCompatActivity() {
                 --transposedLevel
             }
             showLyricsInTextView()
-            true
         }
         fabTranslate.setOnClickListener {
             isSameLanguage = !isSameLanguage //change the boolean to the opposite
             showLyricsInTextView()
-            true
+        }
+        fabAutoScroll.setOnClickListener {
+            //Used link -> https://stackoverflow.com/questions/27541386/programmatically-control-the-scrolling-speed-of-scrollview-android
+            val objectAnimator = ObjectAnimator.ofInt(
+                verticalLyrScroll,
+                "scrollY",
+                verticalLyrScroll.getChildAt(0).height - verticalLyrScroll.height + 300
+            ).setDuration(30000).start()
+
         }
     }
+
     //Help on:
     // https://stackoverflow.com/questions/30699302/android-design-support-library-expandable-floating-action-buttonfab-menu#:~:text=First%20create%20the%20menu%20layouts,per%20your%20need%20and%20number.
     private fun showFABMenu() {
@@ -98,6 +112,7 @@ class ReadSongActivity : AppCompatActivity() {
         fabIncreaseNote.animate().translationY(-resources.getDimension(R.dimen.standard_65))
         fabDecreaseNote.animate().translationY(-resources.getDimension(R.dimen.standard_105))
         fabTranslate.animate().translationY(-resources.getDimension(R.dimen.standard_155))
+        fabAutoScroll.animate().translationY(-resources.getDimension(R.dimen.standard_205))
     }
 
     private fun closeFABMenu() {
@@ -107,6 +122,7 @@ class ReadSongActivity : AppCompatActivity() {
         fabIncreaseNote.animate().translationY(0f)
         fabDecreaseNote.animate().translationY(0f)
         fabTranslate.animate().translationY(0f)
+        fabAutoScroll.animate().translationY(0f)
     }
     override fun onBackPressed() {
         if (isFABOpen) {
