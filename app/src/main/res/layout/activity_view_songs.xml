@@ -99,6 +99,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="chipClicked"
+                    android:text="@string/chip_holy"
+                    android:theme="@style/Theme.MaterialComponents"
+                    app:chipBackgroundColor="@color/chip_style" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="chipClicked"
                     android:text="@string/chip_peace"
                     android:theme="@style/Theme.MaterialComponents"
                     app:chipBackgroundColor="@color/chip_style" />
