@@ -48,11 +48,12 @@
     <string name="add_new_song">Nueva Cancion</string>
     <string name="show_filters">Ver filtros</string>
     <string name="refresh_filters">Borrar filtros</string>
-    <string name="seasons_of_mass">Tiempos de misa</string>
+    <string name="seasons_of_mass">Tiempos liturgicos y otros</string>
     <string name="moments_of_mass">Momentos de misa</string>
     <string name="increase_note">Subir semitono</string>
     <string name="decrease_note">Bajar semitono</string>
     <string name="translate_chord">Traducir acorde</string>
+    <string name="suggest_edit">Sugerir edición</string>
     <string name="add_toList">Agregar a Lista</string>
     <string name="add_toFavs">Agregar a Favs</string>
     <string name="choose_list">Elija la lista</string>
@@ -102,14 +103,19 @@
     <string name="chip_communion">Comunion</string>
     <string name="chip_postCommunion">Reflexion</string>
     <string name="chip_mary">Maria</string>
+    <string name="chip_ourFather">Padre Nuestro</string>
     <string name="chip_exit">Salida</string>
-    <!-- Chips Tiempos de misa -->
+    <!-- Chips Tiempos liturgicos y otros -->
     <string name="chip_ordinary">Ordinario</string>
     <string name="chip_lent">Cuaresma</string>
+    <string name="chip_holyWeek">Semana Santa</string>
     <string name="chip_easter">Pascua</string>
     <string name="chip_pentecost">Pentecostes</string>
     <string name="chip_advent">Adviento</string>
     <string name="chip_christmas">Navidad</string>
+    <string name="chip_worship">Avivamiento</string>
+    <string name="chip_community">Convivencia</string>
+    <string name="chip_holySpirit">Invocacion</string>
     <!-- Chips Acordes -->
     <string name="chip_A">A</string>
     <string name="chip_B">B</string>
@@ -118,5 +124,4 @@
     <string name="chip_E">E</string>
     <string name="chip_F">F</string>
     <string name="chip_G">G</string>
-    <string name="suggest_edit">Sugerir edición</string>
 </resources>

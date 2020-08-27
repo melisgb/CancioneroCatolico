@@ -139,6 +139,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="chipClicked"
+                    android:text="@string/chip_ourFather"
+                    android:theme="@style/Theme.MaterialComponents"
+                    app:chipBackgroundColor="@color/chip_style" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="chipClicked"
                     android:text="@string/chip_exit"
                     android:theme="@style/Theme.MaterialComponents"
                     app:chipBackgroundColor="@color/chip_style" />
@@ -189,6 +197,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="chipClicked"
+                    android:text="@string/chip_holyWeek"
+                    android:theme="@style/Theme.MaterialComponents"
+                    app:chipBackgroundColor="@color/chip_style" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="chipClicked"
                     android:text="@string/chip_easter"
                     android:theme="@style/Theme.MaterialComponents"
                     app:chipBackgroundColor="@color/chip_style" />
@@ -214,6 +230,30 @@
                     android:layout_height="wrap_content"
                     android:onClick="chipClicked"
                     android:text="@string/chip_christmas"
+                    android:theme="@style/Theme.MaterialComponents"
+                    app:chipBackgroundColor="@color/chip_style" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="chipClicked"
+                    android:text="@string/chip_worship"
+                    android:theme="@style/Theme.MaterialComponents"
+                    app:chipBackgroundColor="@color/chip_style" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="chipClicked"
+                    android:text="@string/chip_community"
+                    android:theme="@style/Theme.MaterialComponents"
+                    app:chipBackgroundColor="@color/chip_style" />
+
+                <com.google.android.material.chip.Chip
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="chipClicked"
+                    android:text="@string/chip_holySpirit"
                     android:theme="@style/Theme.MaterialComponents"
                     app:chipBackgroundColor="@color/chip_style" />
 
@@ -243,14 +283,5 @@
             app:srcCompat="@android:drawable/ic_input_add" />
 
     </FrameLayout>
-
-    <!--    <androidx.core.widget.NestedScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent">-->
-
-    <!--    </androidx.core.widget.NestedScrollView>-->
-
 
 </LinearLayout>

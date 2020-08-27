@@ -114,9 +114,10 @@ class EditSongActivity : AppCompatActivity() {
             val lyricsSuggestions = etxtSongLyrics.text.toString()
             sendSongSuggestion(songID, lyricsSuggestions)
         }
-        val tagsList = listOf("Entrada", "Piedad", "Gloria", "Salmo", "Proclamacion", "Ofertorio", "Paz", "Cordero", "Comunion", "Reflexion", "Maria", "Salida", "Ordinario", "Cuaresma", "Pascua", "Pentecostes", "Adviento", "Navidad")
+        //Possible elements: Entrada, Piedad, Gloria, Salmo, Proclamacion, Ofertorio, Paz, Cordero, Comunion, Reflexion, Maria, Padre Nuestro, Salida, Ordinario, Cuaresma, Semana Santa, Pascua, Pentecostes, Adviento, Navidad, Avivamiento, Convivencia, Invocacion
+        val tagsList = listOf("Entrada", "Piedad", "Gloria", "Salmo", "Proclamacion", "Ofertorio", "Paz", "Cordero", "Comunion", "Reflexion", "Maria", "Padre Nuestro", "Salida", "Ordinario", "Cuaresma", "Semana Santa", "Pascua", "Pentecostes", "Adviento", "Navidad", "Avivamiento", "Convivencia", "Invocacion")
         etxtSongTags.setAdapter(ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-            tagsList))
+            tagsList.sorted()))
 
         etxtSongTags.setOnClickListener {
             etxtSongTags.showDropDown()
