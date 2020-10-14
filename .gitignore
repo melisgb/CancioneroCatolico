@@ -15,3 +15,8 @@
 *.log
 NodeJS Server/node_modules
 NodeJS Server/package-lock.json
+*.json
+app/debug/app-debug.apk
+app/release/app-release.apk
+app/release/app-release.aab
+app/debug/app-debug.aab
