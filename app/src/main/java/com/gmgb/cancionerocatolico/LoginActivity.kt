@@ -39,13 +39,14 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
+        //Generar el cliente de GoogleSign
         //REF: https://developers.google.com/identity/sign-in/android/sign-in
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         val googleSigninBtn = findViewById<Button>(R.id.btnLogin)
         googleSigninBtn.setOnClickListener {
             val signinIntent = mGoogleSignInClient!!.signInIntent
             startActivityForResult(signinIntent, 100)
+            //llamara a onActivityResult
         }
     }
 
@@ -62,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        //resultado retornado del Google Signin Intent
         if(requestCode == 100){
             //Signin task completed
             val task: Task<GoogleSignInAccount> =
@@ -72,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun handleSignInResult(completedTask : Task<GoogleSignInAccount>){
         try {
+            //El inicio de Google fue exitoso.
             val account =
                 completedTask.getResult(ApiException::class.java)
             // Signed in successfully, show authenticated UI.
