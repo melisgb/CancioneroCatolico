@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
-import com.gmgb.cancionerocatolico.R
 import com.gmgb.cancionerocatolico.api.CancioneroAPI
 import com.gmgb.cancionerocatolico.objects.Song
 import com.gmgb.cancionerocatolico.utils.UserHelper
@@ -87,7 +86,11 @@ class EditSongActivity : AppCompatActivity() {
             val title = etxtSongTitle.text.toString()
             val artist = etxtSongArtist.text.toString()
             val lyrics = etxtSongLyrics.text.toString()
-
+            if(title =="" || artist == "" || lyrics == "") {
+                Toast.makeText(this, getString(R.string.toast_blank_fields), Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            //else
             val newSong = Song(
                 id,
                 title,
@@ -103,6 +106,10 @@ class EditSongActivity : AppCompatActivity() {
             val artist = etxtSongArtist.text.toString()
             val lyrics = etxtSongLyrics.text.toString()
 
+            if(title =="" || artist == "" || lyrics == "") {
+                Toast.makeText(this, getString(R.string.toast_blank_fields), Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             val currSong = Song(
                 songID,
                 title,

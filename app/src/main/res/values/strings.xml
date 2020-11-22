@@ -22,6 +22,7 @@
     <string name="toast_song_created">Cancion creada</string>
     <string name="toast_song_updated">Cancion actualizada</string>
     <string name="toast_song_deleted">Cancion eliminada</string>
+    <string name="toast_blank_fields">Campos incompletos</string>
     <string name="toast_suggestion_sent">Sugerencia enviada</string>
     <string name="toast_song_unable_to_delete">No se pudo eliminar, pertenece a una lista</string>
     <string name="toast_shareSong">Compartiendo cancion</string>
